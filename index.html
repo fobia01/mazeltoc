@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mazeltoc</title>
+<meta name="theme-color" content="#241E4E">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap');
 
@@ -442,6 +451,8 @@
 
 .mzt-hidden { display: none !important; }
 </style>
+</head>
+<body>
 
 <div class="mzt-root" id="mzt-root">
   <div class="mzt-stars" id="mzt-stars"></div>
@@ -1331,3 +1342,10 @@
   }
 })();
 </script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js'));
+}
+</script>
+</body>
+</html>
