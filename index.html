@@ -193,6 +193,56 @@
 .mzt-age-btn.justos { background: var(--bronze); box-shadow: 0 5px 0 #7a5f38; color: white; }
 .mzt-age-btn.testigo { background: var(--ember); box-shadow: 0 5px 0 #b5601f; color: white; }
 .mzt-age-btn.timeline { background: var(--teal); box-shadow: 0 5px 0 #135a5c; color: white; }
+.mzt-age-btn.shabat { background: var(--sky); box-shadow: 0 5px 0 #2a6bb0; color: white; }
+.mzt-age-btn.rueda { background: var(--coral-deep); box-shadow: 0 5px 0 #7a2a2a; color: white; }
+.mzt-age-btn.sopa { background: var(--mint-deep); box-shadow: 0 5px 0 #14654a; color: white; }
+.mzt-age-btn.cruci { background: var(--grape); box-shadow: 0 5px 0 #5f3699; color: white; }
+
+.mzt-cw-grid { display: grid; gap: 2px; margin-bottom: 12px; background: var(--indigo-2); padding: 4px; border-radius: 8px; }
+.mzt-cw-cell { aspect-ratio: 1; position: relative; }
+.mzt-cw-cell.blocked { background: transparent; }
+.mzt-cw-cell.active { background: white; border-radius: 3px; }
+.mzt-cw-cell input {
+  width: 100%; height: 100%; border: none; background: transparent;
+  text-align: center; font-family: 'Baloo 2', sans-serif; font-weight: 800;
+  font-size: 15px; color: var(--indigo); text-transform: uppercase; padding: 0;
+  border-radius: 3px;
+}
+.mzt-cw-cell input.correct { background: #d7f7e8; color: var(--mint-deep); }
+.mzt-cw-cell input.incorrect { background: #fde1e1; color: var(--coral-deep); }
+.mzt-cw-cell .mzt-cw-num {
+  position: absolute; top: 1px; left: 2px; font-size: 8px; font-weight: 700;
+  color: var(--grape); pointer-events: none;
+}
+.mzt-cw-clues { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.mzt-cw-clue {
+  background: #f3efe0; border: 2px solid #ddd0a8; border-radius: 10px;
+  padding: 8px 10px; font-size: 12px; font-weight: 700; color: var(--cream-deep);
+}
+.mzt-cw-clue b { color: var(--indigo); }
+.mzt-cw-clue { cursor: pointer; transition: transform 0.1s ease; }
+.mzt-cw-clue:active { transform: scale(0.97); }
+.mzt-cw-clue.active-clue { background: var(--gold); border-color: var(--gold-deep); color: var(--indigo); }
+.mzt-cw-clue.active-clue b { color: var(--indigo); }
+.mzt-cw-cell.active-word { background: #fff4d6; }
+.mzt-cw-cell.active-word input { background: #fff4d6; }
+
+.mzt-ws-words { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.mzt-ws-word-chip {
+  background: #f3efe0; border: 2px solid #ddd0a8; border-radius: 10px;
+  padding: 6px 10px; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 12px;
+  color: var(--cream-deep);
+}
+.mzt-ws-word-chip.found { background: #d7f7e8; border-color: var(--mint-deep); text-decoration: line-through; opacity: 0.7; }
+.mzt-ws-grid { display: grid; gap: 2px; margin-bottom: 12px; }
+.mzt-ws-cell {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  background: white; border-radius: 4px; font-family: 'Baloo 2', sans-serif;
+  font-weight: 700; color: var(--indigo); cursor: pointer; user-select: none;
+}
+.mzt-ws-cell.selected { background: var(--gold); color: white; }
+.mzt-ws-cell.found { background: var(--mint-deep); color: white; }
+.mzt-ws-cell.wrong { animation: mzt-wobble 0.3s ease; background: var(--coral); color: white; }
 
 .mzt-tl-slots { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .mzt-tl-slot {
@@ -225,6 +275,26 @@
   background: var(--indigo); color: var(--cream); cursor: pointer; display: none;
 }
 .mzt-tl-verify.show { display: block; }
+
+.mzt-shabat-table {
+  min-height: 70px; background: #f3efe0; border: 3px dashed var(--gold-deep);
+  border-radius: 14px; padding: 10px; margin-bottom: 12px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center;
+}
+.mzt-shabat-item { font-size: 32px; animation: mzt-pop-in 0.4s cubic-bezier(.34,1.56,.64,1); }
+
+.mzt-wheel-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 1rem; position: relative; }
+.mzt-wheel-pointer { font-size: 22px; color: var(--gold); margin-bottom: -6px; z-index: 2; }
+.mzt-wheel {
+  width: 220px; height: 220px; border-radius: 50%; position: relative;
+  border: 5px solid var(--gold); box-shadow: 0 8px 0 var(--gold-deep);
+  background: conic-gradient(var(--grape) 0deg 45deg, var(--gold-deep) 45deg 90deg, var(--coral-deep) 90deg 135deg, var(--mint-deep) 135deg 180deg, var(--ember) 180deg 225deg, var(--fog) 225deg 270deg, var(--bronze) 270deg 315deg, var(--sky) 315deg 360deg);
+  transition: transform 2.6s cubic-bezier(.17,.87,.4,1);
+}
+.mzt-wheel-num {
+  position: absolute; left: 50%; top: 50%; font-family: 'Baloo 2', sans-serif;
+  font-weight: 800; color: white; font-size: 16px; text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
 
 .mzt-story-card {
   background: #f3efe0; border: 2px solid #ddd0a8; border-radius: 14px;
@@ -469,18 +539,19 @@
     <div class="mzt-flash" id="mzt-flash"></div>
     <div id="mzt-screen-menu">
       <div class="mzt-menu-title">¿Con quién jugamos hoy?</div>
-      <button class="mzt-age-btn jardin" onclick="mztStart('jardin')">Jardín</button>
-      <button class="mzt-age-btn primaria" onclick="mztStart('primaria')">Primaria</button>
-      <button class="mzt-age-btn secundaria" onclick="mztStart('secundaria')">Secundaria</button>
-      <button class="mzt-age-btn memoria" onclick="mztStart('memoria')">🧠 Juego de memoria</button>
-      <button class="mzt-age-btn detective" onclick="mztStart('detective')">🔎 Detective del odio</button>
-      <button class="mzt-age-btn justos" onclick="mztStart('justos')">🕊️ Memoria de los Justos</button>
-      <button class="mzt-age-btn testigo" onclick="mztStart('testigo')">🗣️ El testigo</button>
-      <button class="mzt-age-btn timeline" onclick="mztStart('timeline')">🗺️ Línea del tiempo</button>
+      <button class="mzt-age-btn jardin" onclick="mztAgeMenu('jardin')">Jardín</button>
+      <button class="mzt-age-btn primaria" onclick="mztAgeMenu('primaria')">Primaria</button>
+      <button class="mzt-age-btn secundaria" onclick="mztAgeMenu('secundaria')">Secundaria</button>
+    </div>
+
+    <div id="mzt-screen-age-select" class="mzt-hidden">
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztMenu()">🏠 Volver</button><span></span></div>
+      <div class="mzt-menu-title" id="mzt-age-title">Juegos</div>
+      <div id="mzt-age-games-list"></div>
     </div>
 
     <div id="mzt-screen-memory" class="mzt-hidden">
-      <div class="mzt-topbar"><button class="mzt-back" onclick="mztMenu()">🏠 Volver</button><span id="mzt-mem-progress">0/6 pares</span></div>
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span id="mzt-mem-progress">0/6 pares</span></div>
       <div class="mzt-mem-legend" id="mzt-mem-legend">🔵 Quién fue · 🔴 Qué hizo</div>
       <div class="mzt-mem-grid" id="mzt-mem-grid"></div>
       <div class="mzt-jfact" id="mzt-mem-fact"></div>
@@ -488,7 +559,7 @@
 
     <div id="mzt-screen-quiz" class="mzt-hidden">
       <div class="mzt-topbar">
-        <button class="mzt-back" onclick="mztMenu()">🏠 Volver</button>
+        <button class="mzt-back" onclick="mztBack()">🏠 Volver</button>
         <div class="mzt-flames" id="mzt-flames"></div>
       </div>
       <div class="mzt-score" id="mzt-score">Puntos: 0</div>
@@ -514,19 +585,19 @@
     </div>
 
     <div id="mzt-screen-timeline" class="mzt-hidden">
-      <div class="mzt-topbar"><button class="mzt-back" onclick="mztMenu()">🏠 Volver</button><span id="mzt-tl-count">0/9 ubicados</span></div>
-      <div class="mzt-jfact show" id="mzt-tl-hint">Tocá los hechos en orden, del más antiguo al más reciente.</div>
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span id="mzt-tl-count">0 ubicados</span></div>
+      <div class="mzt-jfact show" id="mzt-tl-hint">Tocá los hechos en orden.</div>
       <div class="mzt-tl-slots" id="mzt-tl-slots"></div>
       <div class="mzt-tl-pool" id="mzt-tl-pool"></div>
       <button class="mzt-tl-verify" id="mzt-tl-verify" onclick="mztTlVerify()">Verificar orden</button>
       <div class="mzt-result-btns" id="mzt-tl-result-btns" style="display:none; margin-top:12px;">
-        <button class="mzt-replay" onclick="mztStart('timeline')">🔄 Jugar de nuevo</button>
+        <button class="mzt-replay" onclick="mztTimelineReplay()">🔄 Jugar de nuevo</button>
         <button class="mzt-home" onclick="mztMenu()">🏠 Elegir otra edad</button>
       </div>
     </div>
 
     <div id="mzt-screen-story-select" class="mzt-hidden">
-      <div class="mzt-topbar"><button class="mzt-back" onclick="mztMenu()">🏠 Volver</button><span></span></div>
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span></span></div>
       <div class="mzt-menu-title">¿Qué historia jugamos?</div>
       <div id="mzt-story-list"></div>
     </div>
@@ -538,6 +609,48 @@
       <div class="mzt-story-ending" id="mzt-story-ending-actions">
         <button class="mzt-replay" onclick="mztStoryRestart()">🔄 Jugar de nuevo</button>
         <button class="mzt-home" onclick="mztStoryMenu()">📖 Otra historia</button>
+      </div>
+    </div>
+
+    <div id="mzt-screen-shabat" class="mzt-hidden">
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span id="mzt-shabat-count">0/4 en la mesa</span></div>
+      <div class="mzt-jfact show">Tocá los objetos que van en la mesa de Shabat.</div>
+      <div class="mzt-shabat-table" id="mzt-shabat-table"></div>
+      <div class="mzt-tl-pool" id="mzt-shabat-pool"></div>
+      <div class="mzt-result-btns" id="mzt-shabat-result-btns" style="display:none; margin-top:12px;">
+        <button class="mzt-replay" onclick="startShabat()">🔄 Jugar de nuevo</button>
+        <button class="mzt-home" onclick="mztMenu()">🏠 Elegir otra edad</button>
+      </div>
+    </div>
+
+    <div id="mzt-screen-wheel" class="mzt-hidden">
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span></span></div>
+      <div class="mzt-wheel-wrap">
+        <div class="mzt-wheel-pointer">▼</div>
+        <div class="mzt-wheel" id="mzt-wheel"></div>
+      </div>
+      <button class="mzt-tl-verify show" id="mzt-wheel-spin" onclick="mztSpinWheel()">Girar la ruleta</button>
+      <div class="mzt-jfact" id="mzt-wheel-fact"></div>
+    </div>
+
+    <div id="mzt-screen-sopa" class="mzt-hidden">
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span id="mzt-ws-count">0 encontradas</span></div>
+      <div class="mzt-ws-words" id="mzt-ws-words"></div>
+      <div class="mzt-ws-grid" id="mzt-ws-grid"></div>
+      <div class="mzt-result-btns" id="mzt-ws-result-btns" style="display:none; margin-top:12px;">
+        <button class="mzt-replay" onclick="startWordSearch()">🔄 Jugar de nuevo</button>
+        <button class="mzt-home" onclick="mztMenu()">🏠 Elegir otra edad</button>
+      </div>
+    </div>
+
+    <div id="mzt-screen-cruci" class="mzt-hidden">
+      <div class="mzt-topbar"><button class="mzt-back" onclick="mztBack()">🏠 Volver</button><span></span></div>
+      <div class="mzt-cw-clues" id="mzt-cw-clues"></div>
+      <div class="mzt-cw-grid" id="mzt-cw-grid"></div>
+      <button class="mzt-tl-verify show" id="mzt-cw-verify" onclick="mztCwVerify()">Verificar</button>
+      <div class="mzt-result-btns" id="mzt-cw-result-btns" style="display:none; margin-top:12px;">
+        <button class="mzt-replay" onclick="startCrossword()">🔄 Jugar de nuevo</button>
+        <button class="mzt-home" onclick="mztMenu()">🏠 Elegir otra edad</button>
       </div>
     </div>
 
@@ -826,7 +939,119 @@
     { id: 9, year: "1994", text: "Atentado a la AMIA en Buenos Aires" }
   ];
 
-  let state = { mode: null, deck: [], i: 0, score: 0, revealed: 0 };
+  const timelineFiestas = [
+    { id: 1, year: "Septiembre/Octubre", text: "Rosh Hashaná — año nuevo judío" },
+    { id: 2, year: "Septiembre/Octubre", text: "Iom Kipur — día del perdón" },
+    { id: 3, year: "Septiembre/Octubre", text: "Sucot — fiesta de las cabañas" },
+    { id: 4, year: "Diciembre", text: "Januca — fiesta de las luces" },
+    { id: 5, year: "Febrero/Marzo", text: "Purim — fiesta de los disfraces" },
+    { id: 6, year: "Marzo/Abril", text: "Pesaj — salida de Egipto" },
+    { id: 7, year: "Mayo/Junio", text: "Shavuot — entrega de la Torá" }
+  ];
+
+  const shabatItems = [
+    { id: 1, icon: "🕯️", label: "Velas de Shabat", correct: true },
+    { id: 2, icon: "🍞", label: "Jalá", correct: true },
+    { id: 3, icon: "🍷", label: "Copa de Kidush", correct: true },
+    { id: 4, icon: "🍽️", label: "Mantel blanco", correct: true },
+    { id: 5, icon: "⚽", label: "Pelota de fútbol", correct: false },
+    { id: 6, icon: "🎮", label: "Control de videojuego", correct: false },
+    { id: 7, icon: "🎂", label: "Torta de cumpleaños", correct: false },
+    { id: 8, icon: "🏖️", label: "Sombrilla de playa", correct: false }
+  ];
+
+  const crosswordConfig = {
+    primaria: [
+      { rows: 4, cols: 6, words: [
+        { num: 1, dir: "down", clue: "Libro sagrado central del judaísmo.", answer: "TORA", r: 0, c: 2 },
+        { num: 2, dir: "down", clue: "Pan trenzado que se come en Shabat.", answer: "JALA", r: 0, c: 4 },
+        { num: 3, dir: "across", clue: "Día de descanso semanal, empieza el viernes al atardecer.", answer: "SHABAT", r: 3, c: 0 }
+      ] },
+      { rows: 4, cols: 6, words: [
+        { num: 1, dir: "down", clue: "Gorrito que se usa como señal de respeto hacia Dios.", answer: "KIPA", r: 0, c: 1 },
+        { num: 2, dir: "across", clue: "Fiesta de las luces, dura 8 días.", answer: "JANUCA", r: 3, c: 0 },
+        { num: 3, dir: "down", clue: "Libro sagrado central del judaísmo.", answer: "TORA", r: 0, c: 5 }
+      ] },
+      { rows: 8, cols: 5, words: [
+        { num: 1, dir: "across", clue: "Fiesta de los disfraces.", answer: "PURIM", r: 3, c: 0 },
+        { num: 2, dir: "down", clue: "Cabañita que se arma para Sucot.", answer: "SUCA", r: 2, c: 1 },
+        { num: 3, dir: "down", clue: "Pan sin levadura que se come en Pesaj.", answer: "MATZA", r: 3, c: 4 }
+      ] },
+      { rows: 8, cols: 6, words: [
+        { num: 1, dir: "across", clue: "Candelabro de 7 brazos.", answer: "MENORA", r: 3, c: 0 },
+        { num: 2, dir: "down", clue: "Describe la comida permitida según las reglas judías.", answer: "KOSHER", r: 2, c: 3 },
+        { num: 3, dir: "down", clue: "Pan trenzado que se come en Shabat.", answer: "JALA", r: 0, c: 5 }
+      ] }
+    ],
+    secundaria: [
+      { rows: 8, cols: 7, words: [
+        { num: 1, dir: "down", clue: "Como se llama a quienes arriesgaron su vida para salvar judíos durante el Holocausto.", answer: "JUSTOS", r: 0, c: 3 },
+        { num: 2, dir: "down", clue: "Lo que se busca preservar para que hechos como el Holocausto no se repitan.", answer: "MEMORIA", r: 0, c: 6 },
+        { num: 3, dir: "across", clue: "Quien presencia algo y puede optar por actuar en vez de quedarse en silencio.", answer: "TESTIGO", r: 3, c: 0 },
+        { num: 4, dir: "down", clue: "Barrio donde se obligaba a vivir a los judíos en ciertas ciudades europeas.", answer: "GUETO", r: 3, c: 5 }
+      ] },
+      { rows: 7, cols: 10, words: [
+        { num: 1, dir: "across", clue: "Valorar y respetar lo distinto, en vez de rechazarlo.", answer: "TOLERANCIA", r: 4, c: 0 },
+        { num: 2, dir: "down", clue: "Barrio donde se obligaba a vivir a los judíos.", answer: "GUETO", r: 1, c: 0 },
+        { num: 3, dir: "down", clue: "Lo que se busca preservar para que no se repitan hechos como el Holocausto.", answer: "MEMORIA", r: 0, c: 4 },
+        { num: 4, dir: "down", clue: "Quienes arriesgaron su vida para salvar judíos durante el Holocausto.", answer: "JUSTOS", r: 0, c: 1 }
+      ] },
+      { rows: 8, cols: 9, words: [
+        { num: 1, dir: "across", clue: "Idea negativa hecha sin conocer, aplicada a todo un grupo.", answer: "PREJUICIO", r: 4, c: 0 },
+        { num: 2, dir: "down", clue: "Barrio donde se obligaba a vivir a los judíos.", answer: "GUETO", r: 3, c: 4 },
+        { num: 3, dir: "down", clue: "Quien presencia algo y puede optar por actuar.", answer: "TESTIGO", r: 0, c: 5 },
+        { num: 4, dir: "down", clue: "Quienes arriesgaron su vida para salvar judíos.", answer: "JUSTOS", r: 0, c: 8 }
+      ] },
+      { rows: 10, cols: 10, words: [
+        { num: 1, dir: "across", clue: "Asesinato sistemático de seis millones de judíos por la Alemania nazi.", answer: "HOLOCAUSTO", r: 4, c: 0 },
+        { num: 2, dir: "down", clue: "Lo que se busca preservar para que no se repita.", answer: "MEMORIA", r: 1, c: 1 },
+        { num: 3, dir: "down", clue: "Barrio donde se obligaba a vivir a los judíos.", answer: "GUETO", r: 3, c: 6 },
+        { num: 4, dir: "down", clue: "Ataque violento organizado contra comunidades judías.", answer: "POGROMO", r: 3, c: 9 }
+      ] }
+    ]
+  };
+
+  const wordSearchConfig = {
+    primaria: { size: 10, words: ["KOSHER", "SHABAT", "PURIM", "JANUCA", "DREIDEL", "SINAGOGA"], diagonal: false, reverse: false },
+    secundaria: { size: 12, words: ["HOLOCAUSTO", "PREJUICIO", "GUETO", "POGROMO", "MEMORIA", "TESTIGO", "JUSTOS", "TOLERANCIA"], diagonal: true, reverse: true }
+  };
+
+  const wheelWords = [
+    { word: "Mazel Tov", fact: "Significa \"buena suerte\", y se usa para festejar algo bueno que le pasó a alguien." },
+    { word: "Kósher", fact: "Describe algo permitido según las reglas judías de alimentación — en el uso diario, también algo \"correcto\" o \"en regla\"." },
+    { word: "Shalom", fact: "Significa \"paz\", y se usa como saludo, tanto para decir hola como para despedirse." },
+    { word: "Jutzpá", fact: "Se usa para describir a alguien con mucha audacia o caradurez, para bien o para mal." },
+    { word: "Mitzvá", fact: "Literalmente \"mandamiento\", pero en el uso diario también describe una buena acción." },
+    { word: "Jalá", fact: "Es el pan trenzado que se come en Shabat — la palabra también nombra la masa antes de hornearla." },
+    { word: "Bar/Bat Mitzvá", fact: "Es la ceremonia que marca cuando un chico o chica asume responsabilidades religiosas, cerca de los 13 años." },
+    { word: "Kibutz", fact: "Un tipo de comunidad colectiva originada en Israel, donde se comparte el trabajo y los recursos." }
+  ];
+
+  const ageGames = {
+    jardin: { title: "Jardín", games: [
+      { mode: "jardin", label: "🧠 Memoria de símbolos", cls: "jardin" },
+      { mode: "shabat", label: "🕯️ Arma tu Shabat", cls: "shabat" }
+    ] },
+    primaria: { title: "Primaria", games: [
+      { mode: "primaria", label: "📜 Mito o Verdad: tradiciones", cls: "primaria" },
+      { mode: "memoria", label: "🧠 Memoria de símbolos (8 pares)", cls: "memoria" },
+      { mode: "rueda", label: "🎡 La rueda de las palabras", cls: "rueda" },
+      { mode: "timeline-fiestas", label: "🗓️ Línea del tiempo: fiestas del año", cls: "timeline" },
+      { mode: "sopa", label: "🔤 Sopa de letras", cls: "sopa" },
+      { mode: "cruci", label: "✏️ Crucigrama", cls: "cruci" }
+    ] },
+    secundaria: { title: "Secundaria", games: [
+      { mode: "secundaria", label: "📜 Mito o Verdad: antisemitismo", cls: "secundaria" },
+      { mode: "detective", label: "🔎 Detective del odio", cls: "detective" },
+      { mode: "justos", label: "🕊️ Memoria de los Justos", cls: "justos" },
+      { mode: "testigo", label: "🗣️ El testigo", cls: "testigo" },
+      { mode: "timeline", label: "🗺️ Línea del tiempo", cls: "timeline" },
+      { mode: "sopa", label: "🔤 Sopa de letras", cls: "sopa" },
+      { mode: "cruci", label: "✏️ Crucigrama", cls: "cruci" }
+    ] }
+  };
+
+  let state = { mode: null, deck: [], i: 0, score: 0, revealed: 0, currentAge: null };
 
   let audioCtx = null;
   function getAudio() {
@@ -931,12 +1156,32 @@
   }
 
   function show(id) {
-    ['menu','memory','quiz','story-select','story','timeline','results'].forEach(k => {
+    ['menu','age-select','memory','quiz','story-select','story','timeline','shabat','wheel','sopa','cruci','results'].forEach(k => {
       document.getElementById('mzt-screen-' + k).classList.toggle('mzt-hidden', k !== id);
     });
   }
 
-  window.mztMenu = function() { show('menu'); };
+  window.mztMenu = function() { state.currentAge = null; show('menu'); };
+
+  window.mztAgeMenu = function(age) {
+    state.currentAge = age;
+    document.getElementById('mzt-age-title').textContent = '¿A qué jugamos? — ' + ageGames[age].title;
+    const list = document.getElementById('mzt-age-games-list');
+    list.innerHTML = '';
+    ageGames[age].games.forEach(g => {
+      const b = document.createElement('button');
+      b.className = 'mzt-age-btn ' + g.cls;
+      b.textContent = g.label;
+      b.onclick = () => mztStart(g.mode);
+      list.appendChild(b);
+    });
+    show('age-select');
+  };
+
+  window.mztBack = function() {
+    if (state.currentAge) { mztAgeMenu(state.currentAge); }
+    else { mztMenu(); }
+  };
 
   window.mztStart = function(mode) {
     state.mode = mode;
@@ -947,29 +1192,52 @@
       show('quiz');
     } else if (mode === 'testigo') {
       mztStoryMenu();
-    } else if (mode === 'timeline') {
-      startTimeline();
+    } else if (mode === 'timeline' || mode === 'timeline-fiestas') {
+      startTimeline(mode === 'timeline-fiestas' ? 'fiestas' : 'historia');
       show('timeline');
+    } else if (mode === 'shabat') {
+      startShabat();
+      show('shabat');
+    } else if (mode === 'rueda') {
+      startWheel();
+      show('wheel');
+    } else if (mode === 'sopa') {
+      startWordSearch();
+      show('sopa');
+    } else if (mode === 'cruci') {
+      startCrossword();
+      show('cruci');
     } else {
       startMemory(mode);
       show('memory');
     }
   };
 
-  function startTimeline() {
-    state.tlPool = shuffle(timelineEvents.map(e => e.id));
+  window.mztTimelineReplay = function() {
+    startTimeline(state.tlDatasetKey);
+    show('timeline');
+  };
+
+  function startTimeline(datasetKey) {
+    state.tlDatasetKey = datasetKey;
+    state.tlDataset = datasetKey === 'fiestas' ? timelineFiestas : timelineEvents;
+    state.tlPool = shuffle(state.tlDataset.map(e => e.id));
     state.tlPlaced = [];
     renderTimeline();
   }
 
   function renderTimeline() {
-    document.getElementById('mzt-tl-count').textContent = state.tlPlaced.length + '/9 ubicados';
+    const dataset = state.tlDataset;
+    document.getElementById('mzt-tl-count').textContent = state.tlPlaced.length + '/' + dataset.length + ' ubicados';
+    document.getElementById('mzt-tl-hint').textContent = state.tlDatasetKey === 'fiestas'
+      ? 'Tocá las fiestas en el orden en que aparecen durante el año judío, empezando por Rosh Hashaná.'
+      : 'Tocá los hechos en orden, del más antiguo al más reciente.';
     document.getElementById('mzt-tl-verify').classList.remove('show');
     document.getElementById('mzt-tl-result-btns').style.display = 'none';
 
     const slots = document.getElementById('mzt-tl-slots');
     slots.innerHTML = '';
-    for (let i = 0; i < timelineEvents.length; i++) {
+    for (let i = 0; i < dataset.length; i++) {
       const div = document.createElement('div');
       const placedId = state.tlPlaced[i];
       div.className = 'mzt-tl-slot' + (placedId ? ' filled' : '');
@@ -979,7 +1247,7 @@
       num.textContent = i + 1;
       div.appendChild(num);
       const txt = document.createElement('span');
-      txt.textContent = placedId ? timelineEvents.find(e => e.id === placedId).text : '···';
+      txt.textContent = placedId ? dataset.find(e => e.id === placedId).text : '···';
       div.appendChild(txt);
       slots.appendChild(div);
     }
@@ -987,7 +1255,7 @@
     const pool = document.getElementById('mzt-tl-pool');
     pool.innerHTML = '';
     state.tlPool.forEach(id => {
-      const item = timelineEvents.find(e => e.id === id);
+      const item = dataset.find(e => e.id === id);
       const chip = document.createElement('button');
       chip.className = 'mzt-tl-chip';
       chip.textContent = item.text;
@@ -995,7 +1263,7 @@
       pool.appendChild(chip);
     });
 
-    if (state.tlPlaced.length === timelineEvents.length) {
+    if (state.tlPlaced.length === dataset.length) {
       document.getElementById('mzt-tl-verify').classList.add('show');
     }
   }
@@ -1008,11 +1276,12 @@
   };
 
   window.mztTlVerify = function() {
-    const correctOrder = timelineEvents.map(e => e.id);
+    const dataset = state.tlDataset;
+    const correctOrder = dataset.map(e => e.id);
     let correctCount = 0;
     state.tlPlaced.forEach((id, i) => {
       const el = document.getElementById('mzt-tl-slot-' + i);
-      const item = timelineEvents.find(e => e.id === id);
+      const item = dataset.find(e => e.id === id);
       const isCorrect = id === correctOrder[i];
       el.classList.add(isCorrect ? 'correct' : 'incorrect');
       const tag = document.createElement('span');
@@ -1023,10 +1292,440 @@
     });
     document.getElementById('mzt-tl-verify').classList.remove('show');
     document.getElementById('mzt-tl-result-btns').style.display = 'flex';
-    document.getElementById('mzt-tl-count').textContent = correctCount + '/9 en el lugar correcto';
-    if (correctCount >= 7) { burstConfetti(); playCorrectSound(); bounceMascot(true); }
-    else if (correctCount >= 4) { playPopSound(); bounceMascot(true); }
+    document.getElementById('mzt-tl-count').textContent = correctCount + '/' + dataset.length + ' en el lugar correcto';
+    const ratio = correctCount / dataset.length;
+    if (ratio >= 0.75) { burstConfetti(); playCorrectSound(); bounceMascot(true); }
+    else if (ratio >= 0.4) { playPopSound(); bounceMascot(true); }
     else { playWrongSound(); bounceMascot(false); }
+  };
+
+  window.startShabat = function() {
+    state.shabatPlaced = [];
+    state.shabatPool = shuffle(shabatItems.map(i => i.id));
+    renderShabat();
+  };
+
+  function renderShabat() {
+    const correctTotal = shabatItems.filter(i => i.correct).length;
+    document.getElementById('mzt-shabat-count').textContent = state.shabatPlaced.length + '/' + correctTotal + ' en la mesa';
+    document.getElementById('mzt-shabat-result-btns').style.display = 'none';
+
+    const table = document.getElementById('mzt-shabat-table');
+    table.innerHTML = '';
+    if (state.shabatPlaced.length === 0) {
+      const hint = document.createElement('span');
+      hint.style.opacity = '0.5';
+      hint.style.fontSize = '13px';
+      hint.textContent = 'La mesa está vacía...';
+      table.appendChild(hint);
+    }
+    state.shabatPlaced.forEach(id => {
+      const item = shabatItems.find(i => i.id === id);
+      const span = document.createElement('span');
+      span.className = 'mzt-shabat-item';
+      span.textContent = item.icon;
+      span.title = item.label;
+      table.appendChild(span);
+    });
+
+    const pool = document.getElementById('mzt-shabat-pool');
+    pool.innerHTML = '';
+    state.shabatPool.forEach(id => {
+      const item = shabatItems.find(i => i.id === id);
+      const chip = document.createElement('button');
+      chip.className = 'mzt-tl-chip';
+      chip.textContent = item.icon + ' ' + item.label;
+      chip.id = 'mzt-shabat-chip-' + id;
+      chip.onclick = () => mztShabatTap(id);
+      pool.appendChild(chip);
+    });
+
+    if (state.shabatPlaced.length === correctTotal) {
+      document.getElementById('mzt-shabat-result-btns').style.display = 'flex';
+      burstConfetti();
+      playCorrectSound();
+      bounceMascot(true);
+    }
+  }
+
+  window.mztShabatTap = function(id) {
+    const item = shabatItems.find(i => i.id === id);
+    if (item.correct) {
+      playPopSound();
+      state.shabatPool = state.shabatPool.filter(x => x !== id);
+      state.shabatPlaced.push(id);
+      renderShabat();
+    } else {
+      const chip = document.getElementById('mzt-shabat-chip-' + id);
+      chip.classList.add('mismatch');
+      playWrongSound();
+      setTimeout(() => chip.classList.remove('mismatch'), 400);
+    }
+  };
+
+  window.startWheel = function() {
+    document.getElementById('mzt-wheel-fact').classList.remove('show');
+    document.getElementById('mzt-wheel-spin').disabled = false;
+    const wheel = document.getElementById('mzt-wheel');
+    wheel.innerHTML = '';
+    wheelWords.forEach((w, i) => {
+      const angle = i * 45 + 22.5;
+      const num = document.createElement('div');
+      num.className = 'mzt-wheel-num';
+      num.textContent = i + 1;
+      num.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) translateY(-78px)';
+      wheel.appendChild(num);
+    });
+    if (!state.wheelRotation) state.wheelRotation = 0;
+    wheel.style.transition = 'none';
+    wheel.style.transform = 'rotate(' + state.wheelRotation + 'deg)';
+    void wheel.offsetWidth;
+    wheel.style.transition = '';
+  };
+
+  window.mztSpinWheel = function() {
+    const spinBtn = document.getElementById('mzt-wheel-spin');
+    spinBtn.disabled = true;
+    document.getElementById('mzt-wheel-fact').classList.remove('show');
+    const idx = Math.floor(Math.random() * wheelWords.length);
+    const segmentMid = idx * 45 + 22.5;
+    const current = state.wheelRotation % 360;
+    const needed = ((360 - segmentMid) - current + 360) % 360;
+    state.wheelRotation += 5 * 360 + needed;
+    const wheel = document.getElementById('mzt-wheel');
+    wheel.style.transform = 'rotate(' + state.wheelRotation + 'deg)';
+    playPopSound();
+    setTimeout(() => {
+      const w = wheelWords[idx];
+      const fact = document.getElementById('mzt-wheel-fact');
+      fact.textContent = w.word + ': ' + w.fact;
+      fact.classList.add('show');
+      burstConfetti();
+      playCorrectSound();
+      bounceMascot(true);
+      spinBtn.disabled = false;
+    }, 2650);
+  };
+
+  function generateWordSearch(words, size, diagonal, reverse) {
+    let dirs = [[1, 0], [0, 1]];
+    if (diagonal) dirs.push([1, 1], [1, -1]);
+    if (reverse) dirs = dirs.concat(dirs.map(d => [-d[0], -d[1]]));
+
+    const grid = Array.from({ length: size }, () => Array(size).fill(null));
+    const placements = [];
+    const sorted = [...words].sort((a, b) => b.length - a.length);
+
+    sorted.forEach(word => {
+      let placed = false;
+      for (let attempt = 0; attempt < 250 && !placed; attempt++) {
+        const dir = dirs[Math.floor(Math.random() * dirs.length)];
+        const len = word.length;
+        const r0 = Math.floor(Math.random() * size);
+        const c0 = Math.floor(Math.random() * size);
+        const rEnd = r0 + dir[0] * (len - 1);
+        const cEnd = c0 + dir[1] * (len - 1);
+        if (rEnd < 0 || rEnd >= size || cEnd < 0 || cEnd >= size) continue;
+        const cells = [];
+        let ok = true;
+        for (let k = 0; k < len; k++) {
+          const r = r0 + dir[0] * k, c = c0 + dir[1] * k;
+          const existing = grid[r][c];
+          if (existing !== null && existing !== word[k]) { ok = false; break; }
+          cells.push({ r, c });
+        }
+        if (!ok) continue;
+        cells.forEach((cell, k) => { grid[cell.r][cell.c] = word[k]; });
+        placements.push({ word, cells });
+        placed = true;
+      }
+    });
+
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (grid[r][c] === null) grid[r][c] = letters[Math.floor(Math.random() * letters.length)];
+      }
+    }
+    return { grid, placements };
+  }
+
+  window.startWordSearch = function() {
+    const cfg = wordSearchConfig[state.currentAge] || wordSearchConfig.primaria;
+    const built = generateWordSearch(cfg.words, cfg.size, cfg.diagonal, cfg.reverse);
+    state.wsGrid = built.grid;
+    state.wsSize = cfg.size;
+    state.wsPlacements = built.placements;
+    state.wsFound = [];
+    state.wsSelected = [];
+    renderWordSearch();
+  };
+
+  function renderWordSearch() {
+    document.getElementById('mzt-ws-result-btns').style.display = 'none';
+    document.getElementById('mzt-ws-count').textContent = state.wsFound.length + '/' + state.wsPlacements.length + ' encontradas';
+
+    const wordsEl = document.getElementById('mzt-ws-words');
+    wordsEl.innerHTML = '';
+    state.wsPlacements.forEach(p => {
+      const chip = document.createElement('span');
+      chip.className = 'mzt-ws-word-chip' + (state.wsFound.includes(p.word) ? ' found' : '');
+      chip.textContent = p.word;
+      wordsEl.appendChild(chip);
+    });
+
+    const grid = document.getElementById('mzt-ws-grid');
+    grid.style.gridTemplateColumns = 'repeat(' + state.wsSize + ', 1fr)';
+    grid.style.fontSize = state.wsSize > 10 ? '11px' : '14px';
+    grid.innerHTML = '';
+    for (let r = 0; r < state.wsSize; r++) {
+      for (let c = 0; c < state.wsSize; c++) {
+        const cell = document.createElement('div');
+        cell.className = 'mzt-ws-cell';
+        cell.id = 'mzt-ws-cell-' + r + '-' + c;
+        cell.textContent = state.wsGrid[r][c];
+        cell.onclick = () => mztWsTap(r, c);
+        grid.appendChild(cell);
+      }
+    }
+  }
+
+  function mztWsCellEl(r, c) { return document.getElementById('mzt-ws-cell-' + r + '-' + c); }
+
+  window.mztWsTap = function(r, c) {
+    const already = state.wsSelected.find(s => s.r === r && s.c === c);
+    if (already) return;
+    state.wsSelected.push({ r, c });
+    mztWsCellEl(r, c).classList.add('selected');
+    playPopSound();
+
+    if (state.wsSelected.length === 2) {
+      const [a, b] = state.wsSelected;
+      const dr = Math.sign(b.r - a.r), dc = Math.sign(b.c - a.c);
+      const distR = Math.abs(b.r - a.r), distC = Math.abs(b.c - a.c);
+      let path = null;
+      if (distR === distC || distR === 0 || distC === 0) {
+        const steps = Math.max(distR, distC);
+        path = [];
+        for (let k = 0; k <= steps; k++) path.push({ r: a.r + dr * k, c: a.c + dc * k });
+      }
+      let matchedWord = null;
+      if (path) {
+        for (const p of state.wsPlacements) {
+          if (state.wsFound.includes(p.word)) continue;
+          const cellsFwd = p.cells;
+          const sameFwd = cellsFwd.length === path.length && cellsFwd.every((cell, i) => cell.r === path[i].r && cell.c === path[i].c);
+          const sameRev = cellsFwd.length === path.length && cellsFwd.every((cell, i) => cell.r === path[path.length - 1 - i].r && cell.c === path[path.length - 1 - i].c);
+          if (sameFwd || sameRev) { matchedWord = p; break; }
+        }
+      }
+      if (matchedWord) {
+        state.wsFound.push(matchedWord.word);
+        matchedWord.cells.forEach(cell => {
+          const el = mztWsCellEl(cell.r, cell.c);
+          el.classList.remove('selected');
+          el.classList.add('found');
+        });
+        state.wsSelected = [];
+        burstConfetti();
+        playCorrectSound();
+        bounceMascot(true);
+        renderWordSearchProgress();
+        if (state.wsFound.length === state.wsPlacements.length) {
+          setTimeout(() => {
+            document.getElementById('mzt-ws-result-btns').style.display = 'flex';
+          }, 500);
+        }
+      } else {
+        [a, b].forEach(pt => mztWsCellEl(pt.r, pt.c).classList.add('wrong'));
+        playWrongSound();
+        bounceMascot(false);
+        setTimeout(() => {
+          [a, b].forEach(pt => {
+            const el = mztWsCellEl(pt.r, pt.c);
+            el.classList.remove('selected', 'wrong');
+          });
+          state.wsSelected = [];
+        }, 500);
+      }
+    }
+  };
+
+  function renderWordSearchProgress() {
+    document.getElementById('mzt-ws-count').textContent = state.wsFound.length + '/' + state.wsPlacements.length + ' encontradas';
+    const wordsEl = document.getElementById('mzt-ws-words');
+    wordsEl.innerHTML = '';
+    state.wsPlacements.forEach(p => {
+      const chip = document.createElement('span');
+      chip.className = 'mzt-ws-word-chip' + (state.wsFound.includes(p.word) ? ' found' : '');
+      chip.textContent = p.word;
+      wordsEl.appendChild(chip);
+    });
+  }
+
+  function buildCrosswordCells(cw) {
+    const map = {};
+    cw.words.forEach(w => {
+      for (let i = 0; i < w.answer.length; i++) {
+        const r = w.dir === 'down' ? w.r + i : w.r;
+        const c = w.dir === 'across' ? w.c + i : w.c;
+        map[r + '-' + c] = w.answer[i];
+      }
+    });
+    return map;
+  }
+
+  function wordCellSeq(w) {
+    const seq = [];
+    for (let i = 0; i < w.answer.length; i++) {
+      seq.push({ r: w.dir === 'down' ? w.r + i : w.r, c: w.dir === 'across' ? w.c + i : w.c });
+    }
+    return seq;
+  }
+
+  window.startCrossword = function() {
+    const variants = crosswordConfig[state.currentAge] || crosswordConfig.primaria;
+    let idx = Math.floor(Math.random() * variants.length);
+    if (variants.length > 1 && idx === state.cwLastIdx) {
+      idx = (idx + 1) % variants.length;
+    }
+    state.cwLastIdx = idx;
+    const cw = variants[idx];
+    state.cwData = cw;
+    state.cwCells = buildCrosswordCells(cw);
+    state.cwActiveWordIdx = 0;
+    renderCrossword();
+  };
+
+  function renderCrossword() {
+    document.getElementById('mzt-cw-verify').classList.add('show');
+    document.getElementById('mzt-cw-result-btns').style.display = 'none';
+
+    const cluesEl = document.getElementById('mzt-cw-clues');
+    cluesEl.innerHTML = '';
+    state.cwData.words.forEach((w, wi) => {
+      const div = document.createElement('div');
+      div.className = 'mzt-cw-clue';
+      div.id = 'mzt-cw-clue-' + wi;
+      div.innerHTML = '<b>' + w.num + (w.dir === 'across' ? '→' : '↓') + '</b> ' + w.clue;
+      div.onclick = () => mztCwSelectWord(wi);
+      cluesEl.appendChild(div);
+    });
+
+    const grid = document.getElementById('mzt-cw-grid');
+    grid.style.gridTemplateColumns = 'repeat(' + state.cwData.cols + ', 1fr)';
+    grid.innerHTML = '';
+    const numberStarts = {};
+    state.cwData.words.forEach(w => { numberStarts[w.r + '-' + w.c] = w.num; });
+
+    for (let r = 0; r < state.cwData.rows; r++) {
+      for (let c = 0; c < state.cwData.cols; c++) {
+        const key = r + '-' + c;
+        const cell = document.createElement('div');
+        if (state.cwCells[key]) {
+          cell.className = 'mzt-cw-cell active';
+          cell.id = 'mzt-cw-cellwrap-' + key;
+          if (numberStarts[key]) {
+            const num = document.createElement('span');
+            num.className = 'mzt-cw-num';
+            num.textContent = numberStarts[key];
+            cell.appendChild(num);
+          }
+          const input = document.createElement('input');
+          input.maxLength = 1;
+          input.id = 'mzt-cw-input-' + r + '-' + c;
+          input.autocapitalize = 'characters';
+          input.readOnly = true;
+          input.dataset.r = r;
+          input.dataset.c = c;
+          input.oninput = (e) => mztCwHandleInput(e, r, c);
+          input.onkeydown = (e) => mztCwHandleKeydown(e, r, c);
+          cell.appendChild(input);
+        } else {
+          cell.className = 'mzt-cw-cell blocked';
+        }
+        grid.appendChild(cell);
+      }
+    }
+
+    mztCwSelectWord(0);
+  }
+
+  window.mztCwSelectWord = function(wi) {
+    state.cwActiveWordIdx = wi;
+    document.querySelectorAll('.mzt-cw-clue').forEach(el => el.classList.remove('active-clue'));
+    document.getElementById('mzt-cw-clue-' + wi).classList.add('active-clue');
+    document.querySelectorAll('.mzt-cw-cell.active').forEach(el => el.classList.remove('active-word'));
+    const seq = wordCellSeq(state.cwData.words[wi]);
+    seq.forEach(({ r, c }) => {
+      const wrap = document.getElementById('mzt-cw-cellwrap-' + r + '-' + c);
+      if (wrap) wrap.classList.add('active-word');
+    });
+    // enable typing only on this word's inputs; lock the rest so taps elsewhere don't confuse
+    document.querySelectorAll('.mzt-cw-cell input').forEach(inp => { inp.readOnly = true; });
+    let firstEmpty = seq.find(p => !document.getElementById('mzt-cw-input-' + p.r + '-' + p.c).value) || seq[0];
+    seq.forEach(({ r, c }) => { document.getElementById('mzt-cw-input-' + r + '-' + c).readOnly = false; });
+    document.getElementById('mzt-cw-input-' + firstEmpty.r + '-' + firstEmpty.c).focus();
+  };
+
+  function mztCwHandleInput(e, r, c) {
+    e.target.value = e.target.value.toUpperCase().replace(/[^A-ZÑ]/g, '').slice(-1);
+    e.target.classList.remove('correct', 'incorrect');
+    if (!e.target.value) return;
+    playPopSound();
+    const seq = wordCellSeq(state.cwData.words[state.cwActiveWordIdx]);
+    const idx = seq.findIndex(p => p.r === r && p.c === c);
+    if (idx > -1 && idx < seq.length - 1) {
+      const next = seq[idx + 1];
+      document.getElementById('mzt-cw-input-' + next.r + '-' + next.c).focus();
+    } else {
+      e.target.blur();
+      const nextWord = (state.cwActiveWordIdx + 1) % state.cwData.words.length;
+      mztCwSelectWord(nextWord);
+    }
+  }
+
+  function mztCwHandleKeydown(e, r, c) {
+    if (e.key === 'Backspace' && !e.target.value) {
+      const seq = wordCellSeq(state.cwData.words[state.cwActiveWordIdx]);
+      const idx = seq.findIndex(p => p.r === r && p.c === c);
+      if (idx > 0) {
+        const prev = seq[idx - 1];
+        const prevInput = document.getElementById('mzt-cw-input-' + prev.r + '-' + prev.c);
+        prevInput.value = '';
+        prevInput.focus();
+      }
+    }
+  }
+
+  window.mztCwVerify = function() {
+    document.querySelectorAll('.mzt-cw-cell.active').forEach(el => el.classList.remove('active-word'));
+    document.querySelectorAll('.mzt-cw-clue').forEach(el => el.classList.remove('active-clue'));
+    let correctCount = 0;
+    let total = 0;
+    Object.keys(state.cwCells).forEach(key => {
+      total++;
+      const input = document.getElementById('mzt-cw-input-' + key);
+      const val = input.value.toUpperCase();
+      const ok = val === state.cwCells[key];
+      input.classList.toggle('correct', ok);
+      input.classList.toggle('incorrect', !ok && val !== '');
+      if (ok) correctCount++;
+    });
+    const ratio = correctCount / total;
+    if (ratio === 1) {
+      document.getElementById('mzt-cw-verify').classList.remove('show');
+      document.getElementById('mzt-cw-result-btns').style.display = 'flex';
+      burstConfetti();
+      playCorrectSound();
+      bounceMascot(true);
+    } else if (ratio >= 0.5) {
+      playPopSound();
+      bounceMascot(true);
+    } else {
+      playWrongSound();
+      bounceMascot(false);
+    }
   };
 
   window.mztStoryMenu = function() {
