@@ -433,6 +433,8 @@
 </style>
 </head>
 <body>
+<audio id="applause-audio" preload="auto" src="audio/applause.mp3"></audio>
+<audio id="boo-audio" preload="auto" src="audio/boo.mp3"></audio>
 <div class="wrap">
 
   <header class="top">
@@ -1015,7 +1017,7 @@ function playClick(){
     osc.stop(ctx.currentTime+0.07);
   }catch(e){}
 }
-function playBoo(){
+function playBooSynth(){
   try{
     const ctx=getCtx();
     const osc=ctx.createOscillator();
@@ -1031,7 +1033,17 @@ function playBoo(){
     osc.stop(ctx.currentTime+0.7);
   }catch(e){}
 }
-function playApplause(long){
+function playBoo(){
+  try{
+    const audio=document.getElementById('boo-audio');
+    audio.currentTime=0;
+    const p=audio.play();
+    if(p && p.catch) p.catch(()=>playBooSynth());
+  }catch(e){
+    playBooSynth();
+  }
+}
+function playApplauseSynth(long){
   try{
     const ctx=getCtx();
     const duration = long ? 1.6 : 0.6;
@@ -1059,6 +1071,16 @@ function playApplause(long){
     noise.start();
     noise.stop(now+duration);
   }catch(e){}
+}
+function playApplause(long){
+  try{
+    const audio=document.getElementById('applause-audio');
+    audio.currentTime=0;
+    const p=audio.play();
+    if(p && p.catch) p.catch(()=>playApplauseSynth(long));
+  }catch(e){
+    playApplauseSynth(long);
+  }
 }
 /* sonido de clic para cualquier botón, tarjeta o casillero interactivo */
 document.addEventListener('click', (e)=>{
