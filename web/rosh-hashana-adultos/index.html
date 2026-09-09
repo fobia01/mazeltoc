@@ -2460,7 +2460,7 @@ function mielChoose(opt, btnEl){
   document.querySelectorAll('#mielChoices .mc-option').forEach(b=>{ b.disabled=true; });
   btnEl.classList.add('selected');
   const feedback = document.getElementById('mielFeedback');
-  feedback.textContent = '✅ +1 punto — como todas las respuestas de este juego';
+  feedback.textContent = '✅ Ganaste 1 punto';
   feedback.classList.add('show');
   const nextBtn = document.getElementById('mielNextBtn');
   nextBtn.style.display='inline-block';
