@@ -256,6 +256,8 @@
   .verdict.false{color:#C23F63;}
   .big-emoji{display:flex;justify-content:center;margin:10px 0 20px;}
   .big-emoji svg{width:190px;height:auto;filter:drop-shadow(0 6px 14px rgba(107,46,74,0.18));}
+  .miel-photo-wrap{display:flex;justify-content:center;margin:10px 0 20px;}
+  .miel-photo-wrap img{width:100%;max-width:420px;height:220px;object-fit:cover;border-radius:var(--radius);box-shadow:0 6px 14px rgba(107,46,74,0.18);}
 
   /* seder secuencia */
   .seq-list{list-style:none;padding:0;margin:0 0 18px;}
@@ -582,11 +584,12 @@
     </div>
     <div class="panel">
       <div class="progress" id="mielProgress"></div>
-      <div class="big-emoji" id="mielEmoji"></div>
+      <div class="miel-photo-wrap" id="mielPhotoWrap"><img id="mielPhoto" alt=""></div>
       <div class="qcard" id="mielText"></div>
       <div class="mc-choices" id="mielChoices"></div>
+      <div class="answer-box" id="mielFeedback"></div>
       <div class="row-actions">
-        <button class="action secondary" id="mielNextBtn" onclick="mielNext()" style="display:none;">Siguiente →</button>
+        <button class="action secondary" id="mielNextBtn" style="display:none;">Siguiente →</button>
         <button class="action" id="mielFinishBtn" onclick="mielFinish()" style="display:none;">Ver resultado</button>
         <button class="action secondary" onclick="mielRestart()">Reiniciar</button>
       </div>
@@ -2297,246 +2300,145 @@ function imgNext(){
 /* ============================================================
    REMANDO EN MIEL
 ============================================================ */
-const MIEL_SCENES = [
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<circle cx="100" cy="95" r="30" fill="#F0DCC0"/>
-<path d="M60,190 Q100,140 140,190 Z" fill="#C23F63"/>
-<path d="M75,80 Q100,58 125,80 Q122,66 100,64 Q78,66 75,80 Z" fill="#6B2E4A"/>
-<ellipse cx="98" cy="70" rx="17" ry="11" fill="#FBF8F0" stroke="#C9B87A" stroke-width="2.5"/>
-<circle cx="112" cy="60" r="6" fill="#FBF8F0" stroke="#C9B87A" stroke-width="2"/>
-<g transform="translate(140,38) rotate(15)">
-<ellipse cx="0" cy="0" rx="22" ry="14" fill="#9AA5B1"/>
-<circle cx="16" cy="-6" r="8" fill="#9AA5B1"/>
-<path d="M-20,0 Q-34,-8 -30,6 Q-20,4 -20,0 Z" fill="#7C8B98"/>
-<path d="M24,-8 L34,-10 L26,-3 Z" fill="#E0A63A"/>
-<circle cx="19" cy="-8" r="1.6" fill="#241016"/>
-</g>
-<path d="M122,52 q6,-4 4,-10 M130,55 q7,-2 6,-9" stroke="#C9C9C9" stroke-width="2" fill="none" opacity="0.7"/>
-</svg>`,
-   text:'Vas camino al templo con la ropa nueva recién planchada... y una paloma te elige a vos, justo a vos, para su presentación en sociedad.',
-   options:[
-     {text:'Te reís y seguís caminando como si nada. No vas a dejar que un ave te arruine el año.', style:'zen'},
-     {text:'Corrés directo al baño del templo a limpiarte antes de que te vea alguien.', style:'solucionador'},
-     {text:'Mirás al cielo y le preguntás en voz alta a D\'s si esto es una señal.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<rect x="30" y="120" width="140" height="16" rx="4" fill="#A5652A"/>
-<rect x="40" y="70" width="120" height="14" rx="4" fill="#A5652A"/>
-<rect x="40" y="84" width="10" height="50" fill="#8A5A2B"/>
-<rect x="150" y="84" width="10" height="50" fill="#8A5A2B"/>
-<circle cx="115" cy="95" r="20" fill="#F0DCC0"/>
-<path d="M90,150 Q115,110 140,150 Z" fill="#7C8B5A"/>
-<path d="M98,128 Q115,140 132,128" stroke="#5a4020" stroke-width="6" fill="none" stroke-linecap="round"/>
-<circle cx="42" cy="58" r="17" fill="#F0DCC0"/>
-<path d="M22,150 L28,88 Q42,76 56,88 L62,150 Z" fill="#C23F63"/>
-<path d="M35,54 q7,-6 12,0" stroke="#241016" stroke-width="2.4" fill="none"/>
-<circle cx="36" cy="60" r="2.4" fill="#241016"/>
-<circle cx="48" cy="60" r="2.4" fill="#241016"/>
-<text x="60" y="35" font-size="26" fill="#6B2E4A" font-weight="bold">?!</text>
-</svg>`,
-   text:'Llegás a tu banco de toda la vida... y hay alguien sentado ahí, tranquilo, como si fuera suyo.',
-   options:[
-     {text:'Te sentás en otro lugar sin decir nada. Este año vas a elegir tus batallas.', style:'zen'},
-     {text:'Le explicás con la mejor de las sonrisas que ese lugar es tuyo hace veinte años.', style:'solucionador'},
-     {text:'Te quedás parado atrás toda la ceremonia, suspirando fuerte cada dos minutos.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<rect x="75" y="55" width="50" height="90" rx="10" fill="#3E2430"/>
-<rect x="81" y="64" width="38" height="66" rx="3" fill="#F0A63A"/>
-<circle cx="100" cy="136" r="3" fill="#F3E6C9"/>
-<g stroke="#E0577A" stroke-width="4" fill="none" stroke-linecap="round">
-<path d="M55,70 q-15,30 0,60"/>
-<path d="M145,70 q15,30 0,60"/>
-<path d="M40,60 q-25,45 0,90"/>
-<path d="M160,60 q25,45 0,90"/>
-</g>
-</svg>`,
-   text:'En medio de la Amidá, tu celular vibra tan fuerte contra el banco de madera que suena como un tambor.',
-   options:[
-     {text:'Lo dejás vibrar y seguís rezando. Total ya la regaste, que sea lo que D\'s quiera.', style:'zen'},
-     {text:'Salís corriendo agachado entre los bancos para apagarlo.', style:'solucionador'},
-     {text:'Mirás para todos lados como buscando de quién es, aunque el bolsillo que vibra es el tuyo.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<circle cx="80" cy="90" r="28" fill="#F0DCC0"/>
-<path d="M55,80 Q80,50 105,80 Q108,60 80,58 Q52,60 55,80 Z" fill="#9AA5B1"/>
-<circle cx="80" cy="66" r="10" fill="#9AA5B1"/>
-<path d="M52,180 Q80,120 108,180 Z" fill="#7C8B5A"/>
-<path d="M68,86 q6,-6 10,0" stroke="#241016" stroke-width="2.4" fill="none"/>
-<ellipse cx="70" cy="94" rx="3" ry="2" fill="#241016"/>
-<ellipse cx="90" cy="94" rx="3" ry="2" fill="#241016"/>
-<path d="M120,40 h60 a10,10 0 0 1 10,10 v30 a10,10 0 0 1 -10,10 h-30 l-15,15 l3,-15 h-18 a10,10 0 0 1 -10,-10 v-30 a10,10 0 0 1 10,-10 Z" fill="#fff" stroke="#C23F63" stroke-width="2.5"/>
-<text x="150" y="72" font-size="34" text-anchor="middle" fill="#C23F63">💍?</text>
-</svg>`,
-   text:'Tu tía soltera aprovecha el brindis de bienvenida para preguntarte, delante de toda la familia, para cuándo pensás \'sentar cabeza\'.',
-   options:[
-     {text:'Sonreís, decís \'para cuando D\'s quiera, tía\' y le das un sorbo a tu vino.', style:'zen'},
-     {text:'Cambiás de tema al toque preguntándole por su achaque de rodilla favorito.', style:'solucionador'},
-     {text:'Suspirás fuerte, mirás al techo y decís \'otra vez con lo mismo, tía, por favor\'.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<path d="M20,180 L20,60 Q100,20 180,60 L180,180 Z" fill="none" stroke="#C9A24A" stroke-width="4"/>
-<circle cx="65" cy="95" r="20" fill="#F0DCC0"/>
-<path d="M45,175 Q65,130 85,175 Z" fill="#E0577A"/>
-<path d="M45,88 Q65,72 85,88" fill="#6B2E4A"/>
-<circle cx="135" cy="95" r="20" fill="#F0DCC0"/>
-<path d="M115,175 Q135,130 155,175 Z" fill="#7C8B5A"/>
-<path d="M118,86 Q135,68 152,86 Q152,78 135,76 Q118,78 118,86 Z" fill="#3E2430"/>
-<path d="M55,60 l-8,-10 M175,60 l8,-10" stroke="#4FB6C9" stroke-width="3" stroke-linecap="round"/>
-</svg>`,
-   text:'En el pasillo del templo te cruzás de frente con tu ex. Los dos fingen una sorpresa que no engaña a nadie.',
-   options:[
-     {text:'Saludás con una sonrisa breve y seguís caminando, sin drama.', style:'zen'},
-     {text:'Iniciás una charla súper cordial sobre el clima para evitar cualquier tema incómodo.', style:'solucionador'},
-     {text:'Te escondés detrás de un familiar cualquiera hasta que la costa esté despejada.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<ellipse cx="100" cy="150" rx="80" ry="24" fill="#E8B565"/>
-<ellipse cx="100" cy="144" rx="80" ry="20" fill="#F3D9A8"/>
-<circle cx="55" cy="90" r="18" fill="#F0DCC0"/>
-<path d="M40,150 Q55,115 70,150 Z" fill="#7C8B5A"/>
-<circle cx="145" cy="90" r="18" fill="#F0DCC0"/>
-<path d="M130,150 Q145,115 160,150 Z" fill="#E0577A"/>
-<path d="M85,45 h55 a10,10 0 0 1 10,10 v25 a10,10 0 0 1 -10,10 h-20 l-12,14 l2,-14 h-25 a10,10 0 0 1 -10,-10 v-25 a10,10 0 0 1 10,-10 Z" fill="#fff" stroke="#C23F63" stroke-width="2.5"/>
-<path d="M112,52 l-8,16 h6 l-4,12 l12,-18 h-7 l6,-10 Z" fill="#F0A63A"/>
-</svg>`,
-   text:'En medio del brindis, un primo decide que es el momento perfecto para sacar un tema político picante.',
-   options:[
-     {text:'Alzás la copa y decís \'Shaná Tová para todos\' bien fuerte, tapando el comentario.', style:'zen'},
-     {text:'Cambiás de tema rápido preguntando quién quiere más pollo.', style:'solucionador'},
-     {text:'Ponés cara de circunstancias y mirás fijo tu copa como si tuviera las respuestas del universo.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<ellipse cx="100" cy="110" rx="55" ry="38" fill="#3E2430"/>
-<ellipse cx="100" cy="102" rx="45" ry="28" fill="#5a4020"/>
-<path d="M55,130 Q45,150 55,168 Q65,155 62,132 Z" fill="#3E2430"/>
-<path d="M145,130 Q155,150 145,168 Q135,155 138,132 Z" fill="#3E2430"/>
-<g stroke="#8a8a8a" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7">
-<path d="M80,65 q-6,-16 2,-28"/>
-<path d="M100,60 q0,-18 6,-28"/>
-<path d="M120,65 q6,-16 -2,-28"/>
-</g>
-</svg>`,
-   text:'Volvés a tu casa con hambre de festejo... y el olor a quemado te recibe en la puerta.',
-   options:[
-     {text:'Pedís algo por delivery como plan B, sin culpa ni drama.', style:'zen'},
-     {text:'Raspás lo quemado, lo bañás en salsa y servís igual: \'así se come en las mejores casas\'.', style:'solucionador'},
-     {text:'Anunciás en la mesa que este año el pollo viene \'ahumado a la vieja usanza\', con toda la cara de piedra que podés.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<ellipse cx="100" cy="140" rx="75" ry="30" fill="#E8B565"/>
-<ellipse cx="100" cy="128" rx="75" ry="26" fill="#F3D9A8"/>
-<g fill="#F0A63A" opacity="0.9">
-<path d="M70,110 q10,-10 20,0 q-10,10 0,20 q-10,-10 -20,0 q10,-10 0,-20 Z"/>
-<path d="M120,118 q10,-10 20,0 q-10,10 0,20 q-10,-10 -20,0 q10,-10 0,-20 Z"/>
-<path d="M95,132 q10,-10 20,0 q-10,10 0,20 q-10,-10 -20,0 q10,-10 0,-20 Z"/>
-</g>
-</svg>`,
-   text:'Los farfalej quedaron tan cocidos que ya no se sabe si es pasta o puré.',
-   options:[
-     {text:'Los servís igual: el sabor está, la forma es lo de menos.', style:'zen'},
-     {text:'Improvisás una sopa de la nada para disimular.', style:'solucionador'},
-     {text:'Le echás la culpa al gas de la casa, que \'esta vez cocinó distinto\'.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<rect x="20" y="40" width="160" height="120" rx="6" fill="#FBF3D9" stroke="#E9DBA0" stroke-width="2"/>
-<g stroke="#D9C88A" stroke-width="2" fill="none" opacity="0.6">
-<path d="M20,55 h160 M20,145 h160"/>
-</g>
-<ellipse cx="115" cy="115" rx="35" ry="22" fill="#8A1F3A" opacity="0.85"/>
-<ellipse cx="90" cy="100" rx="14" ry="9" fill="#8A1F3A" opacity="0.6"/>
-<g transform="translate(70,75) rotate(-25)">
-<rect x="-4" y="0" width="8" height="26" fill="#C9C9C9" opacity="0.8"/>
-<path d="M-10,0 Q0,20 10,0 Z" fill="#8A1F3A"/>
-</g>
-</svg>`,
-   text:'Se te resbala la copa de vino tinto justo sobre el mantel blanco bordado de la abuela.',
-   options:[
-     {text:'Te reís y decís que ahora el mantel tiene \'personalidad\'.', style:'zen'},
-     {text:'Corrés por sal y agua con hielo antes de que la mancha se fije.', style:'solucionador'},
-     {text:'Anunciás con solemnidad que este mantel \'ya cumplió su misión en esta vida\'.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg">
-<path d="M30,70 L2,40 L10,70 L2,100 Z" fill="#8fa5b8"/>
-<ellipse cx="120" cy="70" rx="90" ry="42" fill="#8fa5b8"/>
-<ellipse cx="120" cy="90" rx="70" ry="18" fill="#dfe8ec" opacity="0.6"/>
-<circle cx="195" cy="60" r="9" fill="#ffffff"/>
-<circle cx="197" cy="60" r="5" fill="#152229"/>
-<g fill="#ffffff" stroke="#c9c9c9" stroke-width="0.5">
-<circle cx="150" cy="45" r="3"/><circle cx="130" cy="90" r="3"/><circle cx="90" cy="55" r="3"/>
-<circle cx="105" cy="95" r="3"/><circle cx="70" cy="75" r="3"/><circle cx="160" cy="90" r="3"/>
-</g>
-</svg>`,
-   text:'El pescado te quedó tan salado que con un bocado alcanza para el año entero.',
-   options:[
-     {text:'Te reís y brindás: \'por lo menos no va a faltar sal en la mesa\'.', style:'zen'},
-     {text:'Corrés a buscar más limón y perejil para salvar lo que se pueda.', style:'solucionador'},
-     {text:'Servís el pescado como \'aperitivo fuerte\' y esperás que nadie repita.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<circle cx="90" cy="110" r="26" fill="#F0DCC0"/>
-<path d="M65,175 Q90,140 115,175 Z" fill="#4FB6C9"/>
-<path d="M68,96 Q90,80 112,96 Q112,84 90,82 Q68,84 68,96 Z" fill="#5a4020"/>
-<ellipse cx="79" cy="112" rx="3" ry="4" fill="#241016"/>
-<ellipse cx="101" cy="112" rx="3" ry="4" fill="#241016"/>
-<ellipse cx="90" cy="128" rx="10" ry="14" fill="#8A1F3A"/>
-<g stroke="#E0577A" stroke-width="3" fill="none" stroke-linecap="round">
-<path d="M125,90 q15,-5 25,-15"/>
-<path d="M130,105 q18,0 30,-2"/>
-<path d="M125,120 q15,8 24,18"/>
-</g>
-</svg>`,
-   text:'Tu primo más chico pregunta a los gritos, justo en el silencio del rezo, por qué \'el señor habla raro\'.',
-   options:[
-     {text:'Le hacés upa por debajo de la mesa y le susurrás que después le explicás.', style:'zen'},
-     {text:'Le das rápido tu celular con un juego para comprar cinco minutos de paz.', style:'solucionador'},
-     {text:'Te tapás la cara con las manos y contás mentalmente hasta diez.', style:'dramatico'}
-   ]},
-  {svg:`<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-<circle cx="55" cy="90" r="20" fill="#F0DCC0"/>
-<path d="M35,160 Q55,120 75,160 Z" fill="#7C8B5A"/>
-<circle cx="100" cy="85" r="20" fill="#F0DCC0"/>
-<path d="M80,160 Q100,115 120,160 Z" fill="#E0577A"/>
-<rect x="86" y="98" width="28" height="18" rx="3" fill="#3E2430"/>
-<circle cx="145" cy="90" r="20" fill="#F0DCC0"/>
-<path d="M125,160 Q145,120 165,160 Z" fill="#4FB6C9"/>
-<rect x="131" y="103" width="28" height="18" rx="3" fill="#3E2430"/>
-<g transform="translate(70,30)">
-<rect x="0" y="10" width="50" height="34" rx="6" fill="#3E2430"/>
-<circle cx="25" cy="27" r="11" fill="#C9A24A"/>
-<rect x="18" y="2" width="14" height="10" rx="2" fill="#3E2430"/>
-</g>
-</svg>`,
-   text:'Llega la hora de la foto familiar y la mitad de la mesa está mirando el celular en vez de a la cámara.',
-   options:[
-     {text:'Sonreís igual, salga como salga: \'esa va a ser la foto real de este año\'.', style:'zen'},
-     {text:'Aplaudís fuerte y decís \'¡celulares abajo, foto ya!\' como quien pone orden.', style:'solucionador'},
-     {text:'Amenazás, entre risas, con no compartir ninguna foto grupal en la vida si no prestan atención.', style:'dramatico'}
-   ]},
-  {svg:null,
-   text:'A pesar de la paloma, el asiento, el celular, la tía preguntona, el ex en el pasillo, el pollo, los farfalej, el mantel de la abuela, el pescado, el primo gritón y la foto familiar a medio prestar atención... la mesa está llena, todos se ríen de lo que pasó, y alguien levanta la copa: \'Shaná Tová\'. El año recién arranca, y ya demostraste que sabés remar incluso cuando todo se puso espeso como la miel.',
-   options:null}
-];
+const MIEL_SCENES = {
+  paloma: {
+    photo:"images/miel/paloma.jpg",
+    text:"Vas camino al templo con la ropa nueva recién planchada... y una paloma te elige a vos, justo a vos, para su presentación en sociedad.",
+    options:[
+      {text:"Te reís y seguís caminando como si nada. No vas a dejar que un ave te arruine el año.", style:"zen", next:"asiento"},
+      {text:"Corrés directo al baño del templo a limpiarte antes de que te vea alguien.", style:"solucionador", next:"celular"},
+      {text:"Mirás al cielo y le preguntás en voz alta a D's si esto es una señal.", style:"dramatico", next:"asiento"}
+    ]
+  },
+  asiento: {
+    photo:"images/miel/asiento.jpg",
+    text:"Llegás a tu banco de toda la vida... y hay alguien sentado ahí, tranquilo, como si fuera suyo.",
+    options:[
+      {text:"Te sentás en otro lugar sin decir nada. Este año vas a elegir tus batallas.", style:"zen", next:"tia"},
+      {text:"Le explicás con la mejor de las sonrisas que ese lugar es tuyo hace veinte años.", style:"solucionador", next:"ex"},
+      {text:"Te quedás parado atrás toda la ceremonia, suspirando fuerte cada dos minutos.", style:"dramatico", next:"tia"}
+    ]
+  },
+  celular: {
+    photo:"images/miel/celular.jpg",
+    text:"En medio de la Amidá, tu celular vibra tan fuerte contra el banco de madera que suena como un tambor.",
+    options:[
+      {text:"Lo dejás vibrar y seguís rezando. Total ya la regaste, que sea lo que D's quiera.", style:"zen", next:"ex"},
+      {text:"Salís corriendo agachado entre los bancos para apagarlo.", style:"solucionador", next:"tia"},
+      {text:"Mirás para todos lados como buscando de quién es, aunque el bolsillo que vibra es el tuyo.", style:"dramatico", next:"ex"}
+    ]
+  },
+  tia: {
+    photo:"images/miel/tia.jpg",
+    text:"Tu tía soltera aprovecha el brindis de bienvenida para preguntarte, delante de toda la familia, para cuándo pensás 'sentar cabeza'.",
+    options:[
+      {text:"Sonreís, decís 'para cuando D's quiera, tía' y le das un sorbo a tu vino.", style:"zen", next:"politica"},
+      {text:"Cambiás de tema al toque preguntándole por su achaque de rodilla favorito.", style:"solucionador", next:"pollo"},
+      {text:"Suspirás fuerte, mirás al techo y decís 'otra vez con lo mismo, tía, por favor'.", style:"dramatico", next:"politica"}
+    ]
+  },
+  ex: {
+    photo:"images/miel/ex.jpg",
+    text:"En el pasillo del templo te cruzás de frente con tu ex. Los dos fingen una sorpresa que no engaña a nadie.",
+    options:[
+      {text:"Saludás con una sonrisa breve y seguís caminando, sin drama.", style:"zen", next:"pollo"},
+      {text:"Iniciás una charla súper cordial sobre el clima para evitar cualquier tema incómodo.", style:"solucionador", next:"politica"},
+      {text:"Te escondés detrás de un familiar cualquiera hasta que la costa esté despejada.", style:"dramatico", next:"pollo"}
+    ]
+  },
+  politica: {
+    photo:"images/miel/politica.jpg",
+    text:"En medio del brindis, un primo decide que es el momento perfecto para sacar un tema político picante.",
+    options:[
+      {text:"Alzás la copa y decís 'Shaná Tová para todos' bien fuerte, tapando el comentario.", style:"zen", next:"farfalej"},
+      {text:"Cambiás de tema rápido preguntando quién quiere más pollo.", style:"solucionador", next:"mantel"},
+      {text:"Ponés cara de circunstancias y mirás fijo tu copa como si tuviera las respuestas del universo.", style:"dramatico", next:"farfalej"}
+    ]
+  },
+  pollo: {
+    photo:"images/miel/pollo.jpg",
+    text:"Volvés a tu casa con hambre de festejo... y el olor a quemado te recibe en la puerta.",
+    options:[
+      {text:"Pedís algo por delivery como plan B, sin culpa ni drama.", style:"zen", next:"mantel"},
+      {text:"Raspás lo quemado, lo bañás en salsa y servís igual: 'así se come en las mejores casas'.", style:"solucionador", next:"farfalej"},
+      {text:"Anunciás en la mesa que este año el pollo viene 'ahumado a la vieja usanza', con toda la cara de piedra que podés.", style:"dramatico", next:"mantel"}
+    ]
+  },
+  farfalej: {
+    photo:"images/miel/farfalej.jpg",
+    text:"Los farfalej quedaron tan cocidos que ya no se sabe si es pasta o puré.",
+    options:[
+      {text:"Los servís igual: el sabor está, la forma es lo de menos.", style:"zen", next:"pescado"},
+      {text:"Improvisás una sopa de la nada para disimular.", style:"solucionador", next:"primo"},
+      {text:"Le echás la culpa al gas de la casa, que 'esta vez cocinó distinto'.", style:"dramatico", next:"pescado"}
+    ]
+  },
+  mantel: {
+    photo:"images/miel/mantel.jpg",
+    text:"Se te resbala la copa de vino tinto justo sobre el mantel blanco bordado de la abuela.",
+    options:[
+      {text:"Te reís y decís que ahora el mantel tiene 'personalidad'.", style:"zen", next:"primo"},
+      {text:"Corrés por sal y agua con hielo antes de que la mancha se fije.", style:"solucionador", next:"pescado"},
+      {text:"Anunciás con solemnidad que este mantel 'ya cumplió su misión en esta vida'.", style:"dramatico", next:"primo"}
+    ]
+  },
+  pescado: {
+    photo:"images/miel/pescado.jpg",
+    text:"El pescado te quedó tan salado que con un bocado alcanza para el año entero.",
+    options:[
+      {text:"Te reís y brindás: 'por lo menos no va a faltar sal en la mesa'.", style:"zen", next:"foto"},
+      {text:"Corrés a buscar más limón y perejil para salvar lo que se pueda.", style:"solucionador", next:"foto"},
+      {text:"Servís el pescado como 'aperitivo fuerte' y esperás que nadie repita.", style:"dramatico", next:"foto"}
+    ]
+  },
+  primo: {
+    photo:"images/miel/primo.jpg",
+    text:"Tu primo más chico pregunta a los gritos, justo en el silencio del rezo, por qué 'el señor habla raro'.",
+    options:[
+      {text:"Le hacés upa por debajo de la mesa y le susurrás que después le explicás.", style:"zen", next:"foto"},
+      {text:"Le das rápido tu celular con un juego para comprar cinco minutos de paz.", style:"solucionador", next:"foto"},
+      {text:"Te tapás la cara con las manos y contás mentalmente hasta diez.", style:"dramatico", next:"foto"}
+    ]
+  },
+  foto: {
+    photo:"images/miel/foto.jpg",
+    text:"Llega la hora de la foto familiar y la mitad de la mesa está mirando el celular en vez de a la cámara.",
+    options:[
+      {text:"Sonreís igual, salga como salga: 'esa va a ser la foto real de este año'.", style:"zen", next:"final"},
+      {text:"Aplaudís fuerte y decís '¡celulares abajo, foto ya!' como quien pone orden.", style:"solucionador", next:"final"},
+      {text:"Amenazás, entre risas, con no compartir ninguna foto grupal en la vida si no prestan atención.", style:"dramatico", next:"final"}
+    ]
+  },
+  final: {
+    photo:null,
+    text:"A pesar de todo lo que salió mal en el camino... la mesa está llena, todos se ríen de lo que pasó, y alguien levanta la copa: 'Shaná Tová'. El año recién arranca, y ya demostraste que sabés remar incluso cuando todo se puso espeso como la miel.",
+    options:null
+  }
+};
+const MIEL_START = "paloma";
+const MIEL_TOTAL_STEPS = 7;
 
-let mielState = {started:false, i:0, scores:{zen:0, solucionador:0, dramatico:0}};
+let mielState = {started:false, current:MIEL_START, step:1, scores:{zen:0, solucionador:0, dramatico:0}};
 function mielRestart(){
-  mielState = {started:true, i:0, scores:{zen:0, solucionador:0, dramatico:0}};
+  mielState = {started:true, current:MIEL_START, step:1, scores:{zen:0, solucionador:0, dramatico:0}};
   mielRender();
 }
 function mielRender(){
-  const scene = MIEL_SCENES[mielState.i];
-  document.getElementById('mielProgress').textContent = `Escena ${mielState.i+1} de ${MIEL_SCENES.length}`;
-  const emojiEl = document.getElementById('mielEmoji');
-  if(scene.svg){
-    emojiEl.style.display='';
-    emojiEl.innerHTML = scene.svg;
+  const scene = MIEL_SCENES[mielState.current];
+  document.getElementById('mielProgress').textContent = scene.options ? `Escena ${mielState.step} de ${MIEL_TOTAL_STEPS}` : '';
+  const photoWrap = document.getElementById('mielPhotoWrap');
+  if(scene.photo){
+    photoWrap.style.display='';
+    document.getElementById('mielPhoto').src = scene.photo;
   } else {
-    emojiEl.style.display='none';
-    emojiEl.innerHTML='';
+    photoWrap.style.display='none';
   }
   document.getElementById('mielText').textContent = scene.text;
   const choicesEl = document.getElementById('mielChoices');
   choicesEl.innerHTML='';
+  const feedback = document.getElementById('mielFeedback');
+  feedback.textContent='';
+  feedback.classList.remove('show');
   const nextBtn = document.getElementById('mielNextBtn');
   const finishBtn = document.getElementById('mielFinishBtn');
   nextBtn.style.display='none';
@@ -2546,21 +2448,27 @@ function mielRender(){
       const btn=document.createElement('button');
       btn.className='mc-option';
       btn.textContent=opt.text;
-      btn.onclick=()=>mielAnswer(opt.style, btn);
+      btn.onclick=()=>mielChoose(opt, btn);
       choicesEl.appendChild(btn);
     });
   } else {
     finishBtn.style.display='inline-block';
   }
 }
-function mielAnswer(style, btnEl){
-  mielState.scores[style]++;
+function mielChoose(opt, btnEl){
+  mielState.scores[opt.style]++;
   document.querySelectorAll('#mielChoices .mc-option').forEach(b=>{ b.disabled=true; });
   btnEl.classList.add('selected');
-  document.getElementById('mielNextBtn').style.display='inline-block';
+  const feedback = document.getElementById('mielFeedback');
+  feedback.textContent = '✅ +1 punto — como todas las respuestas de este juego';
+  feedback.classList.add('show');
+  const nextBtn = document.getElementById('mielNextBtn');
+  nextBtn.style.display='inline-block';
+  nextBtn.onclick = ()=>mielGoto(opt.next);
 }
-function mielNext(){
-  mielState.i++;
+function mielGoto(nextId){
+  mielState.current = nextId;
+  mielState.step++;
   mielRender();
 }
 function mielFinish(){
@@ -2583,7 +2491,6 @@ function mielFinish(){
   }
   showFinishBanner(title, subtitle, mielRestart);
 }
-
 
 /* ============================================================
    ORDENÁ EL SEDER

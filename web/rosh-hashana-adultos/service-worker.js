@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mazeltoc-rh-v1';
+const CACHE_NAME = 'mazeltoc-rh-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -7,7 +7,19 @@ const ASSETS = [
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
   './audio/applause.mp3',
-  './audio/boo.mp3'
+  './audio/boo.mp3',
+  './images/miel/paloma.jpg',
+  './images/miel/asiento.jpg',
+  './images/miel/celular.jpg',
+  './images/miel/tia.jpg',
+  './images/miel/ex.jpg',
+  './images/miel/politica.jpg',
+  './images/miel/pollo.jpg',
+  './images/miel/farfalej.jpg',
+  './images/miel/mantel.jpg',
+  './images/miel/pescado.jpg',
+  './images/miel/primo.jpg',
+  './images/miel/foto.jpg'
 ];
 
 self.addEventListener('install', (event) => {
