@@ -95,6 +95,7 @@
     box-shadow: 0 10px 22px rgba(107,46,74,0.16);
     outline:none;
   }
+  .card:active{transform:scale(0.96);}
   .card .icon{font-size:34px;display:block;margin-bottom:10px;}
   .card h3{font-size:19px;color:var(--berry-deep);margin-bottom:4px;}
   .card p{font-size:13.5px;opacity:0.75;margin:0;line-height:1.4;color:var(--ink);}
@@ -130,16 +131,21 @@
     font-size:15px;
     font-weight:600;
     cursor:pointer;
+    transition: transform .1s ease, background .15s ease;
   }
   button.action:hover{background:var(--honey-deep);}
+  button.action:active{transform:scale(0.96);}
   button.action.secondary{
     background:var(--card-bg);border:1.5px solid var(--berry-deep); color:var(--berry-deep);
   }
   button.action.secondary:hover{background:rgba(224,87,122,0.1);}
   button.action:disabled{opacity:0.4;cursor:default;}
+  button.action:disabled:active{transform:none;}
   button.action.wide{width:100%;}
 
-  .progress{font-size:13px;opacity:0.65;margin-bottom:14px;}
+  .progress{font-size:13px;opacity:0.65;margin-bottom:6px;}
+  .progress-bar-track{background:rgba(107,46,74,0.12);height:6px;border-radius:999px;overflow:hidden;margin-bottom:14px;}
+  .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg, var(--honey), var(--berry-deep));border-radius:999px;transition:width .35s ease;}
 
   /* trivia / vf / image trivia */
   .qcard{
@@ -152,6 +158,8 @@
     font-size:16px;line-height:1.5;display:none;color:var(--ink);
   }
   .answer-box.show{display:block;}
+  @keyframes fade-slide-in{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  .anim-in{animation: fade-slide-in 0.3s ease;}
   .row-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
   .vf-choices{display:flex;gap:12px;margin:16px 0;}
   .mc-choices{display:flex;flex-direction:column;gap:10px;margin:16px 0;}
@@ -161,8 +169,10 @@
     border:1.5px solid rgba(107,46,74,0.18);
     color:var(--ink);
     padding:12px 16px;border-radius:10px;font-size:15px;cursor:pointer;
+    transition: transform .1s ease, border-color .15s ease, background .15s ease;
   }
   .mc-option:hover:not(:disabled){border-color:var(--honey-deep);background:rgba(240,166,58,0.1);}
+  .mc-option:active:not(:disabled){transform:scale(0.96);}
   .mc-option:disabled{cursor:default;}
   .mc-option.correct{background:rgba(78,153,80,0.22);border-color:var(--ok);}
   .mc-option.wrong{background:rgba(216,83,110,0.22);border-color:var(--bad);}
@@ -274,7 +284,9 @@
   .arrow-btn{
     background:var(--card-bg);border:1px solid var(--berry-deep);color:var(--berry-deep);
     width:30px;height:30px;border-radius:6px;cursor:pointer;font-size:14px;
+    transition: transform .1s ease;
   }
+  .arrow-btn:active{transform:scale(0.9);}
   .seq-item.correct{border-color:var(--ok);background:rgba(78,153,80,0.14);}
   .seq-item.incorrect{border-color:var(--bad);background:rgba(216,83,110,0.14);}
   .seq-explain-item{margin-bottom:10px;font-size:14px;line-height:1.5;}
@@ -289,7 +301,9 @@
   .key{
     background:var(--card-bg);border:1px solid rgba(107,46,74,0.18);
     color:var(--ink);padding:8px 0;border-radius:6px;cursor:pointer;font-size:14px;
+    transition: transform .1s ease;
   }
+  .key:active:not(:disabled){transform:scale(0.9);}
   .key:disabled{opacity:0.3;cursor:default;}
   .key.correct{background:var(--ok);border-color:var(--ok);color:#fff;}
   .key.wrong{background:var(--bad);border-color:var(--bad);color:#fff;}
@@ -405,6 +419,13 @@
     60%{transform:rotate(-7deg) translateY(6px);}
     100%{transform:rotate(0deg) translateY(0);}
   }
+  .mascot-wrap.nod .mascot{animation:mascot-nod 0.45s ease;}
+  @keyframes mascot-nod{
+    0%{transform:translateY(0) rotate(0deg);}
+    35%{transform:translateY(-6px) rotate(-4deg);}
+    65%{transform:translateY(2px) rotate(3deg);}
+    100%{transform:translateY(0) rotate(0deg);}
+  }
   .mascot-tear{
     position:absolute;width:7px;height:11px;background:#5AB4E0;border-radius:50% 50% 50% 0;
     opacity:0;transform:rotate(45deg);
@@ -490,6 +511,11 @@
       <h3>Remando en Miel</h3>
       <p>Un Rosh Hashaná que sale mal en cadena. Elegí cómo reaccionar.</p>
     </div>
+    <div class="card" data-game="quienmas">
+      <span class="icon">😈</span>
+      <h3>¿Quién es más de...?</h3>
+      <p>Frases picantes para debatir en voz alta: ¿a quién de la familia le cabe?</p>
+    </div>
     <div class="card" data-game="imgtrivia">
       <span class="icon">🍯</span>
       <h3>¿Qué representa?</h3>
@@ -545,6 +571,7 @@
     </div>
     <div class="panel">
       <div class="progress" id="triviaProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="triviaProgressFill"></div></div>
       <div class="qcard" id="triviaQ"></div>
       <div class="mc-choices" id="triviaChoices"></div>
       <div class="answer-box" id="triviaA"></div>
@@ -563,6 +590,7 @@
     </div>
     <div class="panel">
       <div class="progress" id="vfProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="vfProgressFill"></div></div>
       <div class="qcard" id="vfQ"></div>
       <div class="vf-choices">
         <button class="action" onclick="vfAnswer(true)">Verdadero</button>
@@ -596,6 +624,25 @@
     </div>
   </section>
 
+  <!-- ================= QUIÉN ES MÁS DE... ================= -->
+  <section class="game" id="game-quienmas">
+    <div class="game-top">
+      <button class="back-btn" onclick="showMenu()">← Volver al menú</button>
+      <h2>😈 ¿Quién es más de...?</h2>
+    </div>
+    <div class="panel">
+      <div class="progress" id="qmProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="qmProgressFill"></div></div>
+      <div class="qcard" id="qmPhrase" style="font-size:21px;font-weight:700;text-align:center;"></div>
+      <div class="answer-box" id="qmRemate" style="text-align:center;"></div>
+      <div class="row-actions" style="justify-content:center;">
+        <button class="action" id="qmRevealBtn" onclick="qmReveal()">🗣️ Ya lo discutimos → Siguiente</button>
+        <button class="action secondary" id="qmNextBtn" onclick="qmNext()" style="display:none;">Siguiente frase →</button>
+        <button class="action secondary" onclick="qmRestart()">Reiniciar</button>
+      </div>
+    </div>
+  </section>
+
   <section class="game" id="game-imgtrivia">
     <div class="game-top">
       <button class="back-btn" onclick="showMenu()">← Volver al menú</button>
@@ -603,6 +650,7 @@
     </div>
     <div class="panel">
       <div class="progress" id="imgProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="imgProgressFill"></div></div>
       <div class="big-emoji" id="imgEmoji"></div>
       <div class="answer-box" id="imgA"></div>
       <div class="row-actions">
@@ -736,6 +784,7 @@
     </div>
     <div class="panel">
       <div class="progress" id="chefProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="chefProgressFill"></div></div>
       <h3 id="chefTitle" style="color:var(--berry-deep);margin-bottom:10px;"></h3>
       <ul id="chefIngredients" style="margin:0 0 18px;padding-left:20px;line-height:1.7;font-size:15.5px;"></ul>
       <div class="mc-choices" id="chefChoices"></div>
@@ -755,6 +804,7 @@
     </div>
     <div class="panel">
       <div class="progress" id="detHistProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="detHistProgressFill"></div></div>
       <ol id="detHistClues" style="margin:0 0 10px;padding-left:20px;line-height:1.7;font-size:15.5px;"></ol>
       <button class="action secondary" id="detHistMoreBtn" onclick="detReveal('hist')" style="margin-bottom:16px;">🔍 Pedir otra pista</button>
       <div class="mc-choices" id="detHistChoices"></div>
@@ -776,6 +826,7 @@
     </div>
     <div class="panel">
       <div class="progress" id="detSymProgress"></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="detSymProgressFill"></div></div>
       <ol id="detSymClues" style="margin:0 0 10px;padding-left:20px;line-height:1.7;font-size:15.5px;"></ol>
       <button class="action secondary" id="detSymMoreBtn" onclick="detReveal('sym')" style="margin-bottom:16px;">🔍 Pedir otra pista</button>
       <div class="mc-choices" id="detSymChoices"></div>
@@ -805,6 +856,7 @@
       <div id="ttPlay" style="display:none;">
         <div id="ttScoreboard" style="display:flex;gap:12px;margin-bottom:18px;"></div>
         <div class="progress" id="ttProgress"></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="ttProgressFill"></div></div>
         <div class="qcard" id="ttQ"></div>
         <div class="mc-choices" id="ttChoices"></div>
         <div class="answer-box" id="ttA"></div>
@@ -834,6 +886,7 @@
       <div id="tvPlay" style="display:none;">
         <div id="tvScoreboard" style="display:flex;gap:12px;margin-bottom:18px;"></div>
         <div class="progress" id="tvProgress"></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="tvProgressFill"></div></div>
         <div class="qcard" id="tvQ"></div>
         <div class="vf-choices">
           <button class="action" onclick="tvAnswer(true)">Verdadero</button>
@@ -885,6 +938,7 @@
       <div id="drPlay" style="display:none;">
         <div id="drScoreboard" style="display:flex;gap:12px;margin-bottom:18px;"></div>
         <div class="progress" id="drProgress"></div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="drProgressFill"></div></div>
         <div class="qcard" id="drQ"></div>
         <div class="mc-choices" id="drChoices"></div>
         <div class="answer-box" id="drA"></div>
@@ -947,6 +1001,7 @@ document.querySelectorAll('.card').forEach(c=>{
     if(id==='contrarreloj' && !crState.started) crGoSetup();
     if(id==='duelrobo' && !duelState.started) drGoSetup();
     if(id==='miel' && !mielState.started) mielRestart();
+    if(id==='quienmas' && !qmState.started) qmRestart();
   });
 });
 function shuffleArr(arr){
@@ -1152,6 +1207,25 @@ function mascotSad(){
   void el.offsetWidth;
   el.classList.add('sad');
   setTimeout(()=>el.classList.remove('sad'), 1050);
+}
+function mascotNod(){
+  const el=document.getElementById('mascotWrap');
+  if(!el) return;
+  el.classList.remove('happy','sad');
+  void el.offsetWidth;
+  el.classList.add('nod');
+  setTimeout(()=>el.classList.remove('nod'), 450);
+}
+function playAnimIn(el){
+  if(!el) return;
+  el.classList.remove('anim-in');
+  void el.offsetWidth;
+  el.classList.add('anim-in');
+}
+function updateProgressBar(fillId, current, total){
+  const el=document.getElementById(fillId);
+  if(!el || !total) return;
+  el.style.width = Math.round((current/total)*100) + '%';
 }
 let mascotBubbleTimer=null;
 function mascotGreet(){
@@ -1671,14 +1745,17 @@ Object.values(DETECTIVES).forEach(d=>{ d.state = {started:false, order:[], i:0, 
 
 function detRestart(key){
   const g = DETECTIVES[key];
-  g.state = {started:true, order:shuffleArr(g.data.map((_,i)=>i)), i:0, revealed:1, answered:false};
+  const totalRounds = Math.min(5, g.data.length);
+  g.state = {started:true, order:shuffleArr(g.data.map((_,i)=>i)).slice(0, totalRounds), i:0, revealed:1, answered:false};
   detRender(key);
 }
 function detRender(key){
   const g = DETECTIVES[key];
   const item = g.data[g.state.order[g.state.i]];
-  document.getElementById(g.dom+'Progress').textContent = `Misterio ${g.state.i+1} de ${g.data.length}`;
-  document.getElementById(g.dom+'Clues').innerHTML = item.clues.slice(0, g.state.revealed).map(c=>`<li>${c}</li>`).join('');
+  document.getElementById(g.dom+'Progress').textContent = `Misterio ${g.state.i+1} de ${g.state.order.length}`;
+  updateProgressBar(g.dom+'ProgressFill', g.state.i+1, g.state.order.length);
+  const cluesEl = document.getElementById(g.dom+'Clues');
+  cluesEl.innerHTML = item.clues.slice(0, g.state.revealed).map(c=>`<li>${c}</li>`).join('');
   const moreBtn = document.getElementById(g.dom+'MoreBtn');
   moreBtn.style.display = g.state.revealed >= item.clues.length ? 'none' : 'inline-block';
   moreBtn.disabled = false;
@@ -1697,6 +1774,9 @@ function detRender(key){
     btn.onclick=()=>detAnswer(key, optText, correctText, btn);
     choicesEl.appendChild(btn);
   });
+  playAnimIn(cluesEl);
+  playAnimIn(choicesEl);
+  mascotNod();
 }
 function detReveal(key){
   const g=DETECTIVES[key];
@@ -1767,7 +1847,9 @@ function ttRenderScoreboard(){
 function ttRender(){
   const item = TRIVIA[teamTriviaState.order[teamTriviaState.round]];
   document.getElementById('ttProgress').textContent = `Pregunta ${teamTriviaState.round+1} de ${teamTriviaState.totalRounds} — turno de ${teamTriviaState.teamNames[teamTriviaState.turn]}`;
-  document.getElementById('ttQ').textContent = item.q;
+  updateProgressBar('ttProgressFill', teamTriviaState.round+1, teamTriviaState.totalRounds);
+  const qEl = document.getElementById('ttQ');
+  qEl.textContent = item.q;
   const box=document.getElementById('ttA');
   box.textContent=''; box.classList.remove('show');
   teamTriviaState.answered=false;
@@ -1784,6 +1866,9 @@ function ttRender(){
     btn.onclick=()=>ttAnswer(optText, correctText, btn);
     choicesEl.appendChild(btn);
   });
+  playAnimIn(qEl);
+  playAnimIn(choicesEl);
+  mascotNod();
 }
 function ttAnswer(chosenText, correctText, btnEl){
   if(teamTriviaState.answered) return;
@@ -1861,11 +1946,15 @@ function tvRenderScoreboard(){
 function tvRender(){
   const item = VF[teamVfState.order[teamVfState.round]];
   document.getElementById('tvProgress').textContent = `Afirmación ${teamVfState.round+1} de ${teamVfState.totalRounds} — turno de ${teamVfState.teamNames[teamVfState.turn]}`;
-  document.getElementById('tvQ').textContent = item.s;
+  updateProgressBar('tvProgressFill', teamVfState.round+1, teamVfState.totalRounds);
+  const qEl = document.getElementById('tvQ');
+  qEl.textContent = item.s;
   const box=document.getElementById('tvA');
   box.textContent=''; box.classList.remove('show'); box.innerHTML='';
   teamVfState.answered=false;
   tvRenderScoreboard();
+  playAnimIn(qEl);
+  mascotNod();
 }
 function tvAnswer(choice){
   if(teamVfState.answered) return;
@@ -1982,6 +2071,9 @@ function crRenderQuestion(){
     btn.onclick=()=>crAnswer(optText, correctText, btn);
     choicesEl.appendChild(btn);
   });
+  playAnimIn(qEl);
+  playAnimIn(choicesEl);
+  mascotNod();
 }
 function crAnswer(chosenText, correctText, btnEl){
   if(crState.locked || !crState.roundActive) return;
@@ -2065,7 +2157,9 @@ function drRender(){
   duelState.answered=false;
   const item = TRIVIA[duelState.order[duelState.round]];
   document.getElementById('drProgress').textContent = `Pregunta ${duelState.round+1} de ${duelState.totalRounds} — turno de ${duelState.teamNames[duelState.turn]}`;
-  document.getElementById('drQ').textContent = item.q;
+  updateProgressBar('drProgressFill', duelState.round+1, duelState.totalRounds);
+  const qEl = document.getElementById('drQ');
+  qEl.textContent = item.q;
   const box=document.getElementById('drA');
   box.textContent=''; box.classList.remove('show');
   drRenderScoreboard(duelState.turn);
@@ -2081,6 +2175,9 @@ function drRender(){
     btn.onclick=()=>drAnswerFirst(optText, correctText, btn);
     choicesEl.appendChild(btn);
   });
+  playAnimIn(qEl);
+  playAnimIn(choicesEl);
+  mascotNod();
 }
 function drAnswerFirst(chosenText, correctText, btnEl){
   if(duelState.answered || duelState.phase!=='question') return;
@@ -2183,12 +2280,14 @@ const CW_WORDS = [
 ============================================================ */
 let triviaState = {started:false, order:[], i:0, answered:false};
 function triviaRestart(){
-  triviaState = {started:true, order:shuffleArr(TRIVIA.map((_,i)=>i)), i:0, answered:false};
+  const totalRounds = Math.min(5, TRIVIA.length);
+  triviaState = {started:true, order:shuffleArr(TRIVIA.map((_,i)=>i)).slice(0, totalRounds), i:0, answered:false};
   triviaRender();
 }
 function triviaRender(){
   const item = TRIVIA[triviaState.order[triviaState.i]];
-  document.getElementById('triviaProgress').textContent = `Pregunta ${triviaState.i+1} de ${TRIVIA.length}`;
+  document.getElementById('triviaProgress').textContent = `Pregunta ${triviaState.i+1} de ${triviaState.order.length}`;
+  updateProgressBar('triviaProgressFill', triviaState.i+1, triviaState.order.length);
   document.getElementById('triviaQ').textContent = item.q;
   const box = document.getElementById('triviaA');
   box.textContent='';
@@ -2206,6 +2305,9 @@ function triviaRender(){
     btn.onclick=()=>triviaAnswer(optText, correctText, btn);
     choicesEl.appendChild(btn);
   });
+  playAnimIn(document.getElementById('triviaQ'));
+  playAnimIn(choicesEl);
+  mascotNod();
 }
 function triviaAnswer(chosenText, correctText, btnEl){
   if(triviaState.answered) return;
@@ -2235,17 +2337,22 @@ function triviaNext(){
 ============================================================ */
 let vfState = {started:false, order:[], i:0, answered:false};
 function vfRestart(){
-  vfState = {started:true, order:shuffleArr(VF.map((_,i)=>i)), i:0, answered:false};
+  const totalRounds = Math.min(5, VF.length);
+  vfState = {started:true, order:shuffleArr(VF.map((_,i)=>i)).slice(0, totalRounds), i:0, answered:false};
   vfRender();
 }
 function vfRender(){
   const item = VF[vfState.order[vfState.i]];
-  document.getElementById('vfProgress').textContent = `Afirmación ${vfState.i+1} de ${VF.length}`;
-  document.getElementById('vfQ').textContent = item.s;
+  document.getElementById('vfProgress').textContent = `Afirmación ${vfState.i+1} de ${vfState.order.length}`;
+  updateProgressBar('vfProgressFill', vfState.i+1, vfState.order.length);
+  const qEl = document.getElementById('vfQ');
+  qEl.textContent = item.s;
   const box = document.getElementById('vfA');
   box.classList.remove('show');
   box.innerHTML='';
   vfState.answered=false;
+  playAnimIn(qEl);
+  mascotNod();
 }
 function vfAnswer(choice){
   if(vfState.answered) return;
@@ -2277,11 +2384,15 @@ function imgRestart(){
 function imgRender(){
   const item = IMG_TRIVIA[imgState.order[imgState.i]];
   document.getElementById('imgProgress').textContent = `Imagen ${imgState.i+1} de ${IMG_TRIVIA.length}`;
-  document.getElementById('imgEmoji').innerHTML = item.svg;
+  updateProgressBar('imgProgressFill', imgState.i+1, IMG_TRIVIA.length);
+  const emojiEl = document.getElementById('imgEmoji');
+  emojiEl.innerHTML = item.svg;
   const box=document.getElementById('imgA');
   box.textContent=item.a;
   box.classList.remove('show');
   document.getElementById('imgRevealBtn').disabled=false;
+  playAnimIn(emojiEl);
+  mascotNod();
 }
 function imgReveal(){
   document.getElementById('imgA').classList.add('show');
@@ -2490,6 +2601,61 @@ function mielFinish(){
     subtitle='Todo lo vivís a mil, y por eso tus historias son las que se cuentan en la próxima cena familiar. Shaná Tová Umetuká.';
   }
   showFinishBanner(title, subtitle, mielRestart);
+}
+
+/* ============================================================
+   QUIÉN ES MÁS DE...
+============================================================ */
+const QM_BANK = [
+  {q:"¿Quién es más de preguntar el precio de todo en la mesa, aunque nadie preguntó?", a:"Tranqui, en la próxima década esto se hereda directo a los hijos."},
+  {q:"¿Quién es capaz de repetir comida tres veces y jurar que 'está a dieta'?", a:"La dieta empieza el 2 de Tishrei, no antes."},
+  {q:"¿Quién manda el audio de WhatsApp de 8 minutos contando lo mismo que podría decir en una línea?", a:"Se podría resumir en un emoji, pero elige la novela completa."},
+  {q:"¿Quién se pelea con el rabino, el mozo, o cualquier autoridad, por una razón que se le ocurrió en el momento?", a:"En algún momento del año, siempre hay una batalla que dar."},
+  {q:"¿Quién llega tarde a todo, pero jura que 'salió con tiempo'?", a:"El 'ya salgo' tiene un significado propio en esta familia."},
+  {q:"¿Quién es capaz de comentar el peso o la vida amorosa de un primo delante de toda la mesa?", a:"En esta mesa, la privacidad es un mito urbano."},
+  {q:"¿Quién se victimiza primero cuando hay que lavar los platos después de la cena?", a:"El que lava último, pierde. Así son las reglas no escritas."},
+  {q:"¿Quién cuenta la misma anécdota de hace veinte años como si fuera la primera vez?", a:"Y aún así, todos se ríen en el mismo momento de siempre."},
+  {q:"¿Quién es capaz de robar el mejor pedazo de pescado de la fuente antes de que se siente todo el mundo?", a:"La velocidad de reflejos aumenta un 200% cerca de la fuente."},
+  {q:"¿Quién se pone a discutir de política en medio del brindis, sin que nadie se lo pida?", a:"Nadie lo pidió, pero siempre alguien lo entrega igual."}
+];
+let qmState = {started:false, order:[], i:0, revealed:false};
+function qmRestart(){
+  const totalRounds = Math.min(5, QM_BANK.length);
+  qmState = {started:true, order:shuffleArr(QM_BANK.map((_,i)=>i)).slice(0, totalRounds), i:0, revealed:false};
+  qmRender();
+}
+function qmRender(){
+  const item = QM_BANK[qmState.order[qmState.i]];
+  document.getElementById('qmProgress').textContent = `Ronda ${qmState.i+1} de ${qmState.order.length}`;
+  updateProgressBar('qmProgressFill', qmState.i+1, qmState.order.length);
+  const qEl = document.getElementById('qmPhrase');
+  qEl.textContent = item.q;
+  const box = document.getElementById('qmRemate');
+  box.textContent=''; box.classList.remove('show');
+  qmState.revealed=false;
+  document.getElementById('qmRevealBtn').style.display='inline-block';
+  document.getElementById('qmNextBtn').style.display='none';
+  playAnimIn(qEl);
+  mascotNod();
+}
+function qmReveal(){
+  if(qmState.revealed) return;
+  qmState.revealed=true;
+  const item = QM_BANK[qmState.order[qmState.i]];
+  const box = document.getElementById('qmRemate');
+  box.textContent = item.a;
+  box.classList.add('show');
+  document.getElementById('qmRevealBtn').style.display='none';
+  document.getElementById('qmNextBtn').style.display='inline-block';
+  mascotHappy();
+}
+function qmNext(){
+  if(qmState.i === qmState.order.length-1){
+    showFinishBanner('¡Ronda de chismes familiar completa! 😈','Que las risas de hoy sean el mejor augurio para las sobremesas de todo el año. Shaná Tová Umetuká.', qmRestart);
+    return;
+  }
+  qmState.i++;
+  qmRender();
 }
 
 /* ============================================================
@@ -2871,12 +3037,14 @@ if('serviceWorker' in navigator){
 ============================================================ */
 let chefState = {started:false, order:[], i:0, answered:false};
 function chefRestart(){
-  chefState = {started:true, order:shuffleArr(CHEF_RECIPES.map((_,i)=>i)), i:0, answered:false};
+  const totalRounds = Math.min(5, CHEF_RECIPES.length);
+  chefState = {started:true, order:shuffleArr(CHEF_RECIPES.map((_,i)=>i)).slice(0, totalRounds), i:0, answered:false};
   chefRender();
 }
 function chefRender(){
   const item = CHEF_RECIPES[chefState.order[chefState.i]];
-  document.getElementById('chefProgress').textContent = `Receta ${chefState.i+1} de ${CHEF_RECIPES.length}`;
+  document.getElementById('chefProgress').textContent = `Receta ${chefState.i+1} de ${chefState.order.length}`;
+  updateProgressBar('chefProgressFill', chefState.i+1, chefState.order.length);
   document.getElementById('chefTitle').textContent = item.title;
   document.getElementById('chefIngredients').innerHTML = item.ingredients.map(ing=>`<li>${ing}</li>`).join('');
   const box=document.getElementById('chefA');
@@ -2895,6 +3063,9 @@ function chefRender(){
     btn.onclick=()=>chefAnswer(optText, correctText, btn);
     choicesEl.appendChild(btn);
   });
+  playAnimIn(document.getElementById('chefTitle'));
+  playAnimIn(choicesEl);
+  mascotNod();
 }
 function chefAnswer(chosenText, correctText, btnEl){
   if(chefState.answered) return;
