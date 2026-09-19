@@ -1,0 +1,16 @@
+Imágenes del juego "¿Qué representa?" y "Memoria"
+Todas provienen de openclipart.org, licencia CC0 (dominio público) — no requieren atribución, pero se documenta la fuente por transparencia.
+
+apple-honey.svg   -> https://openclipart.org/detail/356804/happy-rosh-hashanah      (autor: j4p4n)
+honey-jar.svg     -> https://openclipart.org/detail/329759/jar-of-honey
+fish.svg          -> https://openclipart.org/detail/354460/fish                     (autor: qubodup)
+ram.svg           -> https://openclipart.org/detail/356650/ram
+candles.svg       -> https://openclipart.org/detail/322130/shabbat-candles
+torah-scroll.svg  -> https://openclipart.org/detail/190112/scroll
+challah.svg       -> https://openclipart.org/detail/183035/bread                    (autor: jiangyi_99; imagen genérica de pan, no trenzado)
+shofar.svg        -> https://openclipart.org/detail/292157/rosh-hashanah
+
+Nota de estilo: al venir de distintos autores, hay variación entre ilustración
+plana a color (apple-honey, honey-jar, ram) y grabado vintage blanco y negro
+(shofar). Si se quiere mayor consistencia visual más adelante, se puede seguir
+buscando alternativas en openclipart.org o encargar un set ilustrado propio.

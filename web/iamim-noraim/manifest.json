@@ -1,0 +1,16 @@
+{
+  "name": "Mazeltoc — Iamim Noraím",
+  "short_name": "Mazeltoc IN",
+  "description": "Quince juegos para festejar Rosh Hashaná, Iom Kipur, Sucot y Simjat Torá entre grandes: trivia, verdadero o falso, detectives, crucigrama y más.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FFF3DD",
+  "theme_color": "#E0577A",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

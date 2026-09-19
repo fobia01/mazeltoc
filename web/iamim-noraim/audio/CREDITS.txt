@@ -1,0 +1,13 @@
+Sonidos de los juegos en equipo (tensión de reloj / respuestas)
+Todos provienen de mixkit.co/free-sound-effects, gratuitos bajo la Mixkit Sound
+Effects Free License (uso libre, no requiere atribución; no se pueden revender
+como archivo de audio suelto).
+
+clock-tick.mp3        -> "Tick tock clock timer" — https://mixkit.co/free-sound-effects/clock/ (id 1045)
+buzzer.mp3             -> "Game show wrong answer buzz" — https://mixkit.co/free-sound-effects/buzzer/ (id 950)
+crowd-cheer-big.mp3    -> recortado (3s) de "Huge crowd cheering victory" — https://mixkit.co/free-sound-effects/crowd/ (id 462)
+crowd-boo-big.mp3      -> recortado (3s) de "Crowd disappointment long boo" — https://mixkit.co/free-sound-effects/boo/ (id 463)
+
+applause.mp3 y boo.mp3 (preexistentes) se mantienen sin cambios para el resto
+de los juegos (trivia individual, V/F, detectives, etc.) — solo los 4 juegos
+en equipo usan los sonidos "big" nuevos.
