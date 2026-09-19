@@ -575,7 +575,7 @@
     <div class="card" data-game="crucigrama">
       <span class="icon">✏️</span>
       <h3>Crucigrama</h3>
-      <p>10 palabras cruzadas a partir de sus definiciones.</p>
+      <p>Palabras cruzadas de una festividad al azar, a partir de sus definiciones.</p>
     </div>
     <div class="card" data-game="chef">
       <span class="icon">🍲</span>
@@ -1551,7 +1551,91 @@ const TRIVIA = [
    a:"Al no tener párpados, nunca cierran los ojos, simbolizando a D's, que todo lo ve."},
   {q:"Si Rosh Hashaná cae en shabat, ¿cómo nos saludamos?",
    options:["Primero 'Shabat Shalom'","Primero 'Shaná Tová'","Se combinan en un solo saludo nuevo","No se saluda ese día"], correct:0,
-   a:"Primero 'Shabat Shalom': lo que aparece primero en la Torá es lo más importante."}
+   a:"Primero 'Shabat Shalom': lo que aparece primero en la Torá es lo más importante."},
+  {q:"¿Cuántos días dura Rosh Hashaná, incluso en Israel?",
+   options:["2 días","1 día","3 días","7 días"], correct:0,
+   a:"Es la única festividad bíblica que se celebra 2 días también en Israel, no solo en la diáspora."},
+  {q:"¿Qué instrumento es central en los rezos de Rosh Hashaná?",
+   options:["El shofar","El violín","La pandereta","El arpa"], correct:0,
+   a:"El shofar, cuerno de carnero, se toca como llamado a la reflexión."},
+  {q:"¿Qué fruta se moja en miel para pedir un año dulce?",
+   options:["La manzana","La banana","La naranja","El durazno"], correct:0,
+   a:"La manzana mojada en miel es el símbolo más directo de Rosh Hashaná: se pide un año dulce."},
+  {q:"¿Qué significa literalmente 'Rosh Hashaná'?",
+   options:["Cabeza del año","Fiesta del perdón","Año de la cosecha","Comienzo del mes"], correct:0,
+   a:"'Rosh' es cabeza y 'Hashaná' del año: literalmente, 'cabeza del año'."},
+  {q:"¿Con qué otro nombre se conoce a Rosh Hashaná por estar ligado al juicio divino?",
+   options:["Iom HaDín","Iom Kipur","Iom Truá","Iom Tov"], correct:0,
+   a:"Iom HaDín, el Día del Juicio, es uno de los nombres tradicionales de Rosh Hashaná."},
+  {q:"¿Cómo se llama la costumbre de recitar plegarias junto a un río u otro cuerpo de agua?",
+   options:["Tashlij","Kidush","Havdalá","Selijot"], correct:0,
+   a:"Tashlij se hace junto al agua, reflexionando sobre los errores del año."},
+  {q:"¿Cuáles son los tres tipos de toques del shofar?",
+   options:["Tekiá, Shevarim y Teruá","Tekiá, Musaf y Neilá","Shevarim, Kidush y Truá","Teruá, Selijot y Tashlij"], correct:0,
+   a:"Tekiá (sonido largo), Shevarim (quebrado) y Teruá (staccato) son los tres tipos básicos de toque."},
+  {q:"¿De qué animal no puede hacerse un shofar, por su relación con el pecado del Becerro de Oro?",
+   options:["De vaca o toro","De carnero","De cabra","De antílope"], correct:0,
+   a:"Se evita el cuerno vacuno por su asociación con el Becerro de Oro."},
+  {q:"¿Qué significa 'Iom Kipur'?",
+   options:["Día del Perdón","Día del Ayuno","Día del Juicio","Día de la Alegría"], correct:0,
+   a:"Iom Kipur es el Día del Perdón o Expiación, el más sagrado del calendario judío."},
+  {q:"¿Cuántas horas dura aproximadamente el ayuno de Iom Kipur?",
+   options:["25 horas","12 horas","48 horas","18 horas"], correct:0,
+   a:"El ayuno dura unas 25 horas, de vísperas a la salida de las estrellas del día siguiente."},
+  {q:"¿Cómo se llama el rezo que abre Iom Kipur la noche anterior?",
+   options:["Kol Nidré","Neilá","Musaf","Selijot"], correct:0,
+   a:"Kol Nidré, recitado al atardecer, da inicio solemne a Iom Kipur."},
+  {q:"¿Cómo se llama el último rezo del día de Iom Kipur?",
+   options:["Neilá","Kol Nidré","Shajarit","Minjá"], correct:0,
+   a:"Neilá, 'cierre', es el último rezo, cuando simbólicamente se cierran las puertas celestiales."},
+  {q:"¿Qué prenda blanca se usa en Iom Kipur como símbolo de pureza?",
+   options:["El kitel","El talit","La kipá","El keter"], correct:0,
+   a:"El kitel, una túnica blanca, simboliza pureza y humildad."},
+  {q:"¿Con qué toque de shofar termina Iom Kipur?",
+   options:["Tekiá Guedolá","Teruá","Shevarim","Tekiá Ktaná"], correct:0,
+   a:"La Tekiá Guedolá, un sonido largo y sostenido, cierra la festividad."},
+  {q:"Además de no comer ni beber, ¿qué otra restricción es típica de Iom Kipur?",
+   options:["No usar calzado de cuero","Ayunar dos días seguidos","No hablar en todo el día","No salir de la sinagoga"], correct:0,
+   a:"Entre las restricciones tradicionales están no usar cuero, no lavarse ni perfumarse."},
+  {q:"En tiempos del Templo, ¿qué se enviaba simbólicamente al desierto en Iom Kipur?",
+   options:["El chivo expiatorio","Una paloma blanca","Una ofrenda de trigo","Un cordero"], correct:0,
+   a:"El chivo expiatorio ('Azazel') cargaba simbólicamente los pecados del pueblo."},
+  {q:"¿Cómo se llama la cabaña temporaria que se construye en Sucot?",
+   options:["La sucá","El majzor","El kitel","La menorá"], correct:0,
+   a:"La sucá es la cabaña donde se come y a veces se duerme durante la festividad."},
+  {q:"¿Cuáles son las 'cuatro especies' de Sucot?",
+   options:["Lulav, etrog, hadás y aravá","Manzana, miel, granada y dátil","Shofar, kitel, sucá y lulav","Trigo, cebada, uva e higo"], correct:0,
+   a:"Las cuatro especies son la palma (lulav), el cidro (etrog), el mirto (hadás) y el sauce (aravá)."},
+  {q:"¿Por qué se vive o se come dentro de la sucá?",
+   options:["En recuerdo de las cabañas del desierto tras salir de Egipto","Para festejar la cosecha de trigo","En homenaje a los cuarenta días del diluvio","Porque lo ordena el Kidush de Rosh Hashaná"], correct:0,
+   a:"La sucá recuerda las cabañas temporarias del pueblo judío en su travesía por el desierto."},
+  {q:"¿Qué se debe poder ver a través del techo (sjaj) de la sucá?",
+   options:["Las estrellas","El humo del incienso","La luna llena","El shofar colgado"], correct:0,
+   a:"El sjaj debe ser lo bastante ralo como para ver las estrellas de noche."},
+  {q:"¿Cómo se llama el ritual de sacudir las cuatro especies en las seis direcciones?",
+   options:["Naanuim","Hakafot","Tashlij","Selijot"], correct:0,
+   a:"Naanuim es el sacudido ritual del lulav y el etrog."},
+  {q:"¿Con qué otro nombre se conoce a Sucot, ligado a la agricultura?",
+   options:["Jag HaAsif (Fiesta de la Cosecha)","Iom HaDín","Jag HaMatzot","Jag HaBikurim"], correct:0,
+   a:"Sucot también se llama Jag HaAsif, la Fiesta de la Cosecha de otoño."},
+  {q:"¿Qué significa 'Simjat Torá'?",
+   options:["Alegría de la Torá","Día del Perdón","Cabeza del año","Fiesta de la Cosecha"], correct:0,
+   a:"Simjat Torá celebra, literalmente, la alegría de la Torá."},
+  {q:"¿Qué se hace con los rollos de Torá en Simjat Torá?",
+   options:["Se sacan del Arón y se bailan en las Hakafot","Se guardan hasta el año siguiente","Se leen en silencio toda la noche","Se llevan al río para Tashlij"], correct:0,
+   a:"Los rollos se sacan del Arón Hakodesh y se danza con ellos en las Hakafot."},
+  {q:"¿Cuántas vueltas (hakafot) se acostumbran hacer con la Torá?",
+   options:["7","3","10","4"], correct:0,
+   a:"Se acostumbran hacer siete hakafot, vueltas festivas con los rollos."},
+  {q:"¿Qué se termina de leer y qué se empieza a leer en Simjat Torá?",
+   options:["Se termina Deuteronomio y se empieza Génesis","Se termina Génesis y se empieza Éxodo","Se termina toda la Torá y no se vuelve a leer","Se termina Levítico y se empieza Números"], correct:0,
+   a:"Se cierra el ciclo anual con el final de Deuteronomio y se abre de inmediato con Génesis."},
+  {q:"¿Cómo se llama a quien recibe el honor de la última lectura del ciclo de Torá?",
+   options:["Jatán Torá","Jatán Bereshit","Baal Koré","Gabai"], correct:0,
+   a:"El 'Jatán Torá' ('novio de la Torá') es honrado con la lectura final del ciclo."},
+  {q:"¿Cómo se llama a quien recibe el honor de la primera lectura del nuevo ciclo?",
+   options:["Jatán Bereshit","Jatán Torá","Baal Tekiá","Sheliaj Tzibur"], correct:0,
+   a:"El 'Jatán Bereshit' ('novio de Génesis') estrena la lectura del nuevo ciclo."}
 ];
 
 const VF = [
@@ -1564,7 +1648,21 @@ const VF = [
   {s:"Rosh Hashaná es el único año nuevo que reconoce la tradición judía.", v:false, a:"Falso: la Mishná reconoce cuatro años nuevos distintos."},
   {s:"Maimónides describió el sonido del shofar como un 'despertador del alma'.", v:true, a:"Verdadero."},
   {s:"Las jalot redondas simbolizan el ciclo de la vida y la esperanza de un año sin quiebres.", v:true, a:"Verdadero."},
-  {s:"El shofar se toca en shabat si el primer día de Rosh Hashaná cae ese día.", v:false, a:"Falso: no se toca el shofar en shabat, caiga o no Rosh Hashaná ese día."}
+  {s:"El shofar se toca en shabat si el primer día de Rosh Hashaná cae ese día.", v:false, a:"Falso: no se toca el shofar en shabat, caiga o no Rosh Hashaná ese día."},
+  {s:"Se acostumbra comer granada en Rosh Hashaná.", v:true, a:"Verdadero: la granada es un simán tradicional del Seder de Rosh Hashaná, por sus muchas semillas."},
+  {s:"Rosh Hashaná se celebra un solo día en todo el mundo.", v:false, a:"Falso: se celebra dos días, tanto en Israel como en la diáspora, la única festividad bíblica con esa particularidad."},
+  {s:"Tashlij consiste en arrojar migas de pan a un río.", v:true, a:"Verdadero: es una costumbre popular, además de las plegarias, que simboliza dejar atrás los errores del año."},
+  {s:"En Iom Kipur se permite comer si uno tiene mucha hambre, sin excepción.", v:false, a:"Falso: el ayuno es obligatorio salvo excepciones médicas graves; tener hambre por sí solo no exime."},
+  {s:"Iom Kipur es considerado el día más sagrado del calendario judío.", v:true, a:"Verdadero: es conocido como el Shabat de los Shabatot, el día más sagrado del año."},
+  {s:"El Kol Nidré se recita por la mañana.", v:false, a:"Falso: se recita al atardecer, antes de la puesta del sol, dando inicio a la festividad."},
+  {s:"Se acostumbra pedir perdón a las personas antes de Iom Kipur.", v:true, a:"Verdadero: la tradición indica reconciliarse con las personas antes del Día del Perdón, ya que este solo perdona faltas hacia D's."},
+  {s:"La sucá debe tener el techo completamente cerrado.", v:false, a:"Falso: el sjaj (techo) debe ser parcialmente abierto, dejando ver las estrellas."},
+  {s:"El etrog es una fruta cítrica parecida a un limón grande.", v:true, a:"Verdadero: el etrog o cidro es un cítrico aromático, una de las cuatro especies."},
+  {s:"Sucot se celebra en la misma época que Pesaj.", v:false, a:"Falso: Pesaj es en primavera (Nisán) y Sucot en otoño (Tishrei), cinco días después de Iom Kipur."},
+  {s:"Las cuatro especies se sacuden en seis direcciones.", v:true, a:"Verdadero: se sacuden hacia los cuatro puntos cardinales, arriba y abajo."},
+  {s:"En Simjat Torá se baila y canta con los rollos de la Torá.", v:true, a:"Verdadero: las Hakafot son rondas de baile y canto con los rollos sagrados."},
+  {s:"Simjat Torá marca la mitad del ciclo anual de lectura de la Torá.", v:false, a:"Falso: marca el final y el reinicio inmediato del ciclo completo de lectura."},
+  {s:"Los niños suelen participar con banderitas en Simjat Torá.", v:true, a:"Verdadero: es costumbre que los chicos participen de las Hakafot con banderas y dulces."}
 ];
 
 /* Imágenes libres de derechos (CC0) de openclipart.org — ver images/qtrivia/CREDITS.txt */
@@ -1576,7 +1674,9 @@ const IMG_TRIVIA = [
   {img:"images/qtrivia/candles.svg", a:"Velas: se encienden para inaugurar la festividad."},
   {img:"images/qtrivia/torah-scroll.svg", a:"Torá / Majzor: los rezos y lecturas especiales de estos días."},
   {img:"images/qtrivia/challah.svg", a:"Jalá redonda: símbolo de la continuidad y plenitud del año."},
-  {img:"images/qtrivia/shofar.svg", a:"Shofar: el llamado al arrepentimiento y la reflexión."}
+  {img:"images/qtrivia/shofar.svg", a:"Shofar: el llamado al arrepentimiento y la reflexión."},
+  {img:"images/qtrivia/shofar-iomkipur-1.svg", a:"Shofar: se toca en Rosh Hashaná y también al cerrar Iom Kipur."},
+  {img:"images/qtrivia/shofar-iomkipur-2.svg", a:"Shofar en la sinagoga de Iom Kipur: la Tekiá Guedolá marca el fin del ayuno."}
 ];
 
 const SEQ_ROSH_HASHANA = {
@@ -1603,11 +1703,50 @@ const SEQ_ROSH_HASHANA = {
   ]
 };
 
-/* TODO: agregar acá SEQ_IOM_KIPUR, SEQ_SUCOT y SEQ_SIMJAT_TORA con el mismo
-   formato ({title, steps:[{label,reason}]}) cuando llegue el contenido de
-   esas festividades. Con solo agregarlas a este array, "Ordená la secuencia"
-   ya las sortea junto a la de Rosh Hashaná. */
-const SEQUENCES = [SEQ_ROSH_HASHANA];
+const SEQ_IOM_KIPUR = {
+  title:"Orden del día de Iom Kipur",
+  steps:[
+    {label:"Kol Nidré (noche anterior)",
+     reason:"Con esta plegaria solemne, recitada al atardecer, se anulan los votos incumplidos y se inaugura la festividad."},
+    {label:"Shajarit",
+     reason:"El rezo matutino incluye la lectura de la Torá y da comienzo al largo día de plegarias del ayuno."},
+    {label:"Musaf",
+     reason:"El servicio adicional recuerda las ofrendas especiales del Templo, incluyendo el relato del servicio del Kohen Gadol."},
+    {label:"Minjá",
+     reason:"El rezo de la tarde incluye la lectura del Libro de Ioná, sobre el arrepentimiento y el perdón."},
+    {label:"Neilá",
+     reason:"El rezo de 'cierre', el más intenso del día, se recita cuando simbólicamente se cierran las puertas celestiales del juicio."},
+    {label:"Tekiá Guedolá",
+     reason:"El toque final y prolongado del shofar marca el fin del ayuno y de la festividad."}
+  ]
+};
+const SEQ_SUCOT = {
+  title:"Armado de la sucá",
+  steps:[
+    {label:"Elegir el lugar",
+     reason:"Se busca un espacio a cielo abierto, sin árboles ni techos que tapen el cielo por completo."},
+    {label:"Levantar las paredes",
+     reason:"Se arman como mínimo dos paredes y media para que la cabaña sea válida."},
+    {label:"Colocar el sjaj (techo)",
+     reason:"El techo se hace con materiales vegetales cortados, lo bastante ralo para ver las estrellas."},
+    {label:"Decorarla",
+     reason:"Se cuelgan frutas, dibujos y guirnaldas para embellecer la mitzvá, siguiendo la idea de 'hidur mitzvá'."},
+    {label:"Invitar a los Ushpizín",
+     reason:"Se invita simbólicamente a los siete pastores de Israel (Abraham, Itzjak, Iaakov, Moshé, Aarón, José y David) a acompañar cada noche."}
+  ]
+};
+const SEQ_SIMJAT_TORA = {
+  title:"Simjat Torá",
+  steps:[
+    {label:"Se termina de leer Devarim",
+     reason:"Se completa la lectura del último libro de la Torá, cerrando el ciclo anual."},
+    {label:"Hakafot con cantos y danzas",
+     reason:"Se sacan todos los rollos del Arón y se dan siete vueltas festejando con cantos y baile."},
+    {label:"Se empieza a leer Bereshit",
+     reason:"Inmediatamente después se abre el nuevo ciclo, mostrando que el estudio de la Torá nunca termina."}
+  ]
+};
+const SEQUENCES = [SEQ_ROSH_HASHANA, SEQ_IOM_KIPUR, SEQ_SUCOT, SEQ_SIMJAT_TORA];
 
 const WORD_BANK = [
   {w:"SHOFAR", clue:"Cuerno que se toca en Rosh Hashaná"},
@@ -1619,7 +1758,29 @@ const WORD_BANK = [
   {w:"TISHREI", clue:"Mes hebreo en el que cae Rosh Hashaná"},
   {w:"GRANADA", clue:"Fruta con muchas semillas, símbolo de méritos"},
   {w:"MUSAF", clue:"Servicio de rezo adicional del día"},
-  {w:"MANZANA", clue:"Se moja en miel para desear un año dulce"}
+  {w:"MANZANA", clue:"Se moja en miel para desear un año dulce"},
+  {w:"HASHANA", clue:"Segunda palabra de 'Rosh ___', el año nuevo judío"},
+  {w:"KIPUR", clue:"Festividad conocida como el Día del Perdón"},
+  {w:"AYUNO", clue:"Lo que se practica durante todo Iom Kipur, sin comer ni beber"},
+  {w:"KOLNIDRE", clue:"Rezo que abre Iom Kipur la noche anterior"},
+  {w:"NEILA", clue:"Último rezo de Iom Kipur, al atardecer"},
+  {w:"PERDON", clue:"Lo que se pide a D's y a las personas en Iom Kipur"},
+  {w:"KITEL", clue:"Prenda blanca que se usa como símbolo de pureza"},
+  {w:"SUCA", clue:"Cabaña temporaria que se construye para Sucot"},
+  {w:"LULAV", clue:"Rama de palmera, una de las cuatro especies de Sucot"},
+  {w:"ETROG", clue:"Fruta cítrica parecida a un limón grande, una de las cuatro especies"},
+  {w:"HADAS", clue:"Rama de mirto, una de las cuatro especies de Sucot"},
+  {w:"ARAVA", clue:"Rama de sauce, una de las cuatro especies de Sucot"},
+  {w:"SJAJ", clue:"Techo de la sucá, que debe dejar ver las estrellas"},
+  {w:"USHPIZIN", clue:"Invitados simbólicos que se reciben en la sucá"},
+  {w:"COSECHA", clue:"Lo que también festeja Sucot, además del desierto"},
+  {w:"TORA", clue:"Lo que se lee y se baila en Simjat Torá"},
+  {w:"HAKAFOT", clue:"Vueltas y danzas que se hacen con los rollos sagrados"},
+  {w:"ALEGRIA", clue:"Lo que significa 'Simjat' en hebreo"},
+  {w:"BERESHIT", clue:"Primera palabra de la Torá, que se vuelve a leer en Simjat Torá"},
+  {w:"ROLLO", clue:"Objeto sagrado que se saca del Arón para las hakafot"},
+  {w:"DANZA", clue:"Lo que se hace con los rollos durante las hakafot"},
+  {w:"JATAN", clue:"Título de honor de quien lee la última porción del ciclo (Jatán ___)"}
 ];
 
 const MEM_SYMBOLS = IMG_TRIVIA.map(item=>item.img);
@@ -2383,13 +2544,93 @@ const CW_ROSH_HASHANA = {
   ]
 };
 
-/* TODO: agregar acá CW_IOM_KIPUR, CW_SUCOT y CW_SIMJAT_TORA, cada uno con su
-   propia grilla armada a mano (mismo formato: {title, solution, words}) con
-   palabras de esa festividad. El crucigrama no admite mezclar palabras sueltas
-   como los demás juegos porque la grilla depende de cómo se cruzan las
-   palabras entre sí; por eso la mezcla acá se hace sorteando una grilla
-   completa por partida en vez de una palabra por vez. */
-const CROSSWORDS = [CW_ROSH_HASHANA];
+/* Grillas generadas automáticamente (ver scratchpad/crossword_gen.js): coloca
+   la palabra más larga al centro y va cruzando el resto por letras en común,
+   probando varias pasadas hasta que no quede ninguna sin ubicar. ETROG no
+   logró cruzarse en la de Sucot y quedó fuera del crucigrama (sigue estando
+   en el banco de palabras para ahorcado/sopa de letras). */
+const CW_IOM_KIPUR = {
+  title:"Iom Kipur",
+  solution: [
+"...A.P..",
+"...Y.E..",
+"...U.R.T",
+"KOLNIDRE",
+"I..O.O.S",
+"P....N.H",
+"U......U",
+"R....K.V",
+"...NEILA",
+".....T..",
+".....E..",
+".....L.."
+  ].map(r=>r.padEnd(8,'.')),
+  words: [
+    {word:"KOLNIDRE", row:3, col:0, dir:"H", number:4, clue:"Rezo que abre la festividad la noche anterior"},
+    {word:"TESHUVA", row:2, col:7, dir:"V", number:3, clue:"Palabra hebrea para 'arrepentimiento' o 'retorno'"},
+    {word:"PERDON", row:0, col:5, dir:"V", number:2, clue:"Lo que se pide a Dios y a las personas en esta fecha"},
+    {word:"KIPUR", row:3, col:0, dir:"V", number:4, clue:"Festividad conocida como el Día del Perdón"},
+    {word:"AYUNO", row:0, col:3, dir:"V", number:1, clue:"Lo que se practica durante todo el día, sin comer ni beber"},
+    {word:"NEILA", row:8, col:3, dir:"H", number:6, clue:"Último rezo del día, al atardecer"},
+    {word:"KITEL", row:7, col:5, dir:"V", number:5, clue:"Prenda blanca que se usa como símbolo de pureza"}
+  ]
+};
+
+const CW_SUCOT = {
+  title:"Sucot",
+  solution: [
+"..H..A.....",
+"SJAJ.R.....",
+"..D..A.....",
+"..A..V.....",
+"..SUCA.....",
+"....O......",
+"...USHPIZIN",
+"....E......",
+"....C......",
+"....H......",
+".LULAV....."
+  ].map(r=>r.padEnd(11,'.')),
+  words: [
+    {word:"USHPIZIN", row:6, col:3, dir:"H", number:6, clue:"Invitados simbólicos que se reciben en la sucá"},
+    {word:"COSECHA", row:4, col:4, dir:"V", number:5, clue:"Lo que también festeja Sucot, además del desierto"},
+    {word:"LULAV", row:10, col:1, dir:"H", number:7, clue:"Rama de palmera, una de las cuatro especies"},
+    {word:"SUCA", row:4, col:2, dir:"H", number:4, clue:"Cabaña temporaria que se construye para la festividad"},
+    {word:"HADAS", row:0, col:2, dir:"V", number:1, clue:"Rama de mirto, una de las cuatro especies"},
+    {word:"ARAVA", row:0, col:5, dir:"V", number:2, clue:"Rama de sauce, una de las cuatro especies"},
+    {word:"SJAJ", row:1, col:0, dir:"H", number:3, clue:"Techo de la sucá, que debe dejar ver las estrellas"}
+  ]
+};
+
+const CW_SIMJAT_TORA = {
+  title:"Simjat Torá",
+  solution: [
+"....J....",
+"....A....",
+"....T....",
+"....A....",
+"..DANZA..",
+"...L.....",
+"BERESHIT.",
+"...G.A.O.",
+"...R.K.R.",
+"...I.A.A.",
+"...A.F...",
+"....ROLLO",
+".....T..."
+  ].map(r=>r.padEnd(9,'.')),
+  words: [
+    {word:"BERESHIT", row:6, col:0, dir:"H", number:4, clue:"Primera palabra de la Torá, que se vuelve a leer este día"},
+    {word:"HAKAFOT", row:6, col:5, dir:"V", number:5, clue:"Vueltas y danzas que se hacen con los rollos sagrados"},
+    {word:"ALEGRIA", row:4, col:3, dir:"V", number:3, clue:"Lo que significa 'Simjat' en hebreo"},
+    {word:"ROLLO", row:11, col:4, dir:"H", number:7, clue:"Objeto sagrado que se saca del Arón para las hakafot"},
+    {word:"DANZA", row:4, col:2, dir:"H", number:2, clue:"Lo que se hace con los rollos durante las hakafot"},
+    {word:"JATAN", row:0, col:4, dir:"V", number:1, clue:"Título de honor de quien lee la última porción del ciclo (Jatán ___)"},
+    {word:"TORA", row:6, col:7, dir:"V", number:6, clue:"Lo que se lee y se baila en esta festividad"}
+  ]
+};
+
+const CROSSWORDS = [CW_ROSH_HASHANA, CW_IOM_KIPUR, CW_SUCOT, CW_SIMJAT_TORA];
 
 /* ============================================================
    TRIVIA

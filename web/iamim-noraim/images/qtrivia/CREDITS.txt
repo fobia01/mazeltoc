@@ -9,6 +9,8 @@ candles.svg       -> https://openclipart.org/detail/322130/shabbat-candles
 torah-scroll.svg  -> https://openclipart.org/detail/190112/scroll
 challah.svg       -> https://openclipart.org/detail/183035/bread                    (autor: jiangyi_99; imagen genérica de pan, no trenzado)
 shofar.svg        -> https://openclipart.org/detail/292157/rosh-hashanah
+shofar-iomkipur-1.svg -> https://openclipart.org/detail/292158/blowing-the-shofar
+shofar-iomkipur-2.svg -> https://openclipart.org/detail/322136/shofar-on-yom-kippur
 
 Nota de estilo: al venir de distintos autores, hay variación entre ilustración
 plana a color (apple-honey, honey-jar, ram) y grabado vintage blanco y negro
