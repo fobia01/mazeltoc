@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mazeltoc-in-v3';
+const CACHE_NAME = 'mazeltoc-in-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -19,7 +19,9 @@ const ASSETS = [
   './images/qtrivia/candles.svg',
   './images/qtrivia/torah-scroll.svg',
   './images/qtrivia/challah.svg',
-  './images/qtrivia/shofar.svg'
+  './images/qtrivia/shofar.svg',
+  './images/qtrivia/shofar-iomkipur-1.svg',
+  './images/qtrivia/shofar-iomkipur-2.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -40,6 +42,25 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  /* el documento principal (index.html) va primero a la red: así una
+     actualización de contenido se ve enseguida, y solo si no hay conexión
+     se usa la última copia guardada. Los demás archivos (imágenes, audio,
+     manifest) siguen siendo cache-first para que la app cargue rápido y
+     funcione offline. */
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
       if (cached) return cached;
