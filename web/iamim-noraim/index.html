@@ -1676,6 +1676,14 @@ const GAL_CHICKEN_SIZE = 54;
 const GAL_NEAR_PX = 66;
 const GAL_FEATHERS = ['🪶'];
 const GAL_STARS = ['⭐','✨','🌟'];
+const GAL_FAIL_PHRASES = [
+  'Se te escapó la gallina… vas a tener que buscar el perdón de otra manera (existen versiones vegetarianas de la kapará, ¿sabías?).',
+  'Esa gallina corre como si la mitzvá la tuviera que cumplir ella. El año que viene probá con una lechuga: no vuela, no corre y tampoco se queja.',
+  'Kapará: 0 — Gallina: 1. Por suerte todavía te queda la tzedaká como plan B.',
+  'La gallina se fue más rápido que tus buenas intenciones de Rosh Hashaná. ¡Shaná Tová de todas formas!',
+  'Esa gallina merece medalla olímpica. Vos, medalla de participación.',
+  'Tranquilo: dicen que la sinceridad del arrepentimiento cuenta más que la puntería. Vos tenés de sobra la primera… la segunda, a seguir practicando.'
+];
 const GAL_CHICKEN_SVG = `<img class="gal-chicken-img" src="images/gallina/gallina-corriendo.webp" alt="">`;
 const GAL_RABBI_SVG = `
   <img class="gal-rabbi-frame gal-frame-default" src="images/gallina/rabino-atrapando.webp" alt="">
@@ -1849,8 +1857,8 @@ function galEnd(won){
   if(won){
     showFinishBanner('¡Atrapaste a la gallina! 🐔🙌', `conseguiste tus 3 atrapadas con ${galState.misses} fallo(s). ¡Kapará cumplida! 🍯`, galGoReady);
   } else {
-    const reason = galState.misses>=5 ? 'se te escapó demasiadas veces' : 'se acabó el tiempo';
-    showFinishBanner('¡Se escapó la gallina! 😅', `casi la agarrás: ${reason}, con ${galState.catches} atrapada(s) en el marcador. ¡Probá de nuevo! 🍯`, galGoReady);
+    const phrase = GAL_FAIL_PHRASES[Math.floor(Math.random()*GAL_FAIL_PHRASES.length)];
+    showFinishBanner('¡Se escapó la gallina! 😅', phrase, galGoReady);
   }
 }
 
