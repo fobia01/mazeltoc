@@ -312,11 +312,12 @@
     opacity:0.5;pointer-events:none;
   }
   .gal-chicken{
-    position:absolute;width:54px;height:54px;font-size:44px;line-height:54px;text-align:center;
+    position:absolute;width:54px;height:54px;
     background:none;border:none;padding:0;cursor:pointer;user-select:none;
     transition:left .38s cubic-bezier(.35,1.4,.4,1), top .38s cubic-bezier(.35,1.4,.4,1);
     filter:drop-shadow(0 4px 6px rgba(107,46,74,0.25));z-index:5;
   }
+  .gal-chicken-svg{width:100%;height:100%;display:block;overflow:visible;}
   .gal-chicken.flip{transform:scaleX(-1);}
   .gal-chicken.running{animation:gal-run .3s ease-in-out 2;}
   @keyframes gal-run{
@@ -338,15 +339,32 @@
     40%{transform:scale(1.35) rotate(12deg);}
     100%{transform:scale(0.001) rotate(30deg);}
   }
+  /* patas y alas: ciclo de trote animado siempre, más rápido mientras corre */
+  .gal-leg{transform-box:view-box;animation:gal-leg-idle 1.1s ease-in-out infinite;}
+  .gal-leg.leg-b{animation-delay:.55s;}
+  @keyframes gal-leg-idle{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+  .gal-chicken.running .gal-leg{animation:gal-leg-run .22s ease-in-out infinite;}
+  .gal-chicken.running .gal-leg.leg-b{animation-delay:.11s;}
+  @keyframes gal-leg-run{0%,100%{transform:rotate(-28deg);}50%{transform:rotate(28deg);}}
+  .gal-wing{transform-box:view-box;transform-origin:48px 50px;animation:gal-wing-idle 1.7s ease-in-out infinite;}
+  @keyframes gal-wing-idle{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-7deg);}}
+  .gal-chicken.running .gal-wing{animation:gal-wing-flap .22s ease-in-out infinite;}
+  @keyframes gal-wing-flap{0%,100%{transform:rotate(8deg);}50%{transform:rotate(-26deg);}}
+  .gal-tail{transform-box:view-box;transform-origin:30px 46px;animation:gal-tail-idle 1.4s ease-in-out infinite;}
+  @keyframes gal-tail-idle{0%,100%{transform:rotate(0deg);}50%{transform:rotate(4deg);}}
+  .gal-chicken.running .gal-tail{animation:gal-tail-wag .22s ease-in-out infinite;}
+  @keyframes gal-tail-wag{0%,100%{transform:rotate(-6deg);}50%{transform:rotate(10deg);}}
+  .gal-chicken.running .gal-body-grp{animation:gal-body-bob .22s ease-in-out infinite;}
+  @keyframes gal-body-bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
   .gal-rabbi{
     position:absolute;left:50%;bottom:6px;transform:translateX(-50%);
-    font-size:52px;z-index:4;pointer-events:none;
+    z-index:4;pointer-events:none;
     filter:drop-shadow(0 4px 6px rgba(107,46,74,0.25));
   }
-  .gal-kippah{
-    position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:16px;height:8px;background:var(--plum);border-radius:16px 16px 0 0;
-  }
+  .gal-rabbi-svg{width:70px;height:86px;display:block;}
+  .gal-arm{transform-box:view-box;animation:gal-arm-idle 2.4s ease-in-out infinite;}
+  .gal-arm-r{animation-delay:1.2s;}
+  @keyframes gal-arm-idle{0%,100%{transform:rotate(0deg);}50%{transform:rotate(4deg);}}
   .gal-rabbi.gal-win{animation:gal-rabbi-win .7s ease;}
   @keyframes gal-rabbi-win{
     0%{transform:translateX(-50%) translateY(0) rotate(0deg);}
@@ -354,6 +372,10 @@
     60%{transform:translateX(-50%) translateY(-6px) rotate(4deg);}
     100%{transform:translateX(-50%) translateY(0) rotate(0deg);}
   }
+  .gal-rabbi.gal-win .gal-arm-l{animation:gal-arm-raise-l .7s ease;}
+  .gal-rabbi.gal-win .gal-arm-r{animation:gal-arm-raise-r .7s ease;}
+  @keyframes gal-arm-raise-l{0%{transform:rotate(0deg);}45%{transform:rotate(-150deg);}100%{transform:rotate(-115deg);}}
+  @keyframes gal-arm-raise-r{0%{transform:rotate(0deg);}45%{transform:rotate(150deg);}100%{transform:rotate(115deg);}}
   .gal-rabbi.gal-fail{animation:gal-rabbi-fail .6s ease;}
   @keyframes gal-rabbi-fail{
     0%{transform:translateX(-50%) rotate(0deg) translateY(0);}
@@ -361,6 +383,10 @@
     60%{transform:translateX(-50%) rotate(10deg) translateY(6px);}
     100%{transform:translateX(-50%) rotate(0deg) translateY(0);}
   }
+  .gal-rabbi.gal-fail .gal-arm-l{animation:gal-arm-flail-l .6s ease;}
+  .gal-rabbi.gal-fail .gal-arm-r{animation:gal-arm-flail-r .6s ease;}
+  @keyframes gal-arm-flail-l{0%{transform:rotate(0deg);}35%{transform:rotate(-55deg);}65%{transform:rotate(18deg);}100%{transform:rotate(0deg);}}
+  @keyframes gal-arm-flail-r{0%{transform:rotate(0deg);}35%{transform:rotate(55deg);}65%{transform:rotate(-18deg);}100%{transform:rotate(0deg);}}
   .gal-particle{
     position:absolute;font-size:20px;pointer-events:none;z-index:6;left:0;top:0;
     animation:gal-particle-fly .7s ease-out forwards;
@@ -976,8 +1002,72 @@
         </div>
         <div class="cr-timer" id="galTimer">Tiempo: 20s</div>
         <div class="gallina-arena" id="galArena" onclick="galArenaClick(event)">
-          <div class="gal-rabbi" id="galRabbi"><div class="gal-kippah"></div>🧔</div>
-          <button type="button" class="gal-chicken" id="galChicken" onclick="galChickenClick(event)">🐔</button>
+          <div class="gal-rabbi" id="galRabbi">
+            <svg class="gal-rabbi-svg" viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <radialGradient id="galSkinGrad" cx="40%" cy="35%" r="70%">
+                  <stop offset="0%" stop-color="#F3CBA0"/>
+                  <stop offset="100%" stop-color="#E3AE7D"/>
+                </radialGradient>
+                <linearGradient id="galRobeGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4A3247"/>
+                  <stop offset="100%" stop-color="#2E2030"/>
+                </linearGradient>
+              </defs>
+              <path d="M20 108 Q18 62 45 55 Q72 62 70 108 Z" fill="url(#galRobeGrad)" stroke="#1E1620" stroke-width="1.5"/>
+              <circle cx="45" cy="38" r="20" fill="url(#galSkinGrad)" stroke="#3E2430" stroke-width="1.5"/>
+              <path d="M27 42 Q24 64 45 70 Q66 64 63 42 Q55 55 45 55 Q35 55 27 42 Z" fill="#E7E1D3" stroke="#B9AF9C" stroke-width="1.2"/>
+              <path d="M27 26 Q45 6 63 26 Q45 18 27 26 Z" fill="#20191C" stroke="#100D0E" stroke-width="1"/>
+              <path d="M32 32 Q36 29 40 32" fill="none" stroke="#3E2430" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M50 32 Q54 29 58 32" fill="none" stroke="#3E2430" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="37" cy="37" r="2" fill="#3E2430"/>
+              <circle cx="53" cy="37" r="2" fill="#3E2430"/>
+              <path d="M43 40 Q45 44 47 40" fill="none" stroke="#B9825A" stroke-width="1.4" stroke-linecap="round"/>
+              <g class="gal-arm gal-arm-l" style="transform-origin:26px 62px;">
+                <path d="M26 62 Q13 74 18 98" fill="none" stroke="#1E1620" stroke-width="16" stroke-linecap="round"/>
+                <path d="M26 62 Q13 74 18 98" fill="none" stroke="url(#galRobeGrad)" stroke-width="12.5" stroke-linecap="round"/>
+                <circle cx="18" cy="99" r="7" fill="url(#galSkinGrad)" stroke="#3E2430" stroke-width="1.3"/>
+              </g>
+              <g class="gal-arm gal-arm-r" style="transform-origin:64px 62px;">
+                <path d="M64 62 Q77 74 72 98" fill="none" stroke="#1E1620" stroke-width="16" stroke-linecap="round"/>
+                <path d="M64 62 Q77 74 72 98" fill="none" stroke="url(#galRobeGrad)" stroke-width="12.5" stroke-linecap="round"/>
+                <circle cx="72" cy="99" r="7" fill="url(#galSkinGrad)" stroke="#3E2430" stroke-width="1.3"/>
+              </g>
+            </svg>
+          </div>
+          <button type="button" class="gal-chicken" id="galChicken" onclick="galChickenClick(event)">
+            <svg class="gal-chicken-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g class="gal-leg leg-a" style="transform-origin:42px 72px;">
+                <line x1="42" y1="72" x2="38" y2="92" stroke="#D98A1F" stroke-width="4" stroke-linecap="round"/>
+                <line x1="38" y1="92" x2="31" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+                <line x1="38" y1="92" x2="38" y2="99" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+                <line x1="38" y1="92" x2="45" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <g class="gal-leg leg-b" style="transform-origin:58px 72px;">
+                <line x1="58" y1="72" x2="62" y2="92" stroke="#D98A1F" stroke-width="4" stroke-linecap="round"/>
+                <line x1="62" y1="92" x2="55" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+                <line x1="62" y1="92" x2="62" y2="99" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+                <line x1="62" y1="92" x2="69" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <g class="gal-body-grp">
+                <g class="gal-tail">
+                  <path d="M28 42 Q8 34 14 22" fill="none" stroke="#F3D9A8" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M26 48 Q6 46 8 34" fill="none" stroke="#EAD2A0" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M30 54 Q12 58 10 48" fill="none" stroke="#F3D9A8" stroke-width="6" stroke-linecap="round"/>
+                </g>
+                <ellipse cx="50" cy="54" rx="26" ry="22" fill="#FDF6E3" stroke="#3E2430" stroke-width="2.5"/>
+                <g class="gal-wing">
+                  <path d="M40 48 Q56 42 60 56 Q46 66 34 58 Z" fill="#F3D9A8" stroke="#3E2430" stroke-width="2"/>
+                </g>
+                <circle cx="74" cy="34" r="14" fill="#FDF6E3" stroke="#3E2430" stroke-width="2.5"/>
+                <path d="M64 22 Q66 13 70 20 Q73 10 77 20 Q81 12 83 23" fill="#E0577A" stroke="#3E2430" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M80 42 Q85 46 80 51 Q75 46 80 42 Z" fill="#E0577A" stroke="#3E2430" stroke-width="1.2"/>
+                <polygon points="86,32 99,29 86,26" fill="#F0A63A" stroke="#3E2430" stroke-width="1.5" stroke-linejoin="round"/>
+                <circle cx="78" cy="29" r="5" fill="#3E2430"/>
+                <circle cx="80" cy="27" r="1.6" fill="#fff"/>
+              </g>
+            </svg>
+          </button>
         </div>
         <div class="row-actions">
           <button class="action secondary" onclick="galGoReady()">Volver a intentar</button>
@@ -1664,6 +1754,70 @@ const GAL_CHICKEN_SIZE = 54;
 const GAL_NEAR_PX = 66;
 const GAL_FEATHERS = ['🪶'];
 const GAL_STARS = ['⭐','✨','🌟'];
+const GAL_CHICKEN_SVG = `
+  <svg class="gal-chicken-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="gal-leg leg-a" style="transform-origin:42px 72px;">
+      <line x1="42" y1="72" x2="38" y2="92" stroke="#D98A1F" stroke-width="4" stroke-linecap="round"/>
+      <line x1="38" y1="92" x2="31" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+      <line x1="38" y1="92" x2="38" y2="99" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+      <line x1="38" y1="92" x2="45" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g class="gal-leg leg-b" style="transform-origin:58px 72px;">
+      <line x1="58" y1="72" x2="62" y2="92" stroke="#D98A1F" stroke-width="4" stroke-linecap="round"/>
+      <line x1="62" y1="92" x2="55" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+      <line x1="62" y1="92" x2="62" y2="99" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+      <line x1="62" y1="92" x2="69" y2="96" stroke="#D98A1F" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <g class="gal-body-grp">
+      <g class="gal-tail">
+        <path d="M28 42 Q8 34 14 22" fill="none" stroke="#F3D9A8" stroke-width="6" stroke-linecap="round"/>
+        <path d="M26 48 Q6 46 8 34" fill="none" stroke="#EAD2A0" stroke-width="6" stroke-linecap="round"/>
+        <path d="M30 54 Q12 58 10 48" fill="none" stroke="#F3D9A8" stroke-width="6" stroke-linecap="round"/>
+      </g>
+      <ellipse cx="50" cy="54" rx="26" ry="22" fill="#FDF6E3" stroke="#3E2430" stroke-width="2.5"/>
+      <g class="gal-wing">
+        <path d="M40 48 Q56 42 60 56 Q46 66 34 58 Z" fill="#F3D9A8" stroke="#3E2430" stroke-width="2"/>
+      </g>
+      <circle cx="74" cy="34" r="14" fill="#FDF6E3" stroke="#3E2430" stroke-width="2.5"/>
+      <path d="M64 22 Q66 13 70 20 Q73 10 77 20 Q81 12 83 23" fill="#E0577A" stroke="#3E2430" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M80 42 Q85 46 80 51 Q75 46 80 42 Z" fill="#E0577A" stroke="#3E2430" stroke-width="1.2"/>
+      <polygon points="86,32 99,29 86,26" fill="#F0A63A" stroke="#3E2430" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="78" cy="29" r="5" fill="#3E2430"/>
+      <circle cx="80" cy="27" r="1.6" fill="#fff"/>
+    </g>
+  </svg>`;
+const GAL_RABBI_SVG = `
+  <svg class="gal-rabbi-svg" viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="tgalSkinGrad" cx="40%" cy="35%" r="70%">
+        <stop offset="0%" stop-color="#F3CBA0"/>
+        <stop offset="100%" stop-color="#E3AE7D"/>
+      </radialGradient>
+      <linearGradient id="tgalRobeGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4A3247"/>
+        <stop offset="100%" stop-color="#2E2030"/>
+      </linearGradient>
+    </defs>
+    <path d="M20 108 Q18 62 45 55 Q72 62 70 108 Z" fill="url(#tgalRobeGrad)" stroke="#1E1620" stroke-width="1.5"/>
+    <circle cx="45" cy="38" r="20" fill="url(#tgalSkinGrad)" stroke="#3E2430" stroke-width="1.5"/>
+    <path d="M27 42 Q24 64 45 70 Q66 64 63 42 Q55 55 45 55 Q35 55 27 42 Z" fill="#E7E1D3" stroke="#B9AF9C" stroke-width="1.2"/>
+    <path d="M27 26 Q45 6 63 26 Q45 18 27 26 Z" fill="#20191C" stroke="#100D0E" stroke-width="1"/>
+    <path d="M32 32 Q36 29 40 32" fill="none" stroke="#3E2430" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M50 32 Q54 29 58 32" fill="none" stroke="#3E2430" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="37" cy="37" r="2" fill="#3E2430"/>
+    <circle cx="53" cy="37" r="2" fill="#3E2430"/>
+    <path d="M43 40 Q45 44 47 40" fill="none" stroke="#B9825A" stroke-width="1.4" stroke-linecap="round"/>
+    <g class="gal-arm gal-arm-l" style="transform-origin:26px 62px;">
+      <path d="M26 62 Q13 74 18 98" fill="none" stroke="#1E1620" stroke-width="16" stroke-linecap="round"/>
+      <path d="M26 62 Q13 74 18 98" fill="none" stroke="url(#tgalRobeGrad)" stroke-width="12.5" stroke-linecap="round"/>
+      <circle cx="18" cy="99" r="7" fill="url(#tgalSkinGrad)" stroke="#3E2430" stroke-width="1.3"/>
+    </g>
+    <g class="gal-arm gal-arm-r" style="transform-origin:64px 62px;">
+      <path d="M64 62 Q77 74 72 98" fill="none" stroke="#1E1620" stroke-width="16" stroke-linecap="round"/>
+      <path d="M64 62 Q77 74 72 98" fill="none" stroke="url(#tgalRobeGrad)" stroke-width="12.5" stroke-linecap="round"/>
+      <circle cx="72" cy="99" r="7" fill="url(#tgalSkinGrad)" stroke="#3E2430" stroke-width="1.3"/>
+    </g>
+  </svg>`;
 
 function galRandomPos(arenaEl, size){
   const w = arenaEl.clientWidth, h = arenaEl.clientHeight;
@@ -1897,8 +2051,8 @@ function tgalBeginRound(){
     <div class="cr-teamlabel">Turno de ${tgalState.teamNames[tgalState.turn]}</div>
     <div class="team-timer" id="tgalTimer">15</div>
     <div class="gallina-arena" id="tgalArena" onclick="tgalArenaClick(event)">
-      <div class="gal-rabbi" id="tgalRabbi"><div class="gal-kippah"></div>🧔</div>
-      <button type="button" class="gal-chicken" id="tgalChicken" onclick="tgalChickenClick(event)">🐔</button>
+      <div class="gal-rabbi" id="tgalRabbi">${GAL_RABBI_SVG}</div>
+      <button type="button" class="gal-chicken" id="tgalChicken" onclick="tgalChickenClick(event)">${GAL_CHICKEN_SVG}</button>
     </div>`;
   tgalRenderScoreboard(tgalState.turn);
   const arena=document.getElementById('tgalArena');
