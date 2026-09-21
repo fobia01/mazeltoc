@@ -969,6 +969,7 @@
     <div class="game-top">
       <button class="back-btn" onclick="galStop();showMenu();">← Volver al menú</button>
       <h2>🐔 Atrapá la Gallina</h2>
+      <button class="sound-toggle" onclick="toggleTeamSound()">🔊</button>
     </div>
     <div class="panel">
       <div id="galReady">
@@ -980,7 +981,7 @@
           <div class="gallina-stat"><div class="n" id="galCatches">0</div><div class="l">Atrapadas (de 3)</div></div>
           <div class="gallina-stat"><div class="n" id="galMisses">0</div><div class="l">Fallos (de 5)</div></div>
         </div>
-        <div class="cr-timer" id="galTimer">Tiempo: 20s</div>
+        <div class="team-timer" id="galTimer">20</div>
         <div class="gallina-arena" id="galArena" onclick="galArenaClick(event)">
           <div class="gal-rabbi" id="galRabbi">
             <img class="gal-rabbi-frame gal-frame-default" src="images/gallina/rabino-atrapando.webp" alt="">
@@ -1752,12 +1753,15 @@ function galRabbiReact(rabbiEl, ok){
 /* ============================================================
    ATRAPÁ LA GALLINA — modo individual
 ============================================================ */
-let galState = {started:false, catches:0, misses:0, timeLeft:20, delay:GAL_START_DELAY, moveTimeoutId:null, tickId:null, pos:{x:0,y:0}, locked:false};
+let galState = {started:false, catches:0, misses:0, delay:GAL_START_DELAY, moveTimeoutId:null, pos:{x:0,y:0}, locked:false};
 
 function galStop(){
   if(galState.moveTimeoutId){ clearTimeout(galState.moveTimeoutId); galState.moveTimeoutId=null; }
-  if(galState.tickId){ clearInterval(galState.tickId); galState.tickId=null; }
+  stopTeamTimer();
   galState.started=false;
+}
+function galTimeUp(){
+  galEnd(false);
 }
 function galGoReady(){
   galStop();
@@ -1770,19 +1774,11 @@ function galRenderStats(){
 }
 function galBegin(){
   galStop();
-  galState = {started:true, catches:0, misses:0, timeLeft:20, delay:GAL_START_DELAY, moveTimeoutId:null, tickId:null, pos:{x:0,y:0}, locked:false};
+  galState = {started:true, catches:0, misses:0, delay:GAL_START_DELAY, moveTimeoutId:null, pos:{x:0,y:0}, locked:false};
   document.getElementById('galReady').style.display='none';
   document.getElementById('galPlay').style.display='block';
   galRenderStats();
-  const timerEl=document.getElementById('galTimer');
-  timerEl.textContent='Tiempo: 20s';
-  timerEl.classList.remove('low');
-  galState.tickId = setInterval(()=>{
-    galState.timeLeft--;
-    timerEl.textContent = `Tiempo: ${Math.max(galState.timeLeft,0)}s`;
-    timerEl.classList.toggle('low', galState.timeLeft<=5);
-    if(galState.timeLeft<=0) galEnd(false);
-  }, 1000);
+  startTeamTimer('galTimer', 20, galTimeUp);
   const arena=document.getElementById('galArena');
   const chicken=document.getElementById('galChicken');
   chicken.classList.remove('flip','running','caught');
