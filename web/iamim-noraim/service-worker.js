@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mazeltoc-in-v5';
+const CACHE_NAME = 'mazeltoc-in-v6';
 const ASSETS = [
   './',
   './index.html',
