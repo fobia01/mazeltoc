@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mazeltoc-in-v6';
+const CACHE_NAME = 'mazeltoc-in-v7';
 const ASSETS = [
   './',
   './index.html',
@@ -21,7 +21,11 @@ const ASSETS = [
   './images/qtrivia/challah.svg',
   './images/qtrivia/shofar.svg',
   './images/qtrivia/shofar-iomkipur-1.svg',
-  './images/qtrivia/shofar-iomkipur-2.svg'
+  './images/qtrivia/shofar-iomkipur-2.svg',
+  './images/gallina/gallina-corriendo.webp',
+  './images/gallina/rabino-atrapando.webp',
+  './images/gallina/rabino-triunfo.webp',
+  './images/gallina/rabino-fallo.webp'
 ];
 
 self.addEventListener('install', (event) => {
