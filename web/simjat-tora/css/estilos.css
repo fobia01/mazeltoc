@@ -701,3 +701,53 @@ body.en-juego .titulo-app .edicion { display: inline; width: auto; font-size: .7
   animation: subirNombre .7s cubic-bezier(.2,.9,.3,1.3) both .3s;
 }
 @keyframes subirNombre { from { transform: translateY(100%); } to { transform: none; } }
+
+/* ---------- ¿Verdad o Mentira del Rabino? ---------- */
+.rabino-cabecera { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.rabino-cara { font-size: 4rem; animation: bailar 2.4s ease-in-out infinite; }
+.rabino-dice { font-family: var(--letra-titulos); font-size: 1.6rem; color: var(--azul-osc); }
+.rabino-lector { font-size: 1.1rem; margin-top: 4px; }
+.historia-rabino {
+  position: relative; background: #FFFBEF; border: 4px solid var(--oro); border-radius: 22px; padding: 22px 24px;
+  font-size: 1.9rem; line-height: 1.3; font-weight: 700; color: var(--noche); animation: aparecer .5s both;
+}
+.historia-rabino.suspenso { animation: temblor .12s infinite; }
+.sello {
+  position: absolute; right: 18px; bottom: 10px; font-family: var(--letra-titulos); font-size: 3.4rem;
+  padding: 4px 22px; border: 7px solid currentColor; border-radius: 16px; transform: rotate(-12deg);
+  background: rgba(255,255,255,.9); animation: sellar .45s cubic-bezier(.2,.9,.3,1.4) both;
+}
+.sello-v { color: var(--bien); } .sello-m { color: var(--mal); }
+@keyframes sellar { from { transform: rotate(-12deg) scale(3); opacity: 0; } to { transform: rotate(-12deg) scale(1); opacity: 1; } }
+.votos-rabino { display: grid; gap: 10px; margin-top: 14px; }
+@media (min-width: 900px) { .votos-rabino { grid-template-columns: 1fr 1fr; } }
+.voto-fila {
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas: "nombre res" "botones botones" "apuesta apuesta";
+  gap: 8px; padding: 12px; border-radius: 16px; background: #fff; border: 3px solid rgba(27, 42, 92, .12); border-left: 12px solid var(--c);
+  transition: background .3s, border-color .3s;
+}
+.voto-fila.votado { border-color: var(--c); }
+.voto-nombre { grid-area: nombre; font-weight: 700; font-size: 1.3rem; }
+.voto-resultado { grid-area: res; font-family: var(--letra-titulos); font-size: 2rem; }
+.voto-botones { grid-area: botones; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.voto-btn {
+  min-height: 3.2rem; border-radius: 14px; border: 3px solid rgba(27, 42, 92, .15); background: #F4F7FF;
+  font-size: 1.2rem; font-weight: 700; color: var(--tinta); transition: transform .15s;
+}
+.voto-btn.v.elegido { background: var(--bien); color: #fff; border-color: var(--bien); transform: scale(1.04); }
+.voto-btn.m.elegido { background: var(--mal); color: #fff; border-color: var(--mal); transform: scale(1.04); }
+.voto-apuesta { grid-area: apuesta; display: flex; align-items: center; gap: 8px; font-size: 1.05rem; }
+.ficha-apuesta {
+  width: 3rem; height: 3rem; border-radius: 50%; border: 3px dashed var(--oro-osc); background: #fff;
+  font-family: var(--letra-titulos); font-size: 1.4rem; color: var(--oro-osc);
+}
+.ficha-apuesta.elegida { background: radial-gradient(circle, #F5C84A, var(--oro)); border-style: solid; color: var(--noche); transform: scale(1.1); box-shadow: 0 3px 0 var(--oro-osc); }
+.voto-fila.acerto { background: var(--bien-claro); border-color: var(--bien); }
+.voto-fila.acerto .voto-resultado { color: var(--bien); animation: salto .6s; }
+.voto-fila.fallo { background: var(--mal-claro); border-color: var(--mal); }
+.voto-fila.fallo .voto-resultado { color: var(--mal); animation: salto .6s; }
+@media (max-width: 560px) {
+  .historia-rabino { font-size: 1.3rem; padding: 16px; }
+  .sello { font-size: 2.2rem; }
+  .rabino-cara { font-size: 3rem; }
+}

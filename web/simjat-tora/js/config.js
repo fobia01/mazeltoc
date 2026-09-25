@@ -25,6 +25,10 @@ const CONFIG = {
   // por pregunta se multiplica por este número (15 x 3 = 45 segundos).
   MULTIPLICADOR_ORDENAR: 3,
 
+  // "Verdad o Mentira del Rabino": los equipos debaten, así que el tiempo
+  // por pregunta se multiplica por este número (15 x 2 = 30 segundos).
+  MULTIPLICADOR_RABINO: 2,
+
   // Cuando faltan estos segundos, el reloj se pone rojo y hace "bip".
   AVISO_ULTIMOS_SEGUNDOS: 5,
 
@@ -51,6 +55,9 @@ const CONFIG = {
   PUNTOS_MIMICA_SIN_PISTA: 2,
   PUNTOS_MIMICA_CON_PISTA: 1,
 
+
+  // Verdad o Mentira del Rabino: fichas que se pueden apostar por historia.
+  APUESTAS_RABINO: [1, 2, 3],
 
   /* ---------- EQUIPOS ---------- */
 

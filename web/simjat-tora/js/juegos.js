@@ -645,6 +645,130 @@ registrarJuego({
 });
 
 /* =====================================================================
+   ¿VERDAD O MENTIRA DEL RABINO?
+   Todos los equipos votan a la vez y apuestan fichas.
+   ===================================================================== */
+
+function sacarHistoriaRabino() {
+  // mitad y mitad: así no conviene contestar siempre "verdad"
+  const quiero = Math.random() < 0.5;
+  return sacarDe('rabino-' + quiero, DATOS_RABINO.filter(x => x.verdad === quiero));
+}
+
+function jugarHistoriaRabino(ctx, lector) {
+  return new Promise(resolver => {
+    const p = ctx.partida;
+    const item = sacarHistoriaRabino();
+    const votos = Estado.equipos.map(() => ({ eleccion: null, apuesta: CONFIG.APUESTAS_RABINO[0] }));
+    let revelado = false;
+
+    dibujarZona(`
+      <div class="rabino-cabecera">
+        <span class="rabino-cara">🧔</span>
+        <div><div class="rabino-dice">El Rabino cuenta…</div>
+        <div class="rabino-lector">📖 Lee en voz alta: ${etiquetaEquipo(lector)}</div></div>
+      </div>
+      <div class="historia-rabino">${esc(item.historia)}</div>
+      <p class="instruccion">¿Es <b>verdad</b> o es un <b>invento</b>? Debatan, voten y apuesten fichas.</p>
+      <div id="relojBox"></div>
+      <div class="votos-rabino" id="votos">
+        ${Estado.equipos.map((e, i) => `
+          <div class="voto-fila" data-i="${i}" style="--c:${e.color}">
+            <span class="voto-nombre">${esc(e.nombre)}</span>
+            <div class="voto-botones">
+              <button class="voto-btn v" data-e="v">✅ Verdad</button>
+              <button class="voto-btn m" data-e="m">❌ Mentira</button>
+            </div>
+            <div class="voto-apuesta">
+              <span>Apuesta:</span>
+              ${CONFIG.APUESTAS_RABINO.map((a, k) => `<button class="ficha-apuesta ${k === 0 ? 'elegida' : ''}" data-a="${a}">${a}</button>`).join('')}
+            </div>
+            <div class="voto-resultado"></div>
+          </div>`).join('')}
+      </div>
+      <button class="btn btn-gigante" id="btnRevelar" disabled>🥁 ¡Revelar!</button>
+      <div id="resultado"></div>`);
+
+    new Reloj($('#relojBox'), Estado.tiempo * CONFIG.MULTIPLICADOR_RABINO, {
+      alTerminar: () => { $('#resultado').innerHTML = '<div class="aviso">⏰ ¡Tiempo! Voten ya y toquen "Revelar".</div>'; }
+    });
+
+    $('#votos').addEventListener('click', ev => {
+      if (revelado) return;
+      const fila = ev.target.closest('.voto-fila'); if (!fila) return;
+      const i = Number(fila.dataset.i);
+      const bv = ev.target.closest('.voto-btn'), ba = ev.target.closest('.ficha-apuesta');
+      if (bv) {
+        votos[i].eleccion = bv.dataset.e;
+        $$('.voto-btn', fila).forEach(b => b.classList.toggle('elegido', b === bv));
+        fila.classList.add('votado');
+        Sonido.clic();
+      }
+      if (ba) {
+        votos[i].apuesta = Number(ba.dataset.a);
+        $$('.ficha-apuesta', fila).forEach(b => b.classList.toggle('elegida', b === ba));
+        Sonido.punto();
+      }
+      $('#btnRevelar').disabled = votos.some(v => !v.eleccion);
+    });
+
+    $('#btnRevelar').addEventListener('click', async () => {
+      if (revelado) return;
+      revelado = true;
+      Reloj.detenerActual();
+      $('#relojBox').innerHTML = '';
+      $('#btnRevelar').remove();
+      $$('#votos button').forEach(b => b.disabled = true);
+      Sonido.redoble(1.4);
+      $('.historia-rabino').classList.add('suspenso');
+      await esperar(1500);
+      if (!ctx.vivo()) return;
+      $('.historia-rabino').classList.remove('suspenso');
+      $('.historia-rabino').insertAdjacentHTML('beforeend',
+        `<div class="sello ${item.verdad ? 'sello-v' : 'sello-m'}">${item.verdad ? '¡VERDAD!' : '¡MENTIRA!'}</div>`);
+      let acertaron = 0;
+      votos.forEach((v, i) => {
+        const bien = (v.eleccion === 'v') === item.verdad;
+        const fila = $(`.voto-fila[data-i="${i}"]`);
+        fila.classList.add(bien ? 'acerto' : 'fallo');
+        $('.voto-resultado', fila).textContent = bien ? `+${v.apuesta}` : `−${v.apuesta}`;
+        p.sumar(i, bien ? v.apuesta : -v.apuesta);
+        if (bien) acertaron++;
+      });
+      if (acertaron) { Sonido.acierto(); confeti('chico'); } else Sonido.abucheoGrande();
+      $('#resultado').innerHTML = `
+        <div class="explicacion">💡 ${esc(item.explicacion)}${item.fuente ? `<br><b>Fuente:</b> ${esc(item.fuente)}` : ''}</div>`;
+      botonSiguiente($('#zona .zona-contenido'), 'Siguiente historia ➜', resolver);
+    });
+  });
+}
+
+registrarJuego({
+  id: 'rabino', icono: '🧔', titulo: '¿Verdad o Mentira del Rabino?',
+  desc: 'Historias increíbles de la tradición… ¿son verdad o puro invento? ¡Apuesten!',
+  reglas: [
+    'El Rabino cuenta una historia: algunas son <b>verdaderas</b> (del Talmud, el midrash o la historia judía) y otras son <b>inventadas</b>.',
+    '<b>Todos los equipos juegan a la vez:</b> debaten, votan ✅ Verdad o ❌ Mentira y apuestan 1, 2 o 3 fichas.',
+    'Si aciertan, ganan lo que apostaron. Si se equivocan, ¡lo pierden!',
+    'Quien conduce marca el voto de cada equipo y toca "Revelar".'
+  ],
+  opciones: [{ clave: 'historias', etiqueta: 'Cantidad de historias', valores: [5, 8, 12], def: 8 }],
+  async jugar(ctx) {
+    const p = ctx.partida;
+    for (let h = 0; h < ctx.op.historias; h++) {
+      if (!ctx.vivo()) return;
+      const lector = (p.turno + h) % p.n;
+      p.ponerTurno(lector);
+      ponerProgreso(`Historia <b>${h + 1}</b> de <b>${ctx.op.historias}</b>`);
+      if (h === 0) await anunciar({ arriba: 'Atención, que el Rabino', titulo: '¡Cuenta una historia!', color: '#1E3A8A', emoji: '🧔', dur: 1600, sonido: 'redoble' });
+      if (!ctx.vivo()) return;
+      await jugarHistoriaRabino(ctx, lector);
+    }
+    if (ctx.vivo()) ctx.terminar();
+  }
+});
+
+/* =====================================================================
    7. ¿QUÉ REPRESENTA? (emojis)
    ===================================================================== */
 

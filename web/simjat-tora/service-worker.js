@@ -3,7 +3,7 @@
    Cuando cambies archivos, subí el número de versión (v2, v3...) para
    que los celulares que la tienen instalada bajen la copia nueva. */
 
-const CACHE_NAME = 'mazeltoc-simjat-tora-v5';
+const CACHE_NAME = 'mazeltoc-simjat-tora-v6';
 const ASSETS = [
   './',
   './audio/boo.mp3',
@@ -28,6 +28,7 @@ const ASSETS = [
   './datos/palabra-prohibida.js',
   './datos/personalidades.js',
   './datos/quien-soy.js',
+  './datos/rabino.js',
   './datos/trivia.js',
   './datos/verdadero-falso.js',
   './icons/apple-touch-icon.png',
