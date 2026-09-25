@@ -11,3 +11,10 @@ crowd-boo-big.mp3      -> recortado (3s) de "Crowd disappointment long boo" — 
 applause.mp3 y boo.mp3 (preexistentes) se mantienen sin cambios para el resto
 de los juegos (trivia individual, V/F, detectives, etc.) — solo los 4 juegos
 en equipo usan los sonidos "big" nuevos.
+
+Edición Simjat Torá — festejos más efusivos (reemplazan a applause.mp3).
+Mezclas propias de sonidos de mixkit.co (Mixkit Sound Effects Free License):
+festejo-1/2/3.mp3 y festejo-ganador.mp3 combinan
+  "Happy crowd cheer" (id 975), "Cheering crowd loud whistle" (id 610),
+  "Rhythmic applause and cheering" (id 504), "Stadium joy shouting crowd" (id 3022)
+  y "Happy party horn sound" (id 530).

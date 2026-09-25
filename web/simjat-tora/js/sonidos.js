@@ -100,6 +100,16 @@ const Sonido = (() => {
     if (el) { try { el.pause(); el.currentTime = 0; } catch (e) {} }
   }
 
+  // festejos grabados: se turnan para que no suene siempre igual, y cada uno
+  // corta al anterior para que no se encimen si hay aciertos seguidos
+  const FESTEJOS = ['audio-festejo-1', 'audio-festejo-2', 'audio-festejo-3'];
+  let proximoFestejo = Math.floor(Math.random() * FESTEJOS.length);
+  function festejo() {
+    FESTEJOS.concat('audio-festejo-ganador').forEach(pararMp3);
+    mp3(FESTEJOS[proximoFestejo], 1);
+    proximoFestejo = (proximoFestejo + 1) % FESTEJOS.length;
+  }
+
   function t() { const c = ac(); return c ? c.currentTime + 0.02 : 0; }
   const si = (fn) => (...args) => { if (muteado) return; try { fn(...args); } catch (e) {} };
 
@@ -130,7 +140,7 @@ const Sonido = (() => {
         tono(f * 2, s + i * 0.07, 0.25, { tipo: 'sine', vol: 0.08 });
       });
       platillo(s + 0.28, 0.9, 0.18);
-      mp3('audio-aplauso', 0.9);
+      festejo();
     }),
 
     error: si(() => {
@@ -179,10 +189,11 @@ const Sonido = (() => {
       notas.forEach(([f, d, du]) => { trompeta(f, s + d, du); trompeta(f * 1.26, s + d, du, 0.1); });
       [0, 0.45, 1.0, 1.4, 1.6].forEach(d => bombo(s + d, 0.9));
       platillo(s + 0.45, 1.0, 0.25); platillo(s + 1.6, 1.8, 0.35);
-      mp3('audio-hinchada', 1);
+      FESTEJOS.forEach(pararMp3);
+      mp3('audio-festejo-ganador', 1);
     }),
 
-    hinchada: si(() => { mp3('audio-hinchada', 1); }),
+    hinchada: si(() => { festejo(); }),
     abucheoGrande: si(() => { mp3('audio-abucheo-grande', 1); }),
 
     // tic-tac de fondo mientras corre el reloj
@@ -197,7 +208,8 @@ const Sonido = (() => {
     },
 
     pararTodo() {
-      ['audio-tictac', 'audio-aplauso', 'audio-abucheo', 'audio-hinchada', 'audio-abucheo-grande'].forEach(pararMp3);
+      ['audio-tictac', 'audio-festejo-1', 'audio-festejo-2', 'audio-festejo-3', 'audio-festejo-ganador',
+       'audio-abucheo', 'audio-hinchada', 'audio-abucheo-grande'].forEach(pararMp3);
     },
 
     get muteado() { return muteado; },

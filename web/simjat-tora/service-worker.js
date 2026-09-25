@@ -3,15 +3,18 @@
    Cuando cambies archivos, subí el número de versión (v2, v3...) para
    que los celulares que la tienen instalada bajen la copia nueva. */
 
-const CACHE_NAME = 'mazeltoc-simjat-tora-v3';
+const CACHE_NAME = 'mazeltoc-simjat-tora-v4';
 const ASSETS = [
   './',
-  './audio/applause.mp3',
   './audio/boo.mp3',
   './audio/buzzer.mp3',
   './audio/clock-tick.mp3',
   './audio/crowd-boo-big.mp3',
   './audio/crowd-cheer-big.mp3',
+  './audio/festejo-1.mp3',
+  './audio/festejo-2.mp3',
+  './audio/festejo-3.mp3',
+  './audio/festejo-ganador.mp3',
   './css/estilos.css',
   './fonts/atkinson-hyperlegible-400.woff2',
   './fonts/atkinson-hyperlegible-700.woff2',
