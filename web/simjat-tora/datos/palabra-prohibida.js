@@ -1,0 +1,51 @@
+/* =====================================================================
+   BANCO DE TARJETAS — PALABRA PROHIBIDA
+   - palabra:     la que hay que hacer adivinar.
+   - prohibidas:  las que NO se pueden decir (entre 4 y 5).
+   ===================================================================== */
+
+const DATOS_PALABRA_PROHIBIDA = [
+  { palabra: 'Sefer Torá', prohibidas: ['Libro', 'Rollo', 'Leer', 'Sinagoga', 'Pergamino'] },
+  { palabra: 'Hakafot', prohibidas: ['Vueltas', 'Bailar', 'Siete', 'Torá', 'Círculo'] },
+  { palabra: 'Banderita', prohibidas: ['Bandera', 'Chicos', 'Palito', 'Agitar', 'Simjat Torá'] },
+  { palabra: 'Sucá', prohibidas: ['Cabaña', 'Techo', 'Sucot', 'Ramas', 'Comer'] },
+  { palabra: 'Etrog', prohibidas: ['Fruta', 'Limón', 'Sucot', 'Amarillo', 'Lulav'] },
+  { palabra: 'Lulav', prohibidas: ['Palmera', 'Rama', 'Sacudir', 'Sucot', 'Etrog'] },
+  { palabra: 'Moshé', prohibidas: ['Egipto', 'Mar', 'Tablas', 'Profeta', 'Faraón'] },
+  { palabra: 'Noaj', prohibidas: ['Arca', 'Diluvio', 'Animales', 'Lluvia', 'Barco'] },
+  { palabra: 'Arcoíris', prohibidas: ['Colores', 'Lluvia', 'Cielo', 'Noaj', 'Promesa'] },
+  { palabra: 'Adam', prohibidas: ['Primer', 'Hombre', 'Javá', 'Gan Edén', 'Manzana'] },
+  { palabra: 'Serpiente', prohibidas: ['Javá', 'Árbol', 'Víbora', 'Arrastrarse', 'Veneno'] },
+  { palabra: 'Bereshit', prohibidas: ['Primer', 'Libro', 'Principio', 'Creación', 'Génesis'] },
+  { palabra: 'Shabat', prohibidas: ['Sábado', 'Descanso', 'Velas', 'Viernes', 'Séptimo'] },
+  { palabra: 'Kipá', prohibidas: ['Cabeza', 'Gorro', 'Cubrir', 'Redonda', 'Sinagoga'] },
+  { palabra: 'Talit', prohibidas: ['Manto', 'Rezar', 'Tzitzit', 'Flecos', 'Hombros'] },
+  { palabra: 'Bimá', prohibidas: ['Mesa', 'Leer', 'Sinagoga', 'Plataforma', 'Centro'] },
+  { palabra: 'Rabino', prohibidas: ['Maestro', 'Sinagoga', 'Líder', 'Sabio', 'Comunidad'] },
+  { palabra: 'Caramelos', prohibidas: ['Dulce', 'Golosina', 'Chicos', 'Azúcar', 'Tirar'] },
+  { palabra: 'Maná', prohibidas: ['Desierto', 'Comida', 'Cielo', 'Pan', 'Caer'] },
+  { palabra: 'Mar Rojo', prohibidas: ['Agua', 'Abrir', 'Cruzar', 'Moshé', 'Egipto'] },
+  { palabra: 'Diez Mandamientos', prohibidas: ['Tablas', 'Leyes', 'Sinaí', 'Moshé', 'Diez'] },
+  { palabra: 'Faraón', prohibidas: ['Egipto', 'Rey', 'Plagas', 'Pirámide', 'Moshé'] },
+  { palabra: 'Iosef', prohibidas: ['Hermanos', 'Sueños', 'Egipto', 'Túnica', 'Vendido'] },
+  { palabra: 'Abraham', prohibidas: ['Patriarca', 'Sará', 'Primero', 'Itzjak', 'Padre'] },
+  { palabra: 'Jerusalem', prohibidas: ['Ciudad', 'Israel', 'Capital', 'Templo', 'Muro'] },
+  { palabra: 'Mezuzá', prohibidas: ['Puerta', 'Marco', 'Pergamino', 'Casa', 'Besar'] },
+  { palabra: 'Minián', prohibidas: ['Diez', 'Personas', 'Rezar', 'Grupo', 'Mínimo'] },
+  { palabra: 'Sofer', prohibidas: ['Escribir', 'Pluma', 'Escriba', 'Letras', 'Tinta'] },
+  { palabra: 'Iad', prohibidas: ['Mano', 'Puntero', 'Dedo', 'Leer', 'Señalar'] },
+  { palabra: 'Kidush', prohibidas: ['Vino', 'Bendición', 'Copa', 'Shabat', 'Brindis'] },
+  { palabra: 'Jalá', prohibidas: ['Pan', 'Trenza', 'Shabat', 'Harina', 'Viernes'] },
+  { palabra: 'Torre de Babel', prohibidas: ['Alta', 'Idiomas', 'Cielo', 'Construir', 'Ladrillos'] },
+  { palabra: 'Zarza ardiente', prohibidas: ['Fuego', 'Arbusto', 'Moshé', 'Quemar', 'Dios'] },
+  { palabra: 'Plagas', prohibidas: ['Egipto', 'Diez', 'Ranas', 'Sangre', 'Faraón'] },
+  { palabra: 'Desierto', prohibidas: ['Arena', 'Calor', 'Cuarenta', 'Caminar', 'Seco'] },
+  { palabra: 'Shofar', prohibidas: ['Cuerno', 'Soplar', 'Rosh Hashaná', 'Carnero', 'Sonido'] },
+  { palabra: 'Paloma', prohibidas: ['Pájaro', 'Olivo', 'Noaj', 'Blanca', 'Paz'] },
+  { palabra: 'Alegría', prohibidas: ['Feliz', 'Contento', 'Simjá', 'Reír', 'Festejo'] },
+  { palabra: 'Jatán Torá', prohibidas: ['Novio', 'Última', 'Aliá', 'Honor', 'Bereshit'] },
+  { palabra: 'Sinagoga', prohibidas: ['Templo', 'Rezar', 'Edificio', 'Comunidad', 'Rabino'] },
+  { palabra: 'Arón Hakódesh', prohibidas: ['Armario', 'Torá', 'Guardar', 'Cortina', 'Arca'] },
+  { palabra: 'Kohen', prohibidas: ['Sacerdote', 'Aharón', 'Bendición', 'Templo', 'Leví'] },
+  { palabra: 'Creación', prohibidas: ['Mundo', 'Siete', 'Días', 'Bereshit', 'Hacer'] }
+];

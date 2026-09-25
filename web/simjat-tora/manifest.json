@@ -1,0 +1,17 @@
+{
+  "id": "./?edicion=simjat-tora",
+  "name": "Mazeltoc — Edición Simjat Torá",
+  "short_name": "Mazeltoc ST",
+  "description": "Juegos por equipos para festejar Simjat Torá: trivia, Guerra de Canciones, hakafot y más, para jugar en grupo con el celular o una pantalla grande.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#EEF3FF",
+  "theme_color": "#1E3A8A",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
