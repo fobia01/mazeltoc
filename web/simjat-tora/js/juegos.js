@@ -449,6 +449,202 @@ registrarJuego({
 });
 
 /* =====================================================================
+   ¿QUIÉN ES? — fotos distorsionadas de personalidades
+   La foto empieza muy distorsionada y se va aclarando con cada pista.
+   ===================================================================== */
+
+const EFECTOS_FOTO = [
+  { id: 'pixelado', nombre: '🟦 Pixelado' },
+  { id: 'rompecabezas', nombre: '🧩 Rompecabezas' },
+  { id: 'zoom', nombre: '🔍 Zoom extremo' },
+  { id: 'ondas', nombre: '🌊 Ondas' },
+  { id: 'colores', nombre: '🎨 Colores locos' }
+];
+let proximoEfecto = Math.floor(Math.random() * EFECTOS_FOTO.length);
+
+// Dibuja la foto en un canvas con un efecto. nivel: 0 (muy distorsionada) a 3 (clara).
+function fotoDistorsionada(canvas, src, efecto) {
+  const L = 480;
+  canvas.width = L; canvas.height = L;
+  const c = canvas.getContext('2d');
+  const img = new Image();
+  let nivel = 0, cargada = false, animacion = null;
+  // datos al azar que se mantienen entre niveles
+  const foco = { x: 0.4 + Math.random() * 0.2, y: 0.32 + Math.random() * 0.16 };
+  const N = 4, orden = mezclar([...Array(N * N).keys()]);
+  const giros = orden.map(() => Math.floor(Math.random() * 4));
+  const aux = document.createElement('canvas');
+
+  function dibujar(t = 0) {
+    if (!cargada) return;
+    c.imageSmoothingEnabled = true;
+    canvas.style.filter = 'none';
+    c.clearRect(0, 0, L, L);
+    if (nivel >= 3) { c.drawImage(img, 0, 0, L, L); return; }
+
+    if (efecto === 'pixelado') {
+      const bloque = [40, 22, 11][nivel], n = Math.ceil(L / bloque);
+      aux.width = n; aux.height = n;
+      aux.getContext('2d').drawImage(img, 0, 0, n, n);
+      c.imageSmoothingEnabled = false;
+      c.drawImage(aux, 0, 0, n, n, 0, 0, L, L);
+    } else if (efecto === 'rompecabezas') {
+      const lado = L / N, bien = [0, 0.5, 0.8][nivel];
+      const fijas = new Set(orden.slice(0, Math.round(orden.length * bien)));
+      const libres = orden.filter(i => !fijas.has(i));
+      const destino = {};
+      libres.forEach((i, k) => destino[i] = libres[(k + 1) % libres.length]);
+      for (let i = 0; i < N * N; i++) {
+        const d = fijas.has(i) || libres.length < 2 ? i : destino[i];
+        const sx = (i % N) * lado, sy = Math.floor(i / N) * lado;
+        const dx = (d % N) * lado, dy = Math.floor(d / N) * lado;
+        c.save();
+        c.translate(dx + lado / 2, dy + lado / 2);
+        if (!fijas.has(i)) c.rotate(giros[i] * Math.PI / 2);
+        c.drawImage(img, sx * img.width / L, sy * img.height / L, lado * img.width / L, lado * img.height / L, -lado / 2, -lado / 2, lado, lado);
+        c.restore();
+        c.strokeStyle = 'rgba(255,255,255,.9)'; c.lineWidth = 3; c.strokeRect(dx, dy, lado, lado);
+      }
+    } else if (efecto === 'zoom') {
+      const z = [4.5, 2.8, 1.7][nivel], w = img.width / z, h = img.height / z;
+      const sx = Math.min(Math.max(foco.x * img.width - w / 2, 0), img.width - w);
+      const sy = Math.min(Math.max(foco.y * img.height - h / 2, 0), img.height - h);
+      c.drawImage(img, sx, sy, w, h, 0, 0, L, L);
+    } else if (efecto === 'ondas') {
+      const A = [55, 28, 12][nivel], alto = 4;
+      for (let y = 0; y < L; y += alto) {
+        const dx = A * Math.sin(y / 26 + t / 350) + A * 0.5 * Math.sin(y / 9 - t / 500);
+        c.drawImage(img, 0, y * img.height / L, img.width, alto * img.height / L, dx, y, L, alto);
+      }
+    } else if (efecto === 'colores') {
+      c.drawImage(img, 0, 0, L, L);
+      canvas.style.filter = [
+        'blur(16px) invert(1) hue-rotate(90deg) saturate(4) contrast(1.4)',
+        'blur(8px) hue-rotate(200deg) saturate(3) contrast(1.2)',
+        'blur(3px) hue-rotate(120deg) saturate(1.8)'][nivel];
+    }
+  }
+
+  function animar(t) {
+    dibujar(t);
+    if (efecto === 'ondas' && nivel < 3 && canvas.isConnected) animacion = requestAnimationFrame(animar);
+  }
+
+  img.onload = () => { cargada = true; animar(0); };
+  img.src = src;
+
+  return {
+    ponerNivel(n) {
+      nivel = n;
+      canvas.classList.remove('aclara'); void canvas.offsetWidth; canvas.classList.add('aclara');
+      if (animacion) cancelAnimationFrame(animacion);
+      animar(performance.now());
+    }
+  };
+}
+
+function jugarPersonalidad(ctx) {
+  return new Promise(resolver => {
+    const p = ctx.partida, t = p.turno;
+    const cat = ctx.op.categoria;
+    const item = sacarDe('personalidades', DATOS_PERSONALIDADES, (!cat || cat === 'Todas') ? null : (x => x.categoria === cat));
+    const efecto = EFECTOS_FOTO[proximoEfecto];
+    proximoEfecto = (proximoEfecto + 1) % EFECTOS_FOTO.length;
+    const ETAPAS = 4;
+    let etapa = 0, cerrado = false, reloj;
+
+    dibujarZona(`
+      <div class="quien-es">
+        <div class="foto-marco">
+          <canvas id="fotoCanvas"></canvas>
+          <span class="efecto-etiqueta">${efecto.nombre}</span>
+        </div>
+        <div class="quien-lado">
+          <div class="etiquetas"><span class="vale">${esc(item.categoria)}</span><span class="vale" id="valor"></span></div>
+          <ol class="pistas" id="pistas"></ol>
+        </div>
+      </div>
+      <div id="relojBox"></div>
+      <div class="botones-juez" id="juez">
+        <button class="btn btn-si" id="btnSi">✅ ¡Adivinaron!</button>
+        <button class="btn btn-no" id="btnNo">❌ No / Más clara</button>
+      </div>
+      ${botonEspiar(esc(item.nombre))}
+      <div id="resultado"></div>`);
+
+    const foto = fotoDistorsionada($('#fotoCanvas'), item.foto, efecto.id);
+
+    function dibujar() {
+      const nPistas = Math.min(etapa + 1, item.pistas.length);
+      $('#pistas').innerHTML = item.pistas.slice(0, nPistas).map((x, k) =>
+        `<li class="${k === nPistas - 1 && etapa < 3 ? 'nueva' : ''}"><span class="n">Pista ${k + 1}</span> ${esc(x)}</li>`).join('');
+      const valor = ETAPAS - etapa;
+      $('#valor').textContent = `Vale ${valor} punto${valor > 1 ? 's' : ''}`;
+      $('#btnNo').textContent = etapa < ETAPAS - 1 ? '❌ No / Más clara' : '❌ No lo sacaron';
+      reloj = new Reloj($('#relojBox'), Estado.tiempo, {
+        alTerminar: () => { $('#resultado').innerHTML = '<div class="aviso">⏰ ¡Tiempo! ¿Llegaron a responder? Marcá ✅ o ❌.</div>'; }
+      });
+    }
+    dibujar();
+
+    $('#btnSi').addEventListener('click', () => {
+      if (cerrado) return;
+      const valor = ETAPAS - etapa;
+      p.sumar(t, valor);
+      Sonido.acierto(); confeti('chico', [Estado.equipos[t].color, '#E8B22E']);
+      fin(`✅ ¡Sí! ${etiquetaEquipo(t)} suma ${valor}.`, 'bien');
+    });
+    $('#btnNo').addEventListener('click', () => {
+      if (cerrado) return;
+      $('#resultado').innerHTML = '';
+      reloj.detener();
+      if (etapa < ETAPAS - 1) {
+        etapa++;
+        Sonido.whoosh();
+        foto.ponerNivel(etapa);
+        dibujar();
+      } else {
+        Sonido.error();
+        fin('❌ ¡No lo sacaron!', 'mal');
+      }
+    });
+
+    function fin(msg, tipo) {
+      cerrado = true;
+      reloj.detener();
+      foto.ponerNivel(3);
+      $('.efecto-etiqueta').remove();
+      $('#juez').remove();
+      $$('.btn-espiar').forEach(b => b.remove());
+      $('#relojBox').innerHTML = '';
+      $('#pistas').innerHTML = item.pistas.map((x, k) => `<li><span class="n">Pista ${k + 1}</span> ${esc(x)}</li>`).join('');
+      $('.foto-marco').insertAdjacentHTML('beforeend', `<div class="foto-nombre">${esc(item.nombre)}</div>`);
+      $('.quien-lado').insertAdjacentHTML('afterbegin', `<div class="nombre-revelado">${esc(item.nombre)}</div>`);
+      $('#resultado').innerHTML = `<div class="aviso ${tipo}">${msg}</div>
+        <div class="explicacion">💡 ${esc(item.dato)}</div>
+        <div class="credito-foto">📷 Foto: ${esc(item.credito)}</div>`;
+      botonSiguiente($('#zona .zona-contenido'), 'Siguiente ➜', resolver);
+    }
+  });
+}
+
+registrarJuego({
+  id: 'personalidades', icono: '📸', titulo: '¿Quién es?',
+  desc: 'Fotos distorsionadas de personalidades judías e israelíes. ¡Adiviná quién es!',
+  reglas: [
+    'Aparece la foto de una personalidad judía o israelí <b>muy distorsionada</b>, con una pista.',
+    'El equipo tiene una chance de adivinar. Si no aciertan, la foto se ve <b>un poco más clara</b> y aparece otra pista.',
+    'Vale 4 puntos con la foto más distorsionada, después 3, 2 y 1 con la foto clara.',
+    'Hay políticos, científicos y artistas. Quien conduce puede ver el nombre manteniendo apretado el botón 👁.'
+  ],
+  opciones: [
+    { clave: 'porEquipo', etiqueta: 'Fotos por equipo', valores: [2, 3, 5], def: 3 },
+    { clave: 'categoria', etiqueta: 'Categoría', valores: ['Todas', 'Política', 'Ciencia', 'Arte'], def: 'Todas' }
+  ],
+  jugar(ctx) { porTurnos(ctx, ctx.op.porEquipo, () => jugarPersonalidad(ctx), { etiqueta: 'Foto' }); }
+});
+
+/* =====================================================================
    7. ¿QUÉ REPRESENTA? (emojis)
    ===================================================================== */
 

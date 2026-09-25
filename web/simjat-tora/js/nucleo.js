@@ -411,6 +411,7 @@ function dibujarZona(html) {
   const z = $('#zona');
   if (!z) return null;
   z.innerHTML = `<div class="zona-contenido">${html}</div>`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });   // cada ronda nueva arranca desde arriba
   return z;
 }
 
