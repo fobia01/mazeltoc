@@ -31,9 +31,9 @@ La URL principal `/` abre **el juego compartido**, preparado para proyectar exac
 
 1. Antes de proyectar, abrí «Preparar equipos y materiales» (`/?conductor=1`). Configurá los equipos y los tiempos e imprimí las tarjetas de mímica. Este panel contiene soluciones: usalo durante la preparación o con pantallas extendidas.
 2. Volvé a «Proyectar juego compartido» y conectá el televisor con la pantalla duplicada. La aplicación abre este modo por defecto.
-3. Iniciá el programa, elegí ronda y equipo y mostrá la pregunta. El equipo puede responder con las tarjetas A/B/C o en voz alta.
-4. Registrá la opción en «Respuesta del equipo» y pulsá «Confirmar respuesta». La elección queda bloqueada para ese equipo y esa pregunta. Para consignas abiertas se confirma que el equipo respondió oralmente.
-5. Solo después se habilita «Revelar respuesta». La solución y su explicación aparecen para todos. En preguntas con opciones, «Registrar resultado del equipo» calcula acierto o error comparando con la elección confirmada. En respuestas abiertas, el conductor marca Acierto o Error después de revelar.
+3. Iniciá el programa: aparece el **menú de juegos**, con una tarjeta grande por ronda y cuántas preguntas se jugaron. Tocá una tarjeta, elegí el equipo y mostrá la pregunta. Con «🏠 Menú de juegos» (arriba y en los controles) se vuelve al menú en cualquier momento. El reloj arranca solo en cuanto aparece la pregunta. El equipo puede responder con las tarjetas A/B/C o en voz alta.
+4. En preguntas con opciones, elegí la opción del equipo en «Respuesta del equipo» y pulsá «Confirmar y revelar». En un solo paso se bloquea la elección, se frena el reloj, se muestra la solución, se suma el puntaje y suena la ovación (acierto) o el «¡Buuu!» (error).
+5. En consignas abiertas, la final y el desempate se mantiene el paso a paso: «Confirmar respuesta», «Revelar respuesta» y después Acierto/Error o «Registrar resultado del equipo», con la misma ovación o abucheo automático.
 6. La mímica muestra únicamente un código como **M037**, que coincide con la tarjeta impresa. Entregá ese papel al participante sin mostrarlo al resto del equipo. No se muestra la consigna hasta revelarla.
 7. En la final, bloqueá las apuestas antes de mostrar la pregunta. Elegí cada equipo y confirmá su respuesta; la solución se habilita recién cuando todos confirmaron. Registrá los resultados de cada uno antes de preparar otra pregunta final.
 8. Puntajes, respuestas confirmadas y apuestas se conservan al cerrar o recargar el navegador. Los botones «¡Ovación!» y «¡Buuu!» no modifican los puntajes.
@@ -44,7 +44,9 @@ Con «extender pantallas», el panel privado está en `/?conductor=1` y la venta
 
 ## Banco y multimedia
 
-60 consignas iniciales originales: 48 de recuerdos/cultura cotidiana argentina y 12 de cultura judía. Las consignas de mímica son abiertas; las musicales iniciales son preguntas culturales y pueden enriquecerse con archivos autorizados. El editor permite crear, editar, eliminar, añadir rondas e importar/exportar JSON. Valida IDs únicos, respuesta entre opciones y rangos de puntaje y tiempo. No se repiten preguntas en una partida salvo «Repetir», que no habilita sumar puntos dos veces.
+**Dificultad progresiva.** Cada pregunta es fácil (★), media (★★) o difícil (★★★), y la pantalla lo muestra junto a los puntos. Dentro de cada ronda salen primero las fáciles, después las medias y al final las difíciles. Hay 4 de cada nivel por ronda, así los 4 equipos reciben preguntas parejas. Las difíciles valen más y dan 60 segundos. La gran final solo tiene medias y difíciles.
+
+64 consignas iniciales originales: 49 de recuerdos/cultura cotidiana argentina y 15 de cultura judía. Las consignas de mímica son abiertas; las musicales iniciales son preguntas culturales y pueden enriquecerse con archivos autorizados. El editor permite crear, editar, eliminar, añadir rondas e importar/exportar JSON. Valida IDs únicos, respuesta entre opciones y rangos de puntaje y tiempo. No se repiten preguntas en una partida salvo «Repetir», que no habilita sumar puntos dos veces.
 
 Las preguntas históricas/culturales llevan referencias consultables. Los usos de objetos y consignas gestuales se basan en conocimientos cotidianos y no en una comprobación archivística individual. Revisá el banco con el organizador antes del encuentro para adecuar recuerdos y dificultad.
 

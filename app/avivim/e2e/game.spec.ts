@@ -301,9 +301,13 @@ test("Pantalla duplicada: confirmar, revelar y sumar sin soluciones privadas", a
 }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Iniciar el programa" }).click();
+  // Menú de juegos: una tarjeta por ronda.
+  await expect(page.locator(".game-card")).toHaveCount(6);
+  await page.locator(".game-card").first().click();
   await page
     .getByRole("button", { name: "Mostrar siguiente pregunta" })
     .click();
+  await expect(page.locator(".level-badge")).toContainText("Fácil");
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.screenshot({
     path: "/private/tmp/mazal-compartido.png",
@@ -317,30 +321,32 @@ test("Pantalla duplicada: confirmar, revelar y sumar sin soluciones privadas", a
       exact: true,
     }),
   ).toHaveCount(0);
+  // El reloj arranca solo al mostrar la pregunta.
   await expect(
-    page.getByRole("button", { name: "Revelar respuesta", exact: true }),
+    page.getByRole("button", { name: "Pausar reloj" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Confirmar y revelar", exact: true }),
   ).toBeDisabled();
   await page
     .getByLabel("Respuesta del equipo")
     .selectOption("La perilla del televisor");
   await page
-    .getByRole("button", { name: "Confirmar respuesta", exact: true })
+    .getByRole("button", { name: "Confirmar y revelar", exact: true })
     .click();
   await expect(page.getByLabel("Respuesta del equipo")).toBeDisabled();
-  await page.reload();
-  await expect(page.getByLabel("Respuesta del equipo")).toBeDisabled();
-  await page
-    .getByRole("button", { name: "Revelar respuesta", exact: true })
-    .click();
   await expect(page.locator(".reveal")).toContainText("perilla");
-  await page
-    .getByRole("button", { name: "Registrar resultado del equipo" })
-    .click();
   await expect(page.locator(".scoreboard strong").first()).toHaveText("10");
   await expect(
-    page.getByRole("button", { name: "Puntaje registrado" }),
-  ).toBeDisabled();
-  await page.getByLabel("Ronda", { exact: true }).selectOption("5");
+    page.getByRole("button", { name: "Iniciar reloj", exact: true }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(page.locator(".scoreboard strong").first()).toHaveText("10");
+  await page.getByRole("button", { name: "🏠 Menú de juegos" }).first().click();
+  await expect(page.locator(".game-card").first()).toContainText(
+    "1 de 12 preguntas",
+  );
+  await page.locator(".game-card").nth(4).click();
   await page
     .getByRole("button", { name: "Mostrar siguiente pregunta" })
     .click();

@@ -2,7 +2,7 @@ export type Question = {
   id: string;
   round: number;
   category: string;
-  difficulty: "fácil" | "media";
+  difficulty: "fácil" | "media" | "difícil";
   text: string;
   options: string[];
   answer: string;
@@ -32,7 +32,7 @@ export type State = {
   used: string[];
   revealed: boolean;
   hint: boolean;
-  phase: "welcome" | "playing" | "paused" | "results";
+  phase: "welcome" | "menu" | "playing" | "paused" | "results";
   selected: string;
   timer: { remaining: number; end: number | null };
   bets: Record<string, number>;
@@ -52,6 +52,15 @@ export type State = {
   responses: Record<string, string>;
   bank: Question[];
 };
+export const levels = ["fácil", "media", "difícil"];
+export const roundCards = [
+  { icon: "🧠", text: "Preguntas de la vida de antes" },
+  { icon: "🎶", text: "Tangos, cantantes y canciones" },
+  { icon: "📻", text: "Fotos de objetos de antes" },
+  { icon: "🤔", text: "¿Es verdad o es puro cuento?" },
+  { icon: "🎭", text: "Adivinen sin palabras" },
+  { icon: "🏆", text: "Apuestas y preguntas finales" },
+];
 export const rounds = [
   "¿Te acordás o te lo contaron?",
   "La música de nuestra vida",
@@ -134,7 +143,12 @@ export function next(s: State): State {
     throw Error(
       "Registrá y bloqueá las apuestas antes de mostrar la pregunta.",
     );
-  const q = s.bank.find((q) => q.round === s.round && !s.used.includes(q.id));
+  // Dentro de cada ronda primero las fáciles, después las medias y al final las difíciles.
+  const q = s.bank
+    .filter((q) => q.round === s.round && !s.used.includes(q.id))
+    .sort(
+      (a, b) => levels.indexOf(a.difficulty) - levels.indexOf(b.difficulty),
+    )[0];
   if (!q)
     throw Error(
       "No quedan preguntas en esta ronda. Agregá nuevas en el banco o elegí otra ronda.",
@@ -153,6 +167,10 @@ export function next(s: State): State {
     settled: [],
     timer: { remaining: s.duration || q.duration, end: null },
   };
+}
+export function startTimer(s: State): State {
+  const remaining = s.timer.remaining || s.duration;
+  return { ...s, timer: { remaining, end: Date.now() + remaining * 1000 } };
 }
 export function lockBets(s: State): State {
   if (s.locked) throw Error("Las apuestas ya están bloqueadas.");
@@ -224,7 +242,7 @@ export function validateQuestions(value: unknown): Question[] {
       !Number.isFinite(q.duration) ||
       q.duration < 10 ||
       q.duration > 300 ||
-      !["fácil", "media"].includes(q.difficulty) ||
+      !levels.includes(q.difficulty) ||
       typeof q.category !== "string"
     )
       throw Error(
@@ -298,7 +316,7 @@ export function validateState(value: unknown): State {
     !Number.isInteger(s.round) ||
     s.round < 1 ||
     s.round > s.roundNames.length ||
-    !["welcome", "playing", "paused", "results"].includes(s.phase) ||
+    !["welcome", "menu", "playing", "paused", "results"].includes(s.phase) ||
     !s.teams.some((t) => t.id === s.selected)
   )
     throw Error("Ronda o estado de partida inválido.");

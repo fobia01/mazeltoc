@@ -28,6 +28,9 @@ import {
   points,
   award,
   lockBets,
+  startTimer,
+  levels,
+  roundCards,
   validateQuestions,
   validateState,
   type State,
@@ -60,10 +63,19 @@ const channel =
   typeof BroadcastChannel !== "undefined"
     ? new BroadcastChannel("mazal-avivim")
     : null;
+// Las partidas guardadas con el banco anterior (todo «fácil») reciben el banco
+// graduado por dificultad; las preguntas propias del conductor se conservan.
+function upgradeBank(s: State): State {
+  if (!s.bank.every((q) => q.difficulty === "fácil")) return s;
+  const fresh = validateQuestions(raw);
+  const own = s.bank.filter((q) => !fresh.some((f) => f.id === q.id));
+  return { ...s, bank: [...fresh, ...own] };
+}
 function App() {
-  const [state, setState] = useState<State>(
-    () => read() || initial(validateQuestions(raw)),
-  );
+  const [state, setState] = useState<State>(() => {
+    const saved = read();
+    return saved ? upgradeBank(saved) : initial(validateQuestions(raw));
+  });
   const current = useRef(state);
   const soundEvents = useRef(new Set<string>());
   current.current = state;
@@ -205,7 +217,8 @@ function App() {
   const leaders = [...state.teams].sort((a, b) => b.score - a.score);
   const tied = leaders.filter((t) => t.score === leaders[0].score);
   function newQuestion() {
-    change((s) => next(s), "round");
+    // El reloj arranca solo apenas aparece la pregunta.
+    change((s) => startTimer(next(s)), "round");
   }
   function chooseRound(round: number) {
     change(
@@ -225,6 +238,19 @@ function App() {
       }),
       "round",
     );
+  }
+  function goMenu() {
+    change((s) => ({
+      ...s,
+      phase: "menu",
+      question: null,
+      revealed: false,
+      hint: false,
+      responses: {},
+      notice: "",
+      tiebreak: [],
+      timer: { remaining: s.duration, end: null },
+    }));
   }
   function spin() {
     if (spinning || !wheelOptions.length || wheelOptions.some((o) => !o.trim()))
@@ -334,6 +360,45 @@ function App() {
               Una tarde para compartir.
             </p>
           </div>
+        ) : state.phase === "menu" ? (
+          <div className="game-menu">
+            <h2>¿A qué jugamos?</h2>
+            <div className="game-menu-grid">
+              {state.roundNames.map((name, i) => {
+                const all = state.bank.filter((q) => q.round === i + 1);
+                const played = all.filter((q) =>
+                  state.used.includes(q.id),
+                ).length;
+                const card = roundCards[i] || { icon: "⭐", text: "" };
+                return (
+                  <button
+                    key={i}
+                    className={
+                      "game-card " +
+                      (all.length && played === all.length ? "done" : "")
+                    }
+                    disabled={publicMode}
+                    onClick={() => chooseRound(i + 1)}
+                  >
+                    <span className="game-card-icon" aria-hidden="true">
+                      {card.icon}
+                    </span>
+                    <span className="game-card-title">
+                      {i + 1}. {name}
+                    </span>
+                    {card.text && (
+                      <span className="game-card-text">{card.text}</span>
+                    )}
+                    <span className="game-card-count">
+                      {played === all.length && all.length
+                        ? "✓ Jugada"
+                        : `${played} de ${all.length} preguntas`}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         ) : state.phase === "paused" ? (
           <div className="welcome">
             <Pause size={60} />
@@ -366,7 +431,25 @@ function App() {
               (state.question?.round === 3 ? "object-game" : "")
             }
           >
-            <p className="eyebrow">{state.roundNames[state.round - 1]}</p>
+            <p className="eyebrow">
+              {state.roundNames[state.round - 1]}
+              {state.question && (
+                <span
+                  className={
+                    "level-badge level-" +
+                    levels.indexOf(state.question.difficulty)
+                  }
+                >
+                  {"★".repeat(levels.indexOf(state.question.difficulty) + 1)}{" "}
+                  {state.question.difficulty === "fácil"
+                    ? "Fácil"
+                    : state.question.difficulty === "media"
+                      ? "Más difícil"
+                      : "¡Desafío!"}{" "}
+                  · {state.question.points} puntos
+                </span>
+              )}
+            </p>
             {state.question ? (
               <>
                 <h2>
@@ -499,6 +582,14 @@ function App() {
     return (
       <main className={"shared-game " + (!state.motion ? "no-motion" : "")}>
         <header>
+          <button
+            className="brand home-button"
+            title="Ir al menú de juegos"
+            disabled={state.phase === "welcome"}
+            onClick={goMenu}
+          >
+            🏠 Menú de juegos
+          </button>
           <span className="brand">🎉 MAZAL TOC AVIVIM</span>
           <span className="shared-safe">
             Pantalla compartida · soluciones ocultas hasta revelar
@@ -530,6 +621,7 @@ function App() {
           next={newQuestion}
           round={chooseRound}
           finish={finish}
+          menu={goMenu}
         />
         {state.phase === "results" && tied.length > 1 && (
           <button
@@ -539,14 +631,16 @@ function App() {
                   (q) => q.round < 5 && !s.used.includes(q.id),
                 );
                 if (!q) throw Error("Agregá una pregunta de desempate.");
-                return next({
-                  ...s,
-                  round: q.round,
-                  question: null,
-                  locked: false,
-                  tiebreak: tied.map((t) => t.id),
-                  selected: tied[0].id,
-                });
+                return startTimer(
+                  next({
+                    ...s,
+                    round: q.round,
+                    question: null,
+                    locked: false,
+                    tiebreak: tied.map((t) => t.id),
+                    selected: tied[0].id,
+                  }),
+                );
               })
             }
           >
@@ -735,7 +829,7 @@ function App() {
                     className="primary"
                     onClick={() => {
                       if (state.phase === "welcome")
-                        change((s) => ({ ...s, phase: "playing" }), "start");
+                        change((s) => ({ ...s, phase: "menu" }), "start");
                       else newQuestion();
                     }}
                   >
@@ -1378,6 +1472,7 @@ function App() {
                       >
                         <option>fácil</option>
                         <option>media</option>
+                        <option>difícil</option>
                       </select>
                     </label>
                   </div>

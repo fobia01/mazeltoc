@@ -12,10 +12,10 @@ import {
 } from "./engine";
 import bank from "./questions.json";
 describe("Motor de juego", () => {
-  it("tiene 60 preguntas válidas, 48 argentinas y 12 judías", () => {
+  it("tiene 64 preguntas válidas, 49 argentinas y 15 judías", () => {
     const q = validateQuestions(bank);
-    expect(q).toHaveLength(60);
-    expect(q.filter((x) => x.category === "Cultura judía")).toHaveLength(12);
+    expect(q).toHaveLength(64);
+    expect(q.filter((x) => x.category === "Cultura judía")).toHaveLength(15);
   });
   it("no repite preguntas", () => {
     let s = initial(validateQuestions(bank));
@@ -115,4 +115,17 @@ it("la final compartida exige respuestas de todos los equipos", () => {
   for (const t of s.teams.slice(1))
     s = confirmResponse(s, t.id, s.question!.answer);
   expect(revealShared(s).revealed).toBe(true);
+});
+it("cada ronda va de fácil a difícil", () => {
+  let s = initial(validateQuestions(bank));
+  const seen: string[] = [];
+  for (let i = 0; i < 12; i++) {
+    s = next(s);
+    seen.push(s.question!.difficulty);
+  }
+  expect(seen).toEqual([
+    ...Array(4).fill("fácil"),
+    ...Array(4).fill("media"),
+    ...Array(4).fill("difícil"),
+  ]);
 });

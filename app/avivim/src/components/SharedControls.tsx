@@ -13,6 +13,7 @@ export function SharedControls({
   next,
   round,
   finish,
+  menu,
 }: {
   state: State;
   remaining: number;
@@ -20,6 +21,7 @@ export function SharedControls({
   next: () => void;
   round: (n: number) => void;
   finish: () => void;
+  menu: () => void;
 }) {
   const [choice, setChoice] = useState("");
   const q = state.question;
@@ -33,15 +35,25 @@ export function SharedControls({
         ? state.tiebreak
         : [state.selected];
   const ready = !!q && required.every((id) => state.responses?.[id]);
+  // Pregunta común con opciones: un solo botón confirma, revela y puntúa.
+  const automatic =
+    !!q && q.options.length > 0 && state.round !== 6 && !state.tiebreak.length;
+  function scored(s: State, correct: boolean): State {
+    return {
+      ...award(s, team.id, correct),
+      notice: correct
+        ? `¡Bien, ${team.name}! Respuesta correcta.`
+        : `Esta vez no salió, ${team.name}. ¡Seguimos jugando!`,
+    };
+  }
   function result(correct: boolean) {
+    change((s) => scored(s, correct), correct ? "applause" : "boo");
+  }
+  function revealAndScore() {
+    const correct = choice === q?.answer;
     change(
-      (s) => ({
-        ...award(s, team.id, correct),
-        notice: correct
-          ? `¡Bien, ${team.name}! Respuesta correcta.`
-          : `Esta vez no salió, ${team.name}. ¡Seguimos jugando!`,
-      }),
-      correct ? "correct" : "wrong",
+      (s) => scored(revealShared(confirmResponse(s, team.id, choice)), correct),
+      correct ? "applause" : "boo",
     );
   }
   return (
@@ -90,11 +102,11 @@ export function SharedControls({
         </label>
         <button
           className="primary"
-          disabled={state.round === 6 && !!q}
+          disabled={(state.round === 6 && !!q) || state.phase === "menu"}
           onClick={() => {
             setChoice("");
             if (state.phase === "welcome")
-              change((s) => ({ ...s, phase: "playing" }), "start");
+              change((s) => ({ ...s, phase: "menu" }), "start");
             else next();
           }}
         >
@@ -177,31 +189,45 @@ export function SharedControls({
                   : "El equipo responde en voz alta."}
               </p>
             )}
-            <button
-              disabled={
-                !!confirmed ||
-                state.revealed ||
-                (q.options.length > 0 && !q.options.includes(choice))
-              }
-              onClick={() =>
-                change((s) =>
-                  confirmResponse(
-                    s,
-                    team.id,
-                    q.options.length ? choice : "Respuesta oral confirmada",
-                  ),
-                )
-              }
-            >
-              {confirmed ? "✓ Respuesta confirmada" : "Confirmar respuesta"}
-            </button>
-            <button
-              className="reveal-button"
-              disabled={!ready || state.revealed}
-              onClick={() => change(revealShared)}
-            >
-              {state.revealed ? "Solución revelada" : "Revelar respuesta"}
-            </button>
+            {automatic ? (
+              <button
+                className="reveal-button"
+                disabled={
+                  !!confirmed || state.revealed || !q.options.includes(choice)
+                }
+                onClick={revealAndScore}
+              >
+                {state.revealed ? "Solución revelada" : "Confirmar y revelar"}
+              </button>
+            ) : (
+              <>
+                <button
+                  disabled={
+                    !!confirmed ||
+                    state.revealed ||
+                    (q.options.length > 0 && !q.options.includes(choice))
+                  }
+                  onClick={() =>
+                    change((s) =>
+                      confirmResponse(
+                        s,
+                        team.id,
+                        q.options.length ? choice : "Respuesta oral confirmada",
+                      ),
+                    )
+                  }
+                >
+                  {confirmed ? "✓ Respuesta confirmada" : "Confirmar respuesta"}
+                </button>
+                <button
+                  className="reveal-button"
+                  disabled={!ready || state.revealed}
+                  onClick={() => change(revealShared)}
+                >
+                  {state.revealed ? "Solución revelada" : "Revelar respuesta"}
+                </button>
+              </>
+            )}
           </div>
           <div className="confirmed-teams" aria-live="polite">
             {state.teams
@@ -212,7 +238,7 @@ export function SharedControls({
                 </span>
               ))}
           </div>
-          {state.revealed && (
+          {state.revealed && !automatic && (
             <div className="shared-control-row">
               {q.options.length > 0 ? (
                 <button
@@ -316,6 +342,9 @@ export function SharedControls({
           }
         >
           {state.phase === "paused" ? "Continuar partida" : "Pausar programa"}
+        </button>
+        <button disabled={state.phase === "welcome"} onClick={menu}>
+          🏠 Menú de juegos
         </button>
         <button onClick={finish}>Finalizar y ver resultados</button>
         <button
