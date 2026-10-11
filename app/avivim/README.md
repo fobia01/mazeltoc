@@ -38,6 +38,16 @@ La URL principal `/` abre **el juego compartido**, preparado para proyectar exac
 7. En la final, bloqueá las apuestas antes de mostrar la pregunta. Elegí cada equipo y confirmá su respuesta; la solución se habilita recién cuando todos confirmaron. Registrá los resultados de cada uno antes de preparar otra pregunta final.
 8. Puntajes, respuestas confirmadas y apuestas se conservan al cerrar o recargar el navegador. Los botones «¡Ovación!» y «¡Buuu!» no modifican los puntajes.
 
+### Bingo musical
+
+En el menú de juegos, la tarjeta «🎵 Bingo musical» abre el bingo con 64 canciones de los años 50, 60 y 70: melódicos y folclore argentinos, tango, España, Italia y boleros. La lista está en `src/bingo.ts`, y conviene armar la playlist de Spotify con los mismos temas.
+
+1. **Antes del evento:** tocá «🖨️ Imprimir cartones» (o «Para imprimir» → «Cartones de bingo musical» en el panel). Cada cartón tiene 9 canciones (3 filas de 3), un número y entra de a dos por hoja A4. La cantidad se elige en «Cantidad de cartones».
+2. **Durante el juego:** poné la playlist en modo aleatorio. Cuando la gente ya la reconoció, tocá esa canción en la lista (hay un buscador): aparece grande en pantalla y queda en «Ya sonaron». «Deshacer la última» corrige un toque equivocado.
+3. **Cuando alguien canta:** escribí el número de su cartón y tocá «Verificar cartón». La pantalla muestra el cartón con las canciones que sonaron y dice «¡LÍNEA!» (una fila completa, con ovación), «¡BINGO!» (todo el cartón, con festejo y confeti) o cuántas faltan (con «¡Buuu!»).
+
+Los cartones salen siempre iguales porque se generan desde un número guardado en la partida: imprimilos desde el mismo navegador donde vas a jugar. «Empezar de nuevo» borra las canciones que sonaron, pero los cartones impresos siguen sirviendo.
+
 ### Dos pantallas independientes (opcional)
 
 Con «extender pantallas», el panel privado está en `/?conductor=1` y la ventana del público en `/?public=1`. Conservá el primero en la notebook y mové el segundo al proyector. Las consignas privadas del panel no deben proyectarse. Ambas ventanas usan el mismo origen y perfil del navegador.

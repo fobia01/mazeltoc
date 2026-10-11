@@ -39,6 +39,7 @@ import {
 import { KEY, read, save, download, putMedia } from "./storage";
 import { Media } from "./components/Media";
 import { SharedControls } from "./components/SharedControls";
+import { BingoStage, BingoControls, BingoCards } from "./components/Bingo";
 import { PrintMaterials } from "./components/PrintMaterials";
 import { sound, activateSound, soundSettings } from "./audio";
 import { Bunting, Confetti } from "./components/Festive";
@@ -47,8 +48,10 @@ import { photoFor, photos } from "./photos";
 import "./style.css";
 const sharedMode =
   !new URLSearchParams(location.search).has("conductor") &&
-  !new URLSearchParams(location.search).has("public");
+  !new URLSearchParams(location.search).has("public") &&
+  !new URLSearchParams(location.search).has("cartones");
 const publicMode = new URLSearchParams(location.search).has("public");
+const cardsMode = new URLSearchParams(location.search).has("cartones");
 const choices = [
   "Ganás 10 puntos",
   "Pregunta sorpresa",
@@ -77,6 +80,14 @@ function App() {
     return saved ? upgradeBank(saved) : initial(validateQuestions(raw));
   });
   const current = useRef(state);
+  useEffect(() => {
+    if (!publicMode)
+      try {
+        save(current.current);
+      } catch {
+        /* Sin espacio: se avisa en el próximo cambio. */
+      }
+  }, []);
   const soundEvents = useRef(new Set<string>());
   current.current = state;
   const [tab, setTab] = useState("show");
@@ -252,6 +263,20 @@ function App() {
       timer: { remaining: s.duration, end: null },
     }));
   }
+  function goBingo() {
+    change(
+      (s) => ({
+        ...s,
+        phase: "bingo",
+        question: null,
+        revealed: false,
+        notice: "",
+        timer: { remaining: s.timer.remaining, end: null },
+        bingo: { ...s.bingo, check: null },
+      }),
+      "start",
+    );
+  }
   function spin() {
     if (spinning || !wheelOptions.length || wheelOptions.some((o) => !o.trim()))
       return;
@@ -336,7 +361,7 @@ function App() {
               ? "MAZAL TOC AVIVIM · EN JUEGO"
               : "AVIVIM · BET AM DEL OESTE"}
           </span>
-          <span>
+          <span hidden={state.phase === "bingo" || state.phase === "menu"}>
             RONDA {String(state.round).padStart(2, "0")} /{" "}
             {state.roundNames.length}
           </span>
@@ -397,8 +422,23 @@ function App() {
                   </button>
                 );
               })}
+              <button
+                className="game-card bingo-tile"
+                disabled={publicMode}
+                onClick={goBingo}
+              >
+                <span className="game-card-icon" aria-hidden="true">
+                  🎵
+                </span>
+                <span className="game-card-title">Bingo musical</span>
+                <span className="game-card-text">
+                  Canciones de los 50, 60 y 70: ¡marquen su cartón!
+                </span>
+              </button>
             </div>
           </div>
+        ) : state.phase === "bingo" ? (
+          <BingoStage state={state} />
         ) : state.phase === "paused" ? (
           <div className="welcome">
             <Pause size={60} />
@@ -538,7 +578,7 @@ function App() {
         {state.wheel && (
           <div className="wheel-banner">✦ RULETA MAZAL TOC · {state.wheel}</div>
         )}
-        <div className="scoreboard">
+        <div className="scoreboard" hidden={state.phase === "bingo"}>
           {state.teams.map((t) => (
             <div
               key={t.id}
@@ -578,6 +618,7 @@ function App() {
       setError(e instanceof Error ? e.message : "Archivo inválido");
     }
   }
+  if (cardsMode) return <BingoCards state={state} />;
   if (sharedMode)
     return (
       <main className={"shared-game " + (!state.motion ? "no-motion" : "")}>
@@ -614,15 +655,19 @@ function App() {
           </div>
         )}
         {stage()}
-        <SharedControls
-          state={state}
-          remaining={remaining}
-          change={change}
-          next={newQuestion}
-          round={chooseRound}
-          finish={finish}
-          menu={goMenu}
-        />
+        {state.phase === "bingo" ? (
+          <BingoControls state={state} change={change} menu={goMenu} />
+        ) : (
+          <SharedControls
+            state={state}
+            remaining={remaining}
+            change={change}
+            next={newQuestion}
+            round={chooseRound}
+            finish={finish}
+            menu={goMenu}
+          />
+        )}
         {state.phase === "results" && tied.length > 1 && (
           <button
             onClick={() =>

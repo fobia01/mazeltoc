@@ -12,6 +12,7 @@ export function PrintMaterials({ state }: { state: State }) {
     "Guion del conductor",
     "Diplomas de participación",
     "Diploma del ganador",
+    "Cartones de bingo musical",
   ];
   return (
     <>
@@ -33,7 +34,17 @@ export function PrintMaterials({ state }: { state: State }) {
         <h1>MAZAL TOC AVIVIM</h1>
         <p>¡El pasado vuelve a jugar! · Bet Am del Oeste</p>
         <h2>{kind}</h2>
-        {kind === "Tarjetas A, B y C" ? (
+        {kind === "Cartones de bingo musical" ? (
+          <p>
+            Los cartones se abren en una página aparte, listos para imprimir de
+            a dos por hoja.{" "}
+            <button
+              onClick={() => window.open("./?cartones=1", "mazal-cartones")}
+            >
+              Abrir {state.bingo.cards} cartones
+            </button>
+          </p>
+        ) : kind === "Tarjetas A, B y C" ? (
           <div className="print-grid">
             {["A", "B", "C"].map((c) => (
               <div className="print-card letter" key={c}>

@@ -2660,3 +2660,228 @@ table {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* Bingo musical */
+.bingo-tile {
+  grid-column: 1 / -1;
+  min-height: 0;
+  flex-direction: row;
+  justify-content: center;
+  gap: 18px;
+  box-shadow: 0 6px 0 #a885e8;
+}
+.bingo-tile .game-card-icon {
+  font-size: 2.6rem;
+}
+.bingo-stage {
+  position: relative;
+  z-index: 1;
+  padding: 10px 3vw 30px;
+  text-align: center;
+  color: #fff;
+}
+.bingo-now {
+  margin: 10px auto 18px;
+  max-width: 1100px;
+  padding: 26px 30px;
+  border-radius: 26px;
+  background: #fffdf5;
+  color: #1e3a8a;
+  box-shadow: 0 7px 0 #ffca43;
+}
+.bingo-now small {
+  display: block;
+  font-size: calc(1.4rem * var(--text-scale));
+  color: #8048bd;
+}
+.bingo-now h2 {
+  margin: 4px 0;
+  font-size: calc(clamp(48px, 5vw, 96px) * var(--text-scale));
+}
+.bingo-now p {
+  margin: 0;
+  font-size: calc(clamp(26px, 2.4vw, 44px) * var(--text-scale));
+}
+.bingo-history {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: calc(1.3rem * var(--text-scale));
+}
+.bingo-history em {
+  font-style: normal;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #ffffff26;
+  border: 2px solid #ffffff55;
+}
+.bingo-rules {
+  margin: 18px 0 0;
+  color: #ffca43;
+  font-size: calc(1.2rem * var(--text-scale));
+}
+.bingo-verdict {
+  margin: 6px 0 18px;
+  font-size: calc(clamp(44px, 4.5vw, 84px) * var(--text-scale));
+  color: #fff;
+}
+.bingo-verdict.is-bingo,
+.bingo-verdict.is-line {
+  color: #ffca43;
+}
+.bingo-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 1200px;
+  margin: auto;
+}
+.bingo-card-grid > div {
+  position: relative;
+  padding: 16px 12px;
+  border-radius: 18px;
+  background: #ffffffd9;
+  color: #6b7393;
+}
+.bingo-card-grid > div.hit {
+  background: #fffdf5;
+  color: #1e3a8a;
+  box-shadow: 0 5px 0 #27b8a1;
+}
+.bingo-card-grid b {
+  display: block;
+  font-size: calc(clamp(22px, 1.9vw, 36px) * var(--text-scale));
+}
+.bingo-card-grid small {
+  font-size: calc(1.1rem * var(--text-scale));
+}
+.bingo-card-grid i {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-style: normal;
+  font-size: 2rem;
+  color: #12795f;
+}
+.bingo-controls .bingo-check input {
+  max-width: 220px;
+  font-size: 1.6rem;
+}
+.bingo-search {
+  margin: 18px 0 8px;
+}
+.bingo-group h3 {
+  margin: 18px 0 8px;
+  color: #8048bd;
+}
+.bingo-songs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+.bingo-songs button {
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 2px;
+}
+.bingo-songs button small {
+  font-weight: 600;
+  color: #4a5580;
+}
+.bingo-songs button.played {
+  background: #e3f7ee;
+  opacity: 0.7;
+}
+.bingo-print {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.bingo-print-toolbar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+.bingo-sheet {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  padding: 14px;
+  border: 3px solid #1e3a8a;
+  border-radius: 16px;
+  background: #fff;
+  color: #111;
+}
+.bingo-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  padding: 0 4px 10px;
+  border: 0;
+  background: none;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+.bingo-sheet-grid {
+  display: grid;
+  border: 2px solid #1e3a8a;
+}
+.bingo-sheet-grid > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 105px;
+  padding: 8px;
+  border: 1px solid #1e3a8a;
+  text-align: center;
+}
+.bingo-sheet-grid b {
+  font-size: 24px;
+  line-height: 1.15;
+}
+.bingo-sheet-grid small {
+  margin-top: 4px;
+  font-size: 17px;
+  font-weight: 400;
+}
+.bingo-sheet-foot {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+  .bingo-print-toolbar {
+    display: none;
+  }
+  .bingo-print {
+    padding: 0;
+    max-width: none;
+  }
+  .bingo-sheet {
+    height: 132mm;
+    margin-bottom: 8mm;
+    border-radius: 0;
+  }
+  .bingo-sheet:nth-of-type(2n) {
+    break-after: page;
+  }
+  .bingo-sheet-grid > div {
+    min-height: 34mm;
+  }
+}
+.bingo-stage .eyebrow {
+  color: #ffca43;
+  font-size: calc(1.4rem * var(--text-scale));
+}

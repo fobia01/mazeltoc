@@ -302,7 +302,7 @@ test("Pantalla duplicada: confirmar, revelar y sumar sin soluciones privadas", a
   await page.goto("/");
   await page.getByRole("button", { name: "Iniciar el programa" }).click();
   // Menú de juegos: una tarjeta por ronda.
-  await expect(page.locator(".game-card")).toHaveCount(6);
+  await expect(page.locator(".game-card")).toHaveCount(7);
   await page.locator(".game-card").first().click();
   await page
     .getByRole("button", { name: "Mostrar siguiente pregunta" })
@@ -355,4 +355,48 @@ test("Pantalla duplicada: confirmar, revelar y sumar sin soluciones privadas", a
   ).toHaveCount(0);
   await expect(page.locator(".mime-card-code")).toContainText("M037");
   await expect(page.locator(".private-answer")).toHaveCount(0);
+});
+
+test("Bingo musical: marcar canciones, verificar e imprimir cartones", async ({
+  page,
+  context,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Iniciar el programa" }).click();
+  await page.locator(".bingo-tile").click();
+  await expect(page.locator(".bingo-now")).toContainText("Escuchen");
+  const seed = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("mazal-avivim-v1")!).bingo.seed,
+  );
+  // Las 9 canciones del cartón 4, calculadas igual que el juego.
+  const cards = await context.newPage();
+  await cards.goto("/?cartones=1");
+  await expect(cards.locator(".bingo-sheet")).toHaveCount(30);
+  const titles = await cards
+    .locator(".bingo-sheet")
+    .nth(3)
+    .locator(".bingo-sheet-grid b")
+    .allTextContents();
+  expect(titles).toHaveLength(9);
+  await cards.close();
+  for (const t of titles.slice(0, 3))
+    await page
+      .locator(".bingo-songs button", {
+        has: page.getByText(t, { exact: true }),
+      })
+      .click();
+  await expect(page.locator(".bingo-now h2")).toHaveText(titles[2]);
+  await page.getByLabel("¿Alguien cantó? Número de cartón").fill("4");
+  await page.getByRole("button", { name: "Verificar cartón" }).click();
+  await expect(page.locator(".bingo-verdict")).toHaveText("¡LÍNEA! 👏");
+  await page.reload();
+  await expect(page.locator(".bingo-verdict")).toHaveText("¡LÍNEA! 👏");
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("mazal-avivim-v1")!).bingo.seed,
+    ),
+  ).toBe(seed);
+  await page.getByRole("button", { name: "Seguir jugando" }).click();
+  await page.getByRole("button", { name: "🏠 Menú de juegos" }).first().click();
+  await expect(page.locator(".game-card")).toHaveCount(7);
 });

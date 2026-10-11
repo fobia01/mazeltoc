@@ -1,3 +1,4 @@
+import { newBingo, type Bingo } from "./bingo";
 export type Question = {
   id: string;
   round: number;
@@ -32,7 +33,8 @@ export type State = {
   used: string[];
   revealed: boolean;
   hint: boolean;
-  phase: "welcome" | "menu" | "playing" | "paused" | "results";
+  phase: "welcome" | "menu" | "playing" | "paused" | "results" | "bingo";
+  bingo: Bingo;
   selected: string;
   timer: { remaining: number; end: number | null };
   bets: Record<string, number>;
@@ -111,6 +113,7 @@ export function initial(bank: Question[]): State {
     duration: 45,
     notice: "",
     responses: {},
+    bingo: newBingo(),
     bank,
   };
 }
@@ -316,10 +319,23 @@ export function validateState(value: unknown): State {
     !Number.isInteger(s.round) ||
     s.round < 1 ||
     s.round > s.roundNames.length ||
-    !["welcome", "menu", "playing", "paused", "results"].includes(s.phase) ||
+    !["welcome", "menu", "playing", "paused", "results", "bingo"].includes(
+      s.phase,
+    ) ||
     !s.teams.some((t) => t.id === s.selected)
   )
     throw Error("Ronda o estado de partida inválido.");
+  if (
+    s.bingo &&
+    (!Number.isInteger(s.bingo.seed) ||
+      !Number.isInteger(s.bingo.cards) ||
+      s.bingo.cards < 1 ||
+      s.bingo.cards > 300 ||
+      !Array.isArray(s.bingo.played) ||
+      s.bingo.played.some((x) => typeof x !== "string") ||
+      (s.bingo.check !== null && !Number.isInteger(s.bingo.check)))
+  )
+    throw Error("Bingo musical inválido.");
   for (const field of ["used", "settled", "awarded"] as const)
     if (!Array.isArray(s[field]) || s[field].some((x) => typeof x !== "string"))
       throw Error("Historial de partida inválido.");
