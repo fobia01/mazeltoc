@@ -1,4 +1,5 @@
 import { newBingo as newBingo6070, type Bingo6070 } from "./bingo6070";
+import { newBingo as newBingoSeries, type BingoSeries } from "./bingoSeries";
 import { newBingo, type Bingo } from "./bingo";
 export type Question = {
   id: string;
@@ -41,9 +42,11 @@ export type State = {
     | "paused"
     | "results"
     | "bingo"
-    | "bingo6070";
+    | "bingo6070"
+    | "bingoSeries";
   bingo: Bingo;
   bingo6070: Bingo6070;
+  bingoSeries: BingoSeries;
   selected: string;
   timer: { remaining: number; end: number | null };
   bets: Record<string, number>;
@@ -124,6 +127,7 @@ export function initial(bank: Question[]): State {
     responses: {},
     bingo: newBingo(),
     bingo6070: newBingo6070(),
+    bingoSeries: newBingoSeries(),
     bank,
   };
 }
@@ -337,6 +341,7 @@ export function validateState(value: unknown): State {
       "results",
       "bingo",
       "bingo6070",
+      "bingoSeries",
     ].includes(s.phase) ||
     !s.teams.some((t) => t.id === s.selected)
   )
@@ -367,6 +372,24 @@ export function validateState(value: unknown): State {
       typeof s.bingo6070.reveal !== "boolean")
   )
     throw Error("Bingo de los 60 y 70 inválido.");
+  if (
+    s.bingoSeries &&
+    (!Number.isInteger(s.bingoSeries.seed) ||
+      !Number.isInteger(s.bingoSeries.cards) ||
+      s.bingoSeries.cards < 1 ||
+      s.bingoSeries.cards > 300 ||
+      !Array.isArray(s.bingoSeries.names) ||
+      s.bingoSeries.names.length > 2000 ||
+      s.bingoSeries.names.some((x) => typeof x !== "string" || !x.trim()) ||
+      !Array.isArray(s.bingoSeries.played) ||
+      s.bingoSeries.played.some((x) => typeof x !== "string") ||
+      (s.bingoSeries.check !== null &&
+        (!Number.isInteger(s.bingoSeries.check) ||
+          s.bingoSeries.check < 1 ||
+          s.bingoSeries.check > s.bingoSeries.cards)) ||
+      typeof s.bingoSeries.reveal !== "boolean")
+  )
+    throw Error("Bingo de series y películas inválido.");
   for (const field of ["used", "settled", "awarded"] as const)
     if (!Array.isArray(s[field]) || s[field].some((x) => typeof x !== "string"))
       throw Error("Historial de partida inválido.");

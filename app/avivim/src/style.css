@@ -2904,5 +2904,73 @@ table {
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
-.bingo6070-print .bingo-sheet-head { gap: 16px; }
-.bingo6070-print .bingo-sheet-head span { font-size: 24px; }
+.bingo6070-print .bingo-sheet-head {
+  gap: 16px;
+}
+.bingo6070-print .bingo-sheet-head span {
+  font-size: 24px;
+}
+
+/* Bingo de series y películas: tarjeta del menú, fragmento y avisos. */
+.bingo-series-tile {
+  grid-column: 1 / -1;
+  min-height: 0;
+  flex-direction: row;
+  justify-content: center;
+  gap: 18px;
+  box-shadow: 0 6px 0 #27b8a1;
+}
+.bingo-series-tile .game-card-icon {
+  font-size: 2.6rem;
+}
+.series-video {
+  display: block;
+  width: 100%;
+  max-height: 58vh;
+  margin: 10px auto;
+  border-radius: 18px;
+  background: #000;
+}
+.series-audio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 16px 0;
+  font-size: 4rem;
+}
+.series-audio audio {
+  width: min(560px, 100%);
+}
+.bingo-series-stage .bingo-now p.series-answer {
+  font-family: "Baloo 2", sans-serif;
+  font-size: calc(clamp(34px, 3.6vw, 68px) * var(--text-scale));
+  font-weight: 800;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.series-warning,
+.series-info {
+  margin: 0 0 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: calc(1.2rem * var(--text-scale));
+  font-weight: 700;
+  text-align: left;
+}
+.series-warning {
+  background: #fff3cc;
+  border: 3px solid #e0a91f;
+  color: #5a3b00;
+}
+.series-info {
+  background: #e3f7ee;
+  border: 3px solid #27b8a1;
+  color: #0d5a47;
+}
+.bingo-series-print .bingo-sheet-head {
+  gap: 16px;
+}
+.bingo-series-print .bingo-sheet-head span {
+  font-size: 24px;
+}

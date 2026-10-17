@@ -97,3 +97,17 @@ Es un juego adicional del menú. Tiene su propia partida y sus propios cartones:
 **Editar la lista:** abrí `src/actores6070.json`. Hay 40 entradas con `id` (identificador único), `nombre`, `pista` y `grupo` («Series» o «Películas»). Para agregar una persona, copiá una entrada, separala con una coma y cambiá esos cuatro datos. Usá una pista que permita distinguir a esa persona de las demás. No cambies los identificadores existentes ni repitas nombres. Después recompilá la app. Hacé estos cambios antes de imprimir: agregar o reordenar personas puede cambiar los cartones, por lo que hay que volver a imprimirlos.
 
 Archivos nuevos: `src/bingo6070.ts` arma y verifica los cartones; `src/components/Bingo6070.tsx` muestra el juego y prepara la impresión. Se mantiene la misma regla del bingo musical: tres filas de tres casillas, sin diagonales ni columnas ganadoras.
+
+### Bingo de series y películas
+
+Otro juego del menú, con su propia partida y sus propios cartones: no cambia los otros bingos. Se juega desde la pantalla compartida (la notebook conectada al proyector), porque los fragmentos se reproducen ahí.
+
+1. Prepará en tu computadora los videos o audios. El nombre de cada archivo, sin la extensión, es la respuesta: «Super Agente 86.mp4» se juega como «Super Agente 86». Funcionan mejor MP4 (video) y MP3 (audio).
+2. Abrí «Bingo de series y películas» y tocá «Cargar fragmentos». Podés elegir varios archivos a la vez. Los archivos no se copian ni se suben a ningún lado: la app los reproduce directamente desde tu computadora y solo guarda sus nombres.
+3. Hacen falta al menos 9 fragmentos con nombres distintos; conviene cargar 20 o más para que los cartones no se parezcan. Si faltan, la app lo avisa y no deja imprimir ni jugar.
+4. Imprimí los cartones (después de cargar la lista definitiva). Tocá «Reproducir fragmento»: elige uno al azar sin repetir hasta que se acaben. «Mostrar respuesta» revela el nombre en la pantalla.
+5. Para verificar un cartón, ingresá su número y tocá «Verificar cartón». Una fila horizontal completa es línea; nueve nombres completan bingo.
+
+Si recargás o cerrás la app, el navegador olvida los archivos (los nombres y la partida siguen guardados). Volvé a tocar «Cargar fragmentos» y elegí los mismos archivos; los cartones impresos siguen sirviendo. Si elegís una lista distinta, la app avisa porque hay que reimprimir los cartones.
+
+Archivos nuevos: `src/bingoSeries.ts` arma y verifica los cartones; `src/components/BingoSeries.tsx` muestra el juego, los avisos y prepara la impresión.
