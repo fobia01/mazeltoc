@@ -54,6 +54,7 @@ import { PrintMaterials } from "./components/PrintMaterials";
 import { sound, activateSound, soundSettings } from "./audio";
 import { Bunting, Confetti } from "./components/Festive";
 import raw from "./questions.json";
+import originalTrueOrTale from "./respaldos/verdadero-o-puro-cuento-original.json";
 import { photoFor, photos } from "./photos";
 import "./style.css";
 const sharedMode =
@@ -84,10 +85,31 @@ function upgradeBank(s: State): State {
   const own = s.bank.filter((q) => !fresh.some((f) => f.id === q.id));
   return { ...s, bank: [...fresh, ...own] };
 }
+// Las preguntas originales de «Verdadero o puro cuento» (copia en respaldos/)
+// pasan a la versión más difícil, salvo las que el conductor haya editado.
+function upgradeTrueOrTale(s: State): State {
+  const fresh = validateQuestions(raw);
+  const same = (a: Question, b: Question) =>
+    a.text === b.text &&
+    a.answer === b.answer &&
+    a.explanation === b.explanation &&
+    a.options.join("|") === b.options.join("|");
+  let changed = false;
+  const bank = s.bank.map((q) => {
+    const old = originalTrueOrTale.find((o) => o.id === q.id);
+    const next = fresh.find((f) => f.id === q.id);
+    if (!old || !next || !same(q, old as Question)) return q;
+    changed = true;
+    return next;
+  });
+  return changed ? { ...s, bank } : s;
+}
 function App() {
   const [state, setState] = useState<State>(() => {
     const saved = read();
-    return saved ? upgradeBank(saved) : initial(validateQuestions(raw));
+    return saved
+      ? upgradeTrueOrTale(upgradeBank(saved))
+      : initial(validateQuestions(raw));
   });
   const current = useRef(state);
   useEffect(() => {
