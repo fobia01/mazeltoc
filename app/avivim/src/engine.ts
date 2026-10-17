@@ -1,3 +1,4 @@
+import { newBingo as newBingo6070, type Bingo6070 } from "./bingo6070";
 import { newBingo, type Bingo } from "./bingo";
 export type Question = {
   id: string;
@@ -33,8 +34,16 @@ export type State = {
   used: string[];
   revealed: boolean;
   hint: boolean;
-  phase: "welcome" | "menu" | "playing" | "paused" | "results" | "bingo";
+  phase:
+    | "welcome"
+    | "menu"
+    | "playing"
+    | "paused"
+    | "results"
+    | "bingo"
+    | "bingo6070";
   bingo: Bingo;
+  bingo6070: Bingo6070;
   selected: string;
   timer: { remaining: number; end: number | null };
   bets: Record<string, number>;
@@ -114,6 +123,7 @@ export function initial(bank: Question[]): State {
     notice: "",
     responses: {},
     bingo: newBingo(),
+    bingo6070: newBingo6070(),
     bank,
   };
 }
@@ -319,9 +329,15 @@ export function validateState(value: unknown): State {
     !Number.isInteger(s.round) ||
     s.round < 1 ||
     s.round > s.roundNames.length ||
-    !["welcome", "menu", "playing", "paused", "results", "bingo"].includes(
-      s.phase,
-    ) ||
+    ![
+      "welcome",
+      "menu",
+      "playing",
+      "paused",
+      "results",
+      "bingo",
+      "bingo6070",
+    ].includes(s.phase) ||
     !s.teams.some((t) => t.id === s.selected)
   )
     throw Error("Ronda o estado de partida inválido.");
@@ -336,6 +352,21 @@ export function validateState(value: unknown): State {
       (s.bingo.check !== null && !Number.isInteger(s.bingo.check)))
   )
     throw Error("Bingo musical inválido.");
+  if (
+    s.bingo6070 &&
+    (!Number.isInteger(s.bingo6070.seed) ||
+      !Number.isInteger(s.bingo6070.cards) ||
+      s.bingo6070.cards < 1 ||
+      s.bingo6070.cards > 300 ||
+      !Array.isArray(s.bingo6070.played) ||
+      s.bingo6070.played.some((x) => typeof x !== "string") ||
+      (s.bingo6070.check !== null &&
+        (!Number.isInteger(s.bingo6070.check) ||
+          s.bingo6070.check < 1 ||
+          s.bingo6070.check > s.bingo6070.cards)) ||
+      typeof s.bingo6070.reveal !== "boolean")
+  )
+    throw Error("Bingo de los 60 y 70 inválido.");
   for (const field of ["used", "settled", "awarded"] as const)
     if (!Array.isArray(s[field]) || s[field].some((x) => typeof x !== "string"))
       throw Error("Historial de partida inválido.");

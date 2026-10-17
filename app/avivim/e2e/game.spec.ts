@@ -302,7 +302,7 @@ test("Pantalla duplicada: confirmar, revelar y sumar sin soluciones privadas", a
   await page.goto("/");
   await page.getByRole("button", { name: "Iniciar el programa" }).click();
   // Menú de juegos: una tarjeta por ronda.
-  await expect(page.locator(".game-card")).toHaveCount(7);
+  await expect(page.locator(".game-card")).toHaveCount(8);
   await page.locator(".game-card").first().click();
   await page
     .getByRole("button", { name: "Mostrar siguiente pregunta" })
@@ -398,5 +398,5 @@ test("Bingo musical: marcar canciones, verificar e imprimir cartones", async ({
   ).toBe(seed);
   await page.getByRole("button", { name: "Seguir jugando" }).click();
   await page.getByRole("button", { name: "🏠 Menú de juegos" }).first().click();
-  await expect(page.locator(".game-card")).toHaveCount(7);
+  await expect(page.locator(".game-card")).toHaveCount(8);
 });

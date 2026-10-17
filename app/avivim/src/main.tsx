@@ -40,6 +40,11 @@ import { KEY, read, save, download, putMedia } from "./storage";
 import { Media } from "./components/Media";
 import { SharedControls } from "./components/SharedControls";
 import { BingoStage, BingoControls, BingoCards } from "./components/Bingo";
+import {
+  Bingo6070Stage,
+  Bingo6070Controls,
+  Bingo6070Cards,
+} from "./components/Bingo6070";
 import { PrintMaterials } from "./components/PrintMaterials";
 import { sound, activateSound, soundSettings } from "./audio";
 import { Bunting, Confetti } from "./components/Festive";
@@ -277,6 +282,20 @@ function App() {
       "start",
     );
   }
+  function goBingo6070() {
+    change(
+      (s) => ({
+        ...s,
+        phase: "bingo6070",
+        question: null,
+        revealed: false,
+        notice: "",
+        timer: { remaining: s.timer.remaining, end: null },
+        bingo6070: { ...s.bingo6070, check: null, reveal: false },
+      }),
+      "start",
+    );
+  }
   function spin() {
     if (spinning || !wheelOptions.length || wheelOptions.some((o) => !o.trim()))
       return;
@@ -361,7 +380,13 @@ function App() {
               ? "MAZAL TOC AVIVIM · EN JUEGO"
               : "AVIVIM · BET AM DEL OESTE"}
           </span>
-          <span hidden={state.phase === "bingo" || state.phase === "menu"}>
+          <span
+            hidden={
+              state.phase === "bingo6070" ||
+              state.phase === "bingo" ||
+              state.phase === "menu"
+            }
+          >
             RONDA {String(state.round).padStart(2, "0")} /{" "}
             {state.roundNames.length}
           </span>
@@ -435,8 +460,23 @@ function App() {
                   Canciones de los 50, 60 y 70: ¡marquen su cartón!
                 </span>
               </button>
+              <button
+                className="game-card bingo6070-tile"
+                disabled={publicMode}
+                onClick={goBingo6070}
+              >
+                <span className="game-card-icon" aria-hidden="true">
+                  🎬
+                </span>
+                <span className="game-card-title">Bingo de los 60 y 70</span>
+                <span className="game-card-text">
+                  Actores y actrices: escuchá la pista y marcá el nombre.
+                </span>
+              </button>
             </div>
           </div>
+        ) : state.phase === "bingo6070" ? (
+          <Bingo6070Stage state={state} />
         ) : state.phase === "bingo" ? (
           <BingoStage state={state} />
         ) : state.phase === "paused" ? (
@@ -578,7 +618,10 @@ function App() {
         {state.wheel && (
           <div className="wheel-banner">✦ RULETA MAZAL TOC · {state.wheel}</div>
         )}
-        <div className="scoreboard" hidden={state.phase === "bingo"}>
+        <div
+          className="scoreboard"
+          hidden={state.phase === "bingo6070" || state.phase === "bingo"}
+        >
           {state.teams.map((t) => (
             <div
               key={t.id}
@@ -618,7 +661,12 @@ function App() {
       setError(e instanceof Error ? e.message : "Archivo inválido");
     }
   }
-  if (cardsMode) return <BingoCards state={state} />;
+  if (cardsMode)
+    return new URLSearchParams(location.search).get("cartones") === "6070" ? (
+      <Bingo6070Cards state={state} />
+    ) : (
+      <BingoCards state={state} />
+    );
   if (sharedMode)
     return (
       <main className={"shared-game " + (!state.motion ? "no-motion" : "")}>
@@ -655,7 +703,9 @@ function App() {
           </div>
         )}
         {stage()}
-        {state.phase === "bingo" ? (
+        {state.phase === "bingo6070" ? (
+          <Bingo6070Controls state={state} change={change} menu={goMenu} />
+        ) : state.phase === "bingo" ? (
           <BingoControls state={state} change={change} menu={goMenu} />
         ) : (
           <SharedControls

@@ -2885,3 +2885,24 @@ table {
   color: #ffca43;
   font-size: calc(1.4rem * var(--text-scale));
 }
+
+/* Tarjeta independiente del bingo de actores. */
+.bingo6070-tile {
+  grid-column: 1 / -1;
+  min-height: 0;
+  flex-direction: row;
+  justify-content: center;
+  gap: 18px;
+  box-shadow: 0 6px 0 #a885e8;
+}
+.bingo6070-tile .game-card-icon {
+  font-size: 2.6rem;
+}
+
+.bingo6070-stage .bingo-now h2 {
+  font-size: calc(clamp(30px, 3.4vw, 64px) * var(--text-scale));
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.bingo6070-print .bingo-sheet-head { gap: 16px; }
+.bingo6070-print .bingo-sheet-head span { font-size: 24px; }

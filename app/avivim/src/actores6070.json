@@ -1,0 +1,242 @@
+[
+  {
+    "id": "lorne-greene",
+    "nombre": "Lorne Greene",
+    "pista": "Interpretó a Ben Cartwright, el padre de la familia de Bonanza.",
+    "grupo": "Series"
+  },
+  {
+    "id": "michael-landon",
+    "nombre": "Michael Landon",
+    "pista": "Fue Little Joe en Bonanza y Charles Ingalls en La familia Ingalls.",
+    "grupo": "Series"
+  },
+  {
+    "id": "pernell-roberts",
+    "nombre": "Pernell Roberts",
+    "pista": "Interpretó a Adam, el hijo mayor de los Cartwright en Bonanza.",
+    "grupo": "Series"
+  },
+  {
+    "id": "dan-blocker",
+    "nombre": "Dan Blocker",
+    "pista": "Fue Hoss Cartwright, el corpulento hermano de Bonanza.",
+    "grupo": "Series"
+  },
+  {
+    "id": "elizabeth-montgomery",
+    "nombre": "Elizabeth Montgomery",
+    "pista": "Fue Samantha, la bruja que movía la nariz en Hechizada.",
+    "grupo": "Series"
+  },
+  {
+    "id": "barbara-eden",
+    "nombre": "Barbara Eden",
+    "pista": "Salía de una botella para conceder deseos en Mi bella genio.",
+    "grupo": "Series"
+  },
+  {
+    "id": "larry-hagman",
+    "nombre": "Larry Hagman",
+    "pista": "Fue el astronauta Tony Nelson en Mi bella genio.",
+    "grupo": "Series"
+  },
+  {
+    "id": "don-adams",
+    "nombre": "Don Adams",
+    "pista": "Interpretó al agente Maxwell Smart en El Superagente 86.",
+    "grupo": "Series"
+  },
+  {
+    "id": "barbara-feldon",
+    "nombre": "Barbara Feldon",
+    "pista": "Fue la agente 99, compañera del Superagente 86.",
+    "grupo": "Series"
+  },
+  {
+    "id": "adam-west",
+    "nombre": "Adam West",
+    "pista": "Se puso la capa de Batman en la serie de televisión de los años 60.",
+    "grupo": "Series"
+  },
+  {
+    "id": "burt-ward",
+    "nombre": "Burt Ward",
+    "pista": "Fue Robin, el joven compañero de Batman en la serie de los años 60.",
+    "grupo": "Series"
+  },
+  {
+    "id": "leonard-nimoy",
+    "nombre": "Leonard Nimoy",
+    "pista": "Interpretó al señor Spock, de orejas puntiagudas, en Viaje a las estrellas.",
+    "grupo": "Series"
+  },
+  {
+    "id": "william-shatner",
+    "nombre": "William Shatner",
+    "pista": "Fue el capitán James Kirk de la nave Enterprise en Viaje a las estrellas.",
+    "grupo": "Series"
+  },
+  {
+    "id": "peter-falk",
+    "nombre": "Peter Falk",
+    "pista": "Investigaba crímenes con un impermeable gastado en Columbo.",
+    "grupo": "Series"
+  },
+  {
+    "id": "telly-savalas",
+    "nombre": "Telly Savalas",
+    "pista": "Fue Kojak, el detective calvo que comía chupetines.",
+    "grupo": "Series"
+  },
+  {
+    "id": "david-carradine",
+    "nombre": "David Carradine",
+    "pista": "Interpretó al monje Kwai Chang Caine en Kung Fu.",
+    "grupo": "Series"
+  },
+  {
+    "id": "linda-carter",
+    "nombre": "Lynda Carter",
+    "pista": "Fue la Mujer Maravilla en la serie de los años 70.",
+    "grupo": "Series"
+  },
+  {
+    "id": "lee-majors",
+    "nombre": "Lee Majors",
+    "pista": "Fue Steve Austin en El hombre nuclear.",
+    "grupo": "Series"
+  },
+  {
+    "id": "lindsay-wagner",
+    "nombre": "Lindsay Wagner",
+    "pista": "Interpretó a Jaime Sommers en La mujer biónica.",
+    "grupo": "Series"
+  },
+  {
+    "id": "farrah-fawcett",
+    "nombre": "Farrah Fawcett",
+    "pista": "Interpretó a Jill Munroe en Los ángeles de Charlie.",
+    "grupo": "Series"
+  },
+  {
+    "id": "jaclyn-smith",
+    "nombre": "Jaclyn Smith",
+    "pista": "Fue Kelly Garrett en Los ángeles de Charlie.",
+    "grupo": "Series"
+  },
+  {
+    "id": "kate-jackson",
+    "nombre": "Kate Jackson",
+    "pista": "Interpretó a Sabrina Duncan en Los ángeles de Charlie.",
+    "grupo": "Series"
+  },
+  {
+    "id": "mary-tyler-moore",
+    "nombre": "Mary Tyler Moore",
+    "pista": "Fue Mary Richards, productora de noticias, en La chica de la tele.",
+    "grupo": "Series"
+  },
+  {
+    "id": "carroll-oconnor",
+    "nombre": "Carroll O’Connor",
+    "pista": "Interpretó a Archie Bunker en Todo en familia.",
+    "grupo": "Series"
+  },
+  {
+    "id": "julie-andrews",
+    "nombre": "Julie Andrews",
+    "pista": "Fue la niñera que volaba con un paraguas en Mary Poppins.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "audrey-hepburn",
+    "nombre": "Audrey Hepburn",
+    "pista": "Interpretó a Holly Golightly en Desayuno en Tiffany’s.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "elizabeth-taylor",
+    "nombre": "Elizabeth Taylor",
+    "pista": "Fue la reina de Egipto en Cleopatra, la película de 1963.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "richard-burton",
+    "nombre": "Richard Burton",
+    "pista": "Interpretó a Marco Antonio en Cleopatra, la película de 1963.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "sean-connery",
+    "nombre": "Sean Connery",
+    "pista": "Fue James Bond en El satánico Dr. No y Goldfinger.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "roger-moore",
+    "nombre": "Roger Moore",
+    "pista": "Fue James Bond en Vive y deja morir y La espía que me amó.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "clint-eastwood",
+    "nombre": "Clint Eastwood",
+    "pista": "Interpretó al policía Harry Callahan en Harry el sucio.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "marlon-brando",
+    "nombre": "Marlon Brando",
+    "pista": "Fue Don Vito Corleone en El padrino.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "al-pacino",
+    "nombre": "Al Pacino",
+    "pista": "Interpretó a Michael Corleone, hijo de Don Vito, en El padrino.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "robert-redford",
+    "nombre": "Robert Redford",
+    "pista": "Fue Sundance Kid en la película Butch Cassidy.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "paul-newman",
+    "nombre": "Paul Newman",
+    "pista": "Interpretó al bandido Butch Cassidy en la película de 1969.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "john-travolta",
+    "nombre": "John Travolta",
+    "pista": "Bailó como Tony Manero en Fiebre de sábado por la noche.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "olivia-newton-john",
+    "nombre": "Olivia Newton-John",
+    "pista": "Fue Sandy, la chica buena de Grease.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "barbra-streisand",
+    "nombre": "Barbra Streisand",
+    "pista": "Interpretó a Fanny Brice en Funny Girl.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "liza-minnelli",
+    "nombre": "Liza Minnelli",
+    "pista": "Fue Sally Bowles en la película Cabaret.",
+    "grupo": "Películas"
+  },
+  {
+    "id": "carrie-fisher",
+    "nombre": "Carrie Fisher",
+    "pista": "Interpretó a la princesa Leia en La guerra de las galaxias de 1977.",
+    "grupo": "Películas"
+  }
+]

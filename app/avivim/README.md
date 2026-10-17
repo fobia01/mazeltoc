@@ -85,3 +85,15 @@ npx playwright test
 La suite de motor cubre puntajes, apuestas, dobles, validación, recuperación, desempate y no repetición. La suite de navegador cubre el flujo, sincronización (incluido respaldo storage), recarga y offline de producción. Puede requerir `npx playwright install chromium` la primera vez.
 
 No se garantiza una auditoría WCAG completa. Antes del evento verificá legibilidad a la distancia real, audio, salida HDMI y desconexión de red. Ovaciones, festejos y abucheos son grabaciones de la edición Simjat Torá, con créditos en `public/audio/CREDITS.txt`. Los aciertos alternan tres festejos; los errores reproducen el “buuu” de hinchada y el ganador tiene su propia celebración. Los botones «¡Ovación!» y «¡Buuu!» disparan sonidos manuales sin alterar el puntaje. Web Audio mezcla los archivos con fanfarrias originales y un compresor; el volumen y silencio afectan a todo. En la pantalla pública, pulsá «Activar sonido del público» una vez para habilitar la salida. Fuentes, fotos y audios se precargan en el caché offline al instalar.
+
+### Bingo de los 60 y 70
+
+Es un juego adicional del menú. Tiene su propia partida y sus propios cartones: no cambia el Bingo musical.
+
+1. Abrí «Bingo de los 60 y 70» y elegí cuántos cartones imprimir. Cada cartón tiene nueve nombres, sin fotos ni pistas.
+2. Tocá una pista para cantarla. Los participantes identifican al actor o la actriz y marcan su nombre en el papel. «Mostrar respuesta» permite revelar el nombre; «Deshacer la última» corrige una pista cantada por error.
+3. Cuando alguien cante, ingresá el número de su cartón y tocá «Verificar cartón». Una fila horizontal completa es línea; nueve nombres completan bingo. Podés volver al menú y continuar cualquiera de los dos bingos sin mezclar las marcas.
+
+**Editar la lista:** abrí `src/actores6070.json`. Hay 40 entradas con `id` (identificador único), `nombre`, `pista` y `grupo` («Series» o «Películas»). Para agregar una persona, copiá una entrada, separala con una coma y cambiá esos cuatro datos. Usá una pista que permita distinguir a esa persona de las demás. No cambies los identificadores existentes ni repitas nombres. Después recompilá la app. Hacé estos cambios antes de imprimir: agregar o reordenar personas puede cambiar los cartones, por lo que hay que volver a imprimirlos.
+
+Archivos nuevos: `src/bingo6070.ts` arma y verifica los cartones; `src/components/Bingo6070.tsx` muestra el juego y prepara la impresión. Se mantiene la misma regla del bingo musical: tres filas de tres casillas, sin diagonales ni columnas ganadoras.
