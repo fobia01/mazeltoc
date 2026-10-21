@@ -111,3 +111,19 @@ Otro juego del menú, con su propia partida y sus propios cartones: no cambia lo
 Si recargás o cerrás la app, el navegador olvida los archivos (los nombres y la partida siguen guardados). Volvé a tocar «Cargar fragmentos» y elegí los mismos archivos; los cartones impresos siguen sirviendo. Si elegís una lista distinta, la app avisa porque hay que reimprimir los cartones.
 
 Archivos nuevos: `src/bingoSeries.ts` arma y verifica los cartones; `src/components/BingoSeries.tsx` muestra el juego, los avisos y prepara la impresión.
+
+### Bingo de series de antes
+
+Otro juego del menú, con su propia partida y sus propios cartones. Funciona como el bingo musical: la lista es fija (52 series de los 50, 60 y 70: comedias, acción y aventura, policiales, dibujos animados y series argentinas y latinas), así que los cartones se imprimen sin cargar nada. Cada serie tiene una **cortina** (la música de presentación) y una **escena**, las dos como videos de YouTube. **Necesita internet durante el juego.**
+
+1. **Antes del evento:** tocá «🖨️ Imprimir cartones». Cada cartón tiene 9 series (3 filas de 3) y un número.
+2. **Durante el juego:** tocá «🎲 Sacar una serie al azar» (o elegí una de la lista). Arranca la cortina: se escucha, pero la pantalla queda tapada con «¿De qué serie es esta música?». Con «🎬 Escena» se ve un fragmento de la serie; arriba queda una franja que tapa el título del video. «↻ Repetir» lo vuelve a empezar y «Mostrar respuesta» destapa todo y escribe el nombre.
+3. **Cuando alguien canta:** escribí el número del cartón y tocá «Verificar cartón». Una fila horizontal completa es línea; nueve series completan bingo.
+
+El video se reproduce en la pantalla compartida (`/`) o en la ventana del público (`/?public=1`), nunca en el panel privado. Si usás las dos ventanas a la vez, el sonido va a salir dos veces: silenciá una.
+
+**Si un video no anda** (YouTube a veces los borra o bloquea): con la serie en pantalla, abrí «🔗 Cambiar los videos de…», pegá el enlace de otro video (desde «Compartir» en YouTube) y tocá «Guardar enlaces». Para que empiece más adelante, agregá `&t=90` (segundos). El cambio queda guardado en la partida. Conviene probar las series antes del evento y después tocar «Empezar de nuevo».
+
+**Editar la lista:** abrí `src/seriesAntiguas.json`. Cada entrada tiene `id`, `nombre`, `grupo`, `cortina` y `escena` (enlaces de YouTube; pueden quedar vacíos, pero no los dos). Agregar o quitar series cambia los cartones, así que hay que volver a imprimirlos. Todos los videos de la lista se comprobaron el 21/10/2026: se pueden reproducir insertados en otra página. Viaje a las estrellas, Los Campanelli, Operación Ja-Já y Alfred Hitchcock presenta tienen un solo video.
+
+Archivos nuevos: `src/bingoAntiguas.ts` arma y verifica los cartones y lee los enlaces; `src/components/BingoAntiguas.tsx` muestra el juego, el video y los cartones.

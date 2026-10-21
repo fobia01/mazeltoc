@@ -1,0 +1,366 @@
+[
+  {
+    "id": "super-agente-86",
+    "nombre": "Super Agente 86",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=_crj6n1ZDcU",
+    "escena": "https://www.youtube.com/watch?v=cfE--nELmOE"
+  },
+  {
+    "id": "mister-ed",
+    "nombre": "Mister Ed",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=Jz6yv_n9yCg",
+    "escena": "https://www.youtube.com/watch?v=SUTJ76mMGbE"
+  },
+  {
+    "id": "hechizada",
+    "nombre": "Hechizada",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=Oi1Q_UvyvYw",
+    "escena": "https://www.youtube.com/watch?v=eSVZwpbmulI"
+  },
+  {
+    "id": "mi-bella-genio",
+    "nombre": "Mi bella genio",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=XXqMDUc92Zk",
+    "escena": "https://www.youtube.com/watch?v=X8WzvT5skU0"
+  },
+  {
+    "id": "los-locos-addams",
+    "nombre": "Los locos Addams",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=mk5JM51nWIw",
+    "escena": "https://www.youtube.com/watch?v=5d79ZXVkaAo"
+  },
+  {
+    "id": "la-familia-monster",
+    "nombre": "La familia Monster",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=zAzmRRRGSWY",
+    "escena": "https://www.youtube.com/watch?v=VbUKyLwm0kw"
+  },
+  {
+    "id": "los-tres-chiflados",
+    "nombre": "Los tres chiflados",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=4GA4GlO_GBc",
+    "escena": "https://www.youtube.com/watch?v=5yXo3XbhJAw"
+  },
+  {
+    "id": "yo-amo-a-lucy",
+    "nombre": "Yo amo a Lucy",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=_AKXMc9rO-o",
+    "escena": "https://www.youtube.com/watch?v=A2x8N4DjxnE"
+  },
+  {
+    "id": "la-isla-de-gilligan",
+    "nombre": "La isla de Gilligan",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=ygKGny5gi3k",
+    "escena": "https://www.youtube.com/watch?v=wrTEAfd2oI0"
+  },
+  {
+    "id": "los-beverly-ricos",
+    "nombre": "Los Beverly ricos",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=dWlzTy_aZ20",
+    "escena": "https://www.youtube.com/watch?v=blWefxfAdws"
+  },
+  {
+    "id": "mi-marciano-favorito",
+    "nombre": "Mi marciano favorito",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=1zsq9TztQ4w",
+    "escena": "https://www.youtube.com/watch?v=bdSXBwXKCqE"
+  },
+  {
+    "id": "los-heroes-de-hogan",
+    "nombre": "Los héroes de Hogan",
+    "grupo": "Comedias",
+    "cortina": "https://www.youtube.com/watch?v=yzJqFIqI2c4",
+    "escena": "https://www.youtube.com/watch?v=jbWmIHhSRvg"
+  },
+  {
+    "id": "bonanza",
+    "nombre": "Bonanza",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=iQjb_QiFbJE",
+    "escena": "https://www.youtube.com/watch?v=pUtklP2cZoU"
+  },
+  {
+    "id": "batman",
+    "nombre": "Batman",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=789hEqi1I9I",
+    "escena": "https://www.youtube.com/watch?v=B5py8Vtwc_Q"
+  },
+  {
+    "id": "el-zorro",
+    "nombre": "El Zorro",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=lQnle_3KuOE",
+    "escena": "https://www.youtube.com/watch?v=KWDFphhXda0"
+  },
+  {
+    "id": "lassie",
+    "nombre": "Lassie",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=dcN3Inbykx4",
+    "escena": "https://www.youtube.com/watch?v=q9qlZ58m86g"
+  },
+  {
+    "id": "flipper",
+    "nombre": "Flipper",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=wYB_Mnid7mA",
+    "escena": "https://www.youtube.com/watch?v=OFIXOwA8qf8"
+  },
+  {
+    "id": "daktari",
+    "nombre": "Daktari",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=dhRTaklNs0I",
+    "escena": "https://www.youtube.com/watch?v=tP45hTLys7I"
+  },
+  {
+    "id": "mision-imposible",
+    "nombre": "Misión imposible",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=najnclm0F50",
+    "escena": "https://www.youtube.com/watch?v=zpk-tkP1yaE"
+  },
+  {
+    "id": "el-llanero-solitario",
+    "nombre": "El llanero solitario",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=ceEJzgdhuhw",
+    "escena": "https://www.youtube.com/watch?v=wsa5xvmCaO0"
+  },
+  {
+    "id": "viaje-a-las-estrellas",
+    "nombre": "Viaje a las estrellas",
+    "grupo": "Acción y aventura",
+    "cortina": "",
+    "escena": "https://www.youtube.com/watch?v=J_lVFnVu164"
+  },
+  {
+    "id": "perdidos-en-el-espacio",
+    "nombre": "Perdidos en el espacio",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=jFLO3vr6Rbo",
+    "escena": "https://www.youtube.com/watch?v=T-AhWbIR6xQ"
+  },
+  {
+    "id": "el-tunel-del-tiempo",
+    "nombre": "El túnel del tiempo",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=s5Nz0b8rIL4",
+    "escena": "https://www.youtube.com/watch?v=x-Qg0lFSqVQ"
+  },
+  {
+    "id": "el-hombre-nuclear",
+    "nombre": "El hombre nuclear",
+    "grupo": "Acción y aventura",
+    "cortina": "https://www.youtube.com/watch?v=sye4qGett7A",
+    "escena": "https://www.youtube.com/watch?v=wg2Awr9fo04"
+  },
+  {
+    "id": "columbo",
+    "nombre": "Columbo",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=aKllq_xIRY8",
+    "escena": "https://www.youtube.com/watch?v=st2Vg_ggbOs"
+  },
+  {
+    "id": "kojak",
+    "nombre": "Kojak",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=mO11ykO70BY",
+    "escena": "https://www.youtube.com/watch?v=Biyhgpkt5MQ"
+  },
+  {
+    "id": "los-intocables",
+    "nombre": "Los intocables",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=_F__su8Gevo",
+    "escena": "https://www.youtube.com/watch?v=XmLbnhqyJng"
+  },
+  {
+    "id": "starsky-y-hutch",
+    "nombre": "Starsky y Hutch",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=M_iBKZbRL4M",
+    "escena": "https://www.youtube.com/watch?v=OjfGARALsTE"
+  },
+  {
+    "id": "los-angeles-de-charlie",
+    "nombre": "Los ángeles de Charlie",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=h361-dwpEoU",
+    "escena": "https://www.youtube.com/watch?v=ze_d-tUMkCI"
+  },
+  {
+    "id": "el-fugitivo",
+    "nombre": "El fugitivo",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=3mqnvViMf9k",
+    "escena": "https://www.youtube.com/watch?v=CDb7pligfRA"
+  },
+  {
+    "id": "ironside",
+    "nombre": "Ironside",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=UtgQMdkFM6I",
+    "escena": "https://www.youtube.com/watch?v=tBtlN4Ah6Jg"
+  },
+  {
+    "id": "el-agente-de-cipol",
+    "nombre": "El agente de CIPOL",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=txyH27rSFkc",
+    "escena": "https://www.youtube.com/watch?v=YIO3RqTuRp0"
+  },
+  {
+    "id": "los-invasores",
+    "nombre": "Los invasores",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=urVG1u4xAQM",
+    "escena": "https://www.youtube.com/watch?v=AP3jTTaavUM"
+  },
+  {
+    "id": "la-dimension-desconocida",
+    "nombre": "La dimensión desconocida",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=9Et-HxKxch4",
+    "escena": "https://www.youtube.com/watch?v=5vV1gSV33U0"
+  },
+  {
+    "id": "alfred-hitchcock-presenta",
+    "nombre": "Alfred Hitchcock presenta",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=vezprmrzdUE",
+    "escena": ""
+  },
+  {
+    "id": "el-santo",
+    "nombre": "El Santo",
+    "grupo": "Policiales y misterio",
+    "cortina": "https://www.youtube.com/watch?v=cuSbHKnrKbs",
+    "escena": "https://www.youtube.com/watch?v=BOrxDfQSy0Q"
+  },
+  {
+    "id": "los-picapiedra",
+    "nombre": "Los Picapiedra",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=OF-y50uHewo",
+    "escena": "https://www.youtube.com/watch?v=Xlf2XcPVMN4"
+  },
+  {
+    "id": "los-supersonicos",
+    "nombre": "Los Supersónicos",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=82MvSRrwDrk",
+    "escena": "https://www.youtube.com/watch?v=WkiWlnBkDDI"
+  },
+  {
+    "id": "el-pajaro-loco",
+    "nombre": "El Pájaro Loco",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=Tj2y3tXD8As",
+    "escena": "https://www.youtube.com/watch?v=JZ3fu87WfkI&t=30"
+  },
+  {
+    "id": "don-gato-y-su-pandilla",
+    "nombre": "Don Gato y su pandilla",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=YgbUEnNf7y8",
+    "escena": "https://www.youtube.com/watch?v=a-eC2hp6gZ4"
+  },
+  {
+    "id": "la-pantera-rosa",
+    "nombre": "La pantera rosa",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=kfd1tNCw9Qw",
+    "escena": "https://www.youtube.com/watch?v=-eJOe3mXuB4"
+  },
+  {
+    "id": "meteoro",
+    "nombre": "Meteoro",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=_lser7H47Rs",
+    "escena": "https://www.youtube.com/watch?v=MJAOB1BLQm0"
+  },
+  {
+    "id": "scooby-doo",
+    "nombre": "Scooby-Doo",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=6Jj8sIcCsuU",
+    "escena": "https://www.youtube.com/watch?v=SoeKxGU7sg8"
+  },
+  {
+    "id": "popeye",
+    "nombre": "Popeye",
+    "grupo": "Dibujos animados",
+    "cortina": "https://www.youtube.com/watch?v=Wu-_ugvuMFk",
+    "escena": "https://www.youtube.com/watch?v=GdkBoi0jnuw&t=20"
+  },
+  {
+    "id": "el-chavo-del-8",
+    "nombre": "El Chavo del 8",
+    "grupo": "Argentinas y latinas",
+    "cortina": "https://www.youtube.com/watch?v=Zv_fE5mJ-RY",
+    "escena": "https://www.youtube.com/watch?v=3YafCDtnaWw&t=120"
+  },
+  {
+    "id": "el-chapulin-colorado",
+    "nombre": "El Chapulín Colorado",
+    "grupo": "Argentinas y latinas",
+    "cortina": "https://www.youtube.com/watch?v=NvIyLNcxx_s",
+    "escena": "https://www.youtube.com/watch?v=O7e_8LMCeUw"
+  },
+  {
+    "id": "titanes-en-el-ring",
+    "nombre": "Titanes en el ring",
+    "grupo": "Argentinas y latinas",
+    "cortina": "https://www.youtube.com/watch?v=9HUDY3f_0o8",
+    "escena": "https://www.youtube.com/watch?v=mRHpkqbLERI"
+  },
+  {
+    "id": "los-campanelli",
+    "nombre": "Los Campanelli",
+    "grupo": "Argentinas y latinas",
+    "cortina": "",
+    "escena": "https://www.youtube.com/watch?v=odcdpSBL4iU"
+  },
+  {
+    "id": "la-familia-falcon",
+    "nombre": "La familia Falcón",
+    "grupo": "Argentinas y latinas",
+    "cortina": "https://www.youtube.com/watch?v=dwCgLQFfNHE",
+    "escena": "https://www.youtube.com/watch?v=Wo9fiSiB9N8"
+  },
+  {
+    "id": "rolando-rivas-taxista",
+    "nombre": "Rolando Rivas, taxista",
+    "grupo": "Argentinas y latinas",
+    "cortina": "https://www.youtube.com/watch?v=KwvqXSzL6FM",
+    "escena": "https://www.youtube.com/watch?v=GuuCBrtLmhA"
+  },
+  {
+    "id": "operacion-ja-ja",
+    "nombre": "Operación Ja-Já",
+    "grupo": "Argentinas y latinas",
+    "cortina": "",
+    "escena": "https://www.youtube.com/watch?v=XfwverFTUZc"
+  },
+  {
+    "id": "senorita-maestra",
+    "nombre": "Señorita Maestra",
+    "grupo": "Argentinas y latinas",
+    "cortina": "https://www.youtube.com/watch?v=NgqLFQXatCQ",
+    "escena": "https://www.youtube.com/watch?v=qQYfpWGiREc"
+  }
+]

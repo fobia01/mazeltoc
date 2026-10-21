@@ -45,7 +45,7 @@ test("Bingo de series y películas: avisos, fragmentos locales, cartones y verif
 }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Iniciar el programa" }).click();
-  await expect(page.locator(".game-card")).toHaveCount(9);
+  await expect(page.locator(".game-card")).toHaveCount(10);
   await page.locator(".bingo-series-tile").click();
   const musical = await page.evaluate(() => {
     const s = JSON.parse(localStorage.getItem("mazal-avivim-v1")!);

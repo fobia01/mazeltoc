@@ -50,6 +50,11 @@ import {
   BingoSeriesControls,
   BingoSeriesCards,
 } from "./components/BingoSeries";
+import {
+  BingoAntiguasStage,
+  BingoAntiguasControls,
+  BingoAntiguasCards,
+} from "./components/BingoAntiguas";
 import { PrintMaterials } from "./components/PrintMaterials";
 import { sound, activateSound, soundSettings } from "./audio";
 import { Bunting, Confetti } from "./components/Festive";
@@ -337,6 +342,20 @@ function App() {
       "start",
     );
   }
+  function goBingoAntiguas() {
+    change(
+      (s) => ({
+        ...s,
+        phase: "bingoAntiguas",
+        question: null,
+        revealed: false,
+        notice: "",
+        timer: { remaining: s.timer.remaining, end: null },
+        bingoAntiguas: { ...s.bingoAntiguas, check: null },
+      }),
+      "start",
+    );
+  }
   function spin() {
     if (spinning || !wheelOptions.length || wheelOptions.some((o) => !o.trim()))
       return;
@@ -423,6 +442,7 @@ function App() {
           </span>
           <span
             hidden={
+              state.phase === "bingoAntiguas" ||
               state.phase === "bingoSeries" ||
               state.phase === "bingo6070" ||
               state.phase === "bingo" ||
@@ -530,8 +550,25 @@ function App() {
                   Mirá el fragmento y marcá la serie o película.
                 </span>
               </button>
+              <button
+                className="game-card bingo-antiguas-tile"
+                disabled={publicMode}
+                onClick={goBingoAntiguas}
+              >
+                <span className="game-card-icon" aria-hidden="true">
+                  📻
+                </span>
+                <span className="game-card-title">
+                  Bingo de series de antes
+                </span>
+                <span className="game-card-text">
+                  Super Agente 86, Mister Ed, Bonanza… ¡cortinas y escenas!
+                </span>
+              </button>
             </div>
           </div>
+        ) : state.phase === "bingoAntiguas" ? (
+          <BingoAntiguasStage state={state} play={sharedMode || publicMode} />
         ) : state.phase === "bingoSeries" ? (
           <BingoSeriesStage state={state} />
         ) : state.phase === "bingo6070" ? (
@@ -680,6 +717,7 @@ function App() {
         <div
           className="scoreboard"
           hidden={
+            state.phase === "bingoAntiguas" ||
             state.phase === "bingoSeries" ||
             state.phase === "bingo6070" ||
             state.phase === "bingo"
@@ -724,6 +762,11 @@ function App() {
       setError(e instanceof Error ? e.message : "Archivo inválido");
     }
   }
+  if (
+    cardsMode &&
+    new URLSearchParams(location.search).get("cartones") === "antiguas"
+  )
+    return <BingoAntiguasCards state={state} />;
   if (
     cardsMode &&
     new URLSearchParams(location.search).get("cartones") === "series"
@@ -771,7 +814,9 @@ function App() {
           </div>
         )}
         {stage()}
-        {state.phase === "bingoSeries" ? (
+        {state.phase === "bingoAntiguas" ? (
+          <BingoAntiguasControls state={state} change={change} menu={goMenu} />
+        ) : state.phase === "bingoSeries" ? (
           <BingoSeriesControls state={state} change={change} menu={goMenu} />
         ) : state.phase === "bingo6070" ? (
           <Bingo6070Controls state={state} change={change} menu={goMenu} />

@@ -1,5 +1,9 @@
 import { newBingo as newBingo6070, type Bingo6070 } from "./bingo6070";
 import { newBingo as newBingoSeries, type BingoSeries } from "./bingoSeries";
+import {
+  newBingo as newBingoAntiguas,
+  type BingoAntiguas,
+} from "./bingoAntiguas";
 import { newBingo, type Bingo } from "./bingo";
 export type Question = {
   id: string;
@@ -43,10 +47,12 @@ export type State = {
     | "results"
     | "bingo"
     | "bingo6070"
-    | "bingoSeries";
+    | "bingoSeries"
+    | "bingoAntiguas";
   bingo: Bingo;
   bingo6070: Bingo6070;
   bingoSeries: BingoSeries;
+  bingoAntiguas: BingoAntiguas;
   selected: string;
   timer: { remaining: number; end: number | null };
   bets: Record<string, number>;
@@ -128,6 +134,7 @@ export function initial(bank: Question[]): State {
     bingo: newBingo(),
     bingo6070: newBingo6070(),
     bingoSeries: newBingoSeries(),
+    bingoAntiguas: newBingoAntiguas(),
     bank,
   };
 }
@@ -342,6 +349,7 @@ export function validateState(value: unknown): State {
       "bingo",
       "bingo6070",
       "bingoSeries",
+      "bingoAntiguas",
     ].includes(s.phase) ||
     !s.teams.some((t) => t.id === s.selected)
   )
@@ -390,6 +398,33 @@ export function validateState(value: unknown): State {
       typeof s.bingoSeries.reveal !== "boolean")
   )
     throw Error("Bingo de series y películas inválido.");
+  const a = s.bingoAntiguas;
+  if (
+    a &&
+    (!Number.isInteger(a.seed) ||
+      !Number.isInteger(a.cards) ||
+      a.cards < 1 ||
+      a.cards > 300 ||
+      !Array.isArray(a.played) ||
+      a.played.some((x) => typeof x !== "string") ||
+      (a.check !== null &&
+        (!Number.isInteger(a.check) || a.check < 1 || a.check > a.cards)) ||
+      typeof a.reveal !== "boolean" ||
+      !["cortina", "escena"].includes(a.clip) ||
+      !Number.isInteger(a.take) ||
+      !a.links ||
+      typeof a.links !== "object" ||
+      Object.values(a.links).some(
+        (l) =>
+          !l ||
+          typeof l !== "object" ||
+          Object.entries(l).some(
+            ([k, v]) =>
+              !["cortina", "escena"].includes(k) || typeof v !== "string",
+          ),
+      ))
+  )
+    throw Error("Bingo de series de antes inválido.");
   for (const field of ["used", "settled", "awarded"] as const)
     if (!Array.isArray(s[field]) || s[field].some((x) => typeof x !== "string"))
       throw Error("Historial de partida inválido.");
